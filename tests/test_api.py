@@ -6,6 +6,7 @@ import pytest
 
 @pytest.fixture
 def client(tmp_path,monkeypatch):
+    monkeypatch.delenv('RELAY_ENV',raising=False)
     monkeypatch.setenv('RELAY_SERVICE_KEY','test-key-'+'x'*40)
     monkeypatch.setenv('RELAY_PUBLIC_DEMO','true')
     monkeypatch.setenv('RELAY_MODEL_PROVIDER','none')
@@ -43,6 +44,37 @@ def test_discord_binding_and_host_permissions(client):
 def test_public_creation_can_be_disabled(client,monkeypatch):
     monkeypatch.setenv('RELAY_PUBLIC_DEMO','false')
     assert client.post('/api/sessions',json={'name':'Rithik'}).status_code==403
+
+def test_production_disables_demo_even_if_flag_is_true(client,monkeypatch):
+    monkeypatch.setenv('RELAY_ENV','production')
+    assert client.post('/api/sessions',json={'name':'Rithik'}).status_code==403
+    assert client.post('/api/sessions/anything/join',json={'name':'Dev'}).status_code==403
+    assert client.get('/health').status_code==200
+
+def test_production_requires_strong_service_key(tmp_path,monkeypatch):
+    monkeypatch.setenv('RELAY_ENV','production')
+    monkeypatch.setenv('RELAY_SERVICE_KEY','short')
+    with pytest.raises(RuntimeError):
+        make_app(str(tmp_path/'prod.sqlite3'))
+
+def test_sessions_survive_api_restart(tmp_path,monkeypatch):
+    key='test-key-'+'x'*40
+    monkeypatch.delenv('RELAY_ENV',raising=False)
+    monkeypatch.setenv('RELAY_SERVICE_KEY',key)
+    monkeypatch.setenv('RELAY_PUBLIC_DEMO','true')
+    db=str(tmp_path/'volume'/'relay.sqlite3')
+    headers={'X-Relay-Key':key}
+    base={'channel':'1:2','name':'Rithik','user_id':'123'}
+    first=TestClient(make_app(db))
+    created=first.post('/internal/discord',headers=headers,json={**base,'action':'create','data':{}}).json()['state']
+    first.post('/internal/discord',headers=headers,json={**base,'name':'Dev','user_id':'456','action':'join'})
+    local=first.post('/api/sessions',json={'name':'Kanha'}).json()
+    # A new app instance on the same file stands in for a Railway redeploy with a volume.
+    second=TestClient(make_app(db))
+    after=second.post('/internal/discord',headers=headers,json={**base,'action':'view'}).json()['state']
+    assert after['id']==created['id'] and len(after['members'])==2
+    r=second.get('/api/sessions/'+local['session_id'],headers={'Authorization':'Bearer '+local['token']})
+    assert r.status_code==200
 
 def test_validation(client):
     assert client.post('/api/sessions',json={'name':''}).status_code==422

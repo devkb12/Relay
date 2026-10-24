@@ -52,8 +52,13 @@ class ErrorReport(BaseModel):
     execution:str=Field(default='unknown',max_length=100)
 
 
+def production():
+    return os.getenv('RELAY_ENV','local').strip().lower()=='production'
+
 def make_app(db_path=None):
     service_key=os.getenv('RELAY_SERVICE_KEY','')
+    if production() and len(service_key)<32:
+        raise RuntimeError('RELAY_ENV=production requires a RELAY_SERVICE_KEY of at least 32 characters.')
     store=Store(db_path or os.getenv('RELAY_DB','relay.sqlite3'))
     core=Relay(store,secret=service_key)
     app=FastAPI(title='RELAY Track 3 Starter',version='0.1.0')
@@ -73,7 +78,8 @@ def make_app(db_path=None):
         if len(service_key)<32 or not key or not secrets.compare_digest(key,service_key):
             raise HTTPException(403,'Internal service credentials required.')
     def public_demo():
-        if os.getenv('RELAY_PUBLIC_DEMO','true').lower()!='true':
+        # Synthetic identities are never production auth; production ignores RELAY_PUBLIC_DEMO.
+        if production() or os.getenv('RELAY_PUBLIC_DEMO','true').lower()!='true':
             raise HTTPException(403,'Public demo creation is disabled; join through Discord.')
 
     @app.get('/health')

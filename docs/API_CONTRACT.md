@@ -10,6 +10,7 @@ Generate again with `python -m scripts.export_contract` after an agreed backend 
 - Same-origin browser UI is served by FastAPI at /; assets are /static/.
 - Local create/join require RELAY_PUBLIC_DEMO=true. They are synthetic test identity endpoints,
   not Discord login. Set false on any untrusted deployment and implement identity first.
+  With RELAY_ENV=production they always return 403, regardless of RELAY_PUBLIC_DEMO.
 - Participant calls use Authorization: Bearer <participant-token>. Do not share tokens or put
   them in public URLs. A host token is still subject to server-side role checks.
 - /internal/* requires X-Relay-Key. It is server-to-server only, never a browser credential.
