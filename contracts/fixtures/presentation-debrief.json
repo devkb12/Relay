@@ -1,0 +1,86 @@
+{
+  "id": "synthetic-session",
+  "concept": {
+    "id": "compound-change",
+    "title": "Successive percentage changes"
+  },
+  "stage": "debrief",
+  "revision": 28,
+  "members": [
+    {
+      "name": "Demo Host",
+      "state": "present",
+      "responded": false,
+      "is_host": true
+    },
+    {
+      "name": "Demo Member B",
+      "state": "present",
+      "responded": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member C",
+      "state": "present",
+      "responded": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member D",
+      "state": "present",
+      "responded": false,
+      "is_host": false
+    }
+  ],
+  "plan": {
+    "start": "2026-10-25T20:00:00Z",
+    "end": "2026-10-25T21:00:00Z",
+    "minutes": 60,
+    "shorter_alternative": false
+  },
+  "plan_version": 8,
+  "approved_count": 4,
+  "schedule_confirmed": true,
+  "plan_cancelled": null,
+  "paused": false,
+  "invalidated": false,
+  "source": {
+    "source_id": "relay-note-01",
+    "source_title": "Original teaching note: multiplicative change",
+    "source_text": "A percentage change acts on the value at that step. A gain of p percent multiplies the current value by 1 + p/100; a loss of q percent multiplies the current value by 1 - q/100. Successive changes multiply their factors. Adding the percentages is generally not equivalent."
+  },
+  "question": null,
+  "explanations": [
+    {
+      "author": "Demo Member B",
+      "text": "The second percentage operates on the updated amount, not the initial amount.",
+      "source_fallback": false
+    }
+  ],
+  "hint": null,
+  "discussion_signal": null,
+  "group": {
+    "paired_responses": 3,
+    "initial_correct": 0,
+    "fresh_correct": 3,
+    "active_participants": 4,
+    "withdrawn": 0,
+    "initial_outcomes": {
+      "correct": 0,
+      "incorrect": 4,
+      "skipped": 0,
+      "missing": 0
+    },
+    "fresh_outcomes": {
+      "correct": 3,
+      "incorrect": 0,
+      "skipped": 1,
+      "missing": 0
+    },
+    "warning": "Two different immediate items, same participants. Not causal evidence of learning or lasting mastery. Small groups can still infer individual results."
+  },
+  "notice": "Original demonstration material. No grade or mastery prediction.",
+  "retention_note": "Delayed practice is separate evidence from the immediate items and opens after 24 hours.",
+  "challenge": null,
+  "view": "presentation"
+}

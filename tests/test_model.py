@@ -21,6 +21,7 @@ def install_response(monkeypatch, **changes):
     body.update(changes)
     seen={}
     class Response:
+        status_code=200
         def raise_for_status(self): pass
         def json(self): return {'candidates':[{'content':{'parts':[{'text':json.dumps(body)}]}}]}
     class Client:

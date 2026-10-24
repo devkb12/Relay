@@ -2,7 +2,7 @@
   "name": "RELAY / Privacy-minimized error handler",
   "nodes": [
     {
-      "id": "e1b7d812-3955-487d-b093-6f8908fbfb8c",
+      "id": "b9a03f1b-dccb-5965-b618-5b316ea80305",
       "name": "Execution failed",
       "type": "n8n-nodes-base.errorTrigger",
       "typeVersion": 1,
@@ -13,7 +13,7 @@
       "parameters": {}
     },
     {
-      "id": "02d8669c-a724-43f1-b649-f72ca0a198fb",
+      "id": "56754db5-23fb-5bcf-97b1-8c3d59cf45a4",
       "name": "Keep identifiers only",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -26,7 +26,7 @@
       }
     },
     {
-      "id": "ce1faa26-e61f-435d-b12d-53479c664a82",
+      "id": "ea26bae7-7754-5cd2-a445-5fe7d4bff72b",
       "name": "Record operational failure",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,

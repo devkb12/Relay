@@ -12,22 +12,30 @@
     {
       "name": "Demo Host",
       "responded": false,
-      "is_me": true
+      "state": "present",
+      "is_me": true,
+      "is_host": true
     },
     {
       "name": "Demo Member B",
       "responded": false,
-      "is_me": false
+      "state": "present",
+      "is_me": false,
+      "is_host": false
     },
     {
       "name": "Demo Member C",
       "responded": false,
-      "is_me": false
+      "state": "present",
+      "is_me": false,
+      "is_host": false
     },
     {
       "name": "Demo Member D",
       "responded": false,
-      "is_me": false
+      "state": "present",
+      "is_me": false,
+      "is_host": false
     }
   ],
   "me": {
@@ -38,18 +46,25 @@
         "start": "2026-10-25T20:00:00Z",
         "end": "2026-10-25T22:00:00Z"
       }
-    ]
+    ],
+    "timezone": "America/Phoenix",
+    "withdrawn": false
   },
   "plan": {
     "start": "2026-10-25T20:00:00Z",
     "end": "2026-10-25T21:00:00Z",
     "minutes": 60,
-    "shorter_alternative": false
+    "shorter_alternative": false,
+    "start_local": "Sun Oct 25, 01:00 PM MST",
+    "timezone": "America/Phoenix"
   },
   "plan_version": 8,
   "approved_count": 4,
   "approved_by_me": true,
+  "plan_cancelled": null,
+  "needs_reproposal": false,
   "schedule_confirmed": true,
+  "paused": false,
   "source": {
     "source_id": "relay-note-01",
     "source_title": "Original teaching note: multiplicative change",
@@ -63,8 +78,9 @@
   "explanations": [],
   "hint": {
     "discussion_question": "What value is the second percentage applied to: the original amount, or the amount after the first change? Explain that distinction to a peer.",
+    "possible_misconception": "Use the source to examine the reasoning.",
     "mode": "curated fallback",
-    "possible_misconception": "Use the source to examine the reasoning."
+    "feedback_source": "reviewed_fallback"
   },
   "my_results": {},
   "notice": "Original demonstration material. No grade or mastery prediction.",

@@ -65,6 +65,13 @@ def find_slots(availability: dict[str, list[dict]], durations=(60, 45, 30),
     return found
 
 
+def local_label(value: str, tz: str = 'America/Phoenix') -> str:
+    """Display helper only; storage and comparison stay in UTC."""
+    from zoneinfo import ZoneInfo
+    local = parse_time(value).astimezone(ZoneInfo(tz))
+    return local.strftime('%a %b %d, %I:%M %p ') + (local.tzname() or tz)
+
+
 def ics_event(session_id: str, version: int, start: str, end: str) -> str:
     """An opt-in calendar FILE, not proof that Google Calendar was changed."""
     def fmt(value: str) -> str:

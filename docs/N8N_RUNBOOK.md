@@ -30,6 +30,10 @@ source text, or answer keys. A sent message is not a completed test. The student
 through /relay question. The included due time is 24 hours; do not present an immediate demo
 jump as a real delayed-learning measurement.
 
+Second trigger in the same workflow: **Daily 03:30 Phoenix** -> `POST /internal/maintenance/purge`
+(deletes sessions older than `RELAY_RETENTION_DAYS`, plus expired login records). Database rows only;
+Discord messages already sent, provider logs and backups are outside it.
+
 ## 03 - Privacy-minimized error handler
 
 Error Trigger -> Code node retaining only workflow name/execution ID
@@ -39,6 +43,26 @@ Assign this workflow under the two scheduled workflows' error-workflow setting. 
 operational identifiers, not raw answers, credentials, or provider error bodies. To alert Rithik,
 add a separate private administrative channel only after reviewing what the alert contains.
 Do not post exceptions into the student group.
+
+## Delivery guarantees and ambiguous jobs
+
+The backend claims each job atomically (only the tick whose UPDATE changed the row sends it), rechecks
+consent, membership, plan version and invalidation right before sending, and records `sent`,
+`failed` (DMs closed / rejected), `pending` (retry after Retry-After / 429), `cancelled`, or
+`unknown` (timeout after a possible send, or an expired lease). `unknown` is never resent
+automatically. Inspect and settle it:
+
+    GET  /internal/jobs?status=unknown                     (X-Relay-Key)
+    POST /internal/jobs/{id}/reconcile {"outcome":"sent"|"failed"|"cancelled","note":"..."}
+
+This is at-most-once for ambiguous cases, not exactly-once delivery. A cancellation cannot retract a
+message Discord already accepted. Each tick stops claiming new work after ~20 s to stay under the
+30 s HTTP node timeout; leftovers wait for the next minute.
+
+## Error workflow wiring
+
+In each scheduled workflow's Settings, choose "RELAY / Privacy-minimized error handler" as the
+Error Workflow. Do not set an error workflow on the error handler itself (no recursion).
 
 ## Import and configure
 
@@ -75,3 +99,13 @@ A draft question-pack workflow could be: authorized note -> source-span extracti
 -> deterministic structural checks -> human review -> approved pack registry. It is not included
 as a live JSON graph because the starter intentionally does not implement the required upload and
 review endpoints. Do not point an imported workflow at imaginary endpoints and call it complete.
+
+## What has actually been verified (2026-10-24)
+
+`python scripts/n8n_local_check.py .` against n8n **2.44.6** in Docker and a local dry-run API:
+credential + all three workflows imported; every trigger branch executed with the Header Auth
+credential: reminder tick (`due_jobs: 0`), delayed-practice tick (`due_jobs: 1` for a seeded job,
+which stayed `pending`), daily purge (`deleted_sessions: 0`), error handler (identifiers recorded).
+The CLI cannot fire Schedule/Error triggers, so the harness adds an Execute Workflow Trigger to a
+temporary copy. NOT verified: a published schedule firing on its own, n8n Cloud reaching a deployed
+API, and any real DM (delivery stayed disabled).

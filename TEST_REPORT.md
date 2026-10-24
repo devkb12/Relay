@@ -77,3 +77,16 @@ record a real demonstration, and accurately describe all remaining limits in the
 - CI configuration is included but has not run on GitHub.
 - Rithik owns ALL backend/core/Discord/n8n. Dev owns frontend/design; old assignments were replaced.
 - No files were pushed to a remote repository by this handoff process.
+
+## Backend P0 checks (2026-10-24, rithik/core)
+
+- `python -m pytest`: 130 passed, 5 skipped (PostgreSQL tests need `RELAY_TEST_POSTGRES_URL`).
+- PostgreSQL 16 (Docker): `tests/test_postgres.py` 5 passed (migrations, full cycle, concurrent
+  answers/advance, concurrent ticks send once, purge/delete).
+- Real HTTP: `tests/test_http_integration.py` runs uvicorn in production mode after
+  `python -m relay.migrate`, drives the bot route over sockets, restarts, and finds the session.
+- n8n 2.44.6 (Docker): all trigger branches executed against a local dry-run API
+  (`scripts/n8n_local_check.py`). Schedules firing after publication: NOT verified.
+- Mocked only: Discord OAuth endpoints, Gemini transport, Discord DM sending.
+- NOT verified: a real Discord session, a deployed domain, live OAuth, a live model call, a real DM.
+  See docs/BACKEND_PROGRESS.md.

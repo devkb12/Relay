@@ -1,101 +1,104 @@
-# RELAY deployment plan (Railway + Vercel)
+# RELAY deployment (Railway API + bot, Vercel Next.js, n8n)
 
-Status: prepared and locally tested only. Nothing in this file has been deployed or verified
-against a production URL yet. Update the "Verified" section with real results after each step.
+Status: configuration prepared and checked locally (real uvicorn process, production mode, explicit
+migration, restart persistence, PostgreSQL 16 in Docker, n8n 2.44.6 in Docker). **Nothing has been
+deployed.** Fill in "Verified" with real results; local checks are not deployment checks.
 
 | Piece | Host | Owner |
 |---|---|---|
-| FastAPI (`relay.api:app`) + SQLite on a volume | Railway service `api` | Rithik |
-| Discord Gateway bot (`python -m relay.bot`) | Railway service `bot` | Rithik |
-| n8n reminders / delayed practice | Existing n8n instance | Rithik |
-| `web/` study room | Vercel | Dev |
-| Optional insights dashboard | Streamlit Community Cloud | Not started; only after the core loop works |
+| FastAPI `relay.api:app` | Railway service `api` | Rithik |
+| Discord gateway bot `python -m relay.bot` | Railway service `bot` | Rithik |
+| Database | Railway PostgreSQL (recommended) or SQLite on a volume (1 replica) | Rithik |
+| n8n reminders / delayed practice / purge / errors | existing n8n instance | Rithik |
+| Next.js study room (`web/`) | Vercel, proxies `/api` and `/auth` to Railway | Dev |
 
-The bot never opens the database. It calls `/internal/discord` on the API with `X-Relay-Key`, so
-both services share one session store through the API. Run exactly **one** API replica: SQLite on a
-volume is single-writer. Move to PostgreSQL before scaling out.
-
-## Why no railway.json
-
-Railway marks `railway.json`/`railway.toml` (Config as Code) deprecated; legacy files stop being read
-on 2026-12-01, and one root file would apply the API healthcheck to the bot too. Railway's
-replacement (`.railway/railway.ts`, applied with `railway config apply`) can be adopted later.
-For now, configure both services in the dashboard as below. `.python-version` pins Python 3.12.
+The bot and n8n never open the database; they call `/internal/*` with `X-Relay-Key`. One store.
 
 ## Railway: service `api`
 
-- Source: GitHub `devkb12/Relay`, branch `main` (deploy only reviewed, merged code).
-- Start command: `uvicorn relay.api:app --host 0.0.0.0 --port $PORT`
-- Healthcheck path: `/health`
-- Replicas: 1. Restart policy: on failure.
-- Volume: mount at `/data`.
-- Networking: generate a public domain (needed by Vercel rewrites and n8n Cloud).
-- Variables:
+- Source: `devkb12/Relay`, branch `main` (deploy reviewed, merged code only).
+- Pre-deploy command: `python -m relay.migrate` (explicit migration; production refuses to boot on an
+  outdated schema).
+- Start command: `uvicorn relay.api:app --host 0.0.0.0 --port $PORT --timeout-graceful-shutdown 20`
+  Railway terminates TLS at its proxy. Do **not** add `--forwarded-allow-ips '*'`: trusting arbitrary
+  `X-Forwarded-*` headers would let clients spoof their address. RELAY builds redirect URLs from
+  configuration, so it does not need proxy headers.
+- Healthcheck path: `/ready` (DB reachable and schema current). `/health` is liveness only.
+- Replicas: **1** with SQLite. PostgreSQL allows more, but rate limits are per process (see limits).
+- Restart policy: on failure.
+- Python 3.12 from `.python-version`; dependencies from `requirements.txt`.
+
+Database, pick one:
+- **PostgreSQL (recommended for the shared deployment):** add Railway PostgreSQL and set
+  `RELAY_DB=${{Postgres.DATABASE_URL}}` (or rely on `DATABASE_URL`). Tested against PostgreSQL 16
+  locally (`tests/test_postgres.py`), not yet against Railway's instance.
+- **SQLite:** attach a volume at `/data`, set `RELAY_DB=/data/relay.sqlite3`, keep 1 replica.
+  Never run SQLite on ephemeral disk.
+
+Variables:
 
 | Variable | Value |
 |---|---|
-| `RELAY_ENV` | `production` (forces public demo creation off; refuses to boot with a short key) |
-| `RELAY_DB` | `/data/relay.sqlite3` |
-| `RELAY_SERVICE_KEY` | New random value, 32+ chars. Generate privately; never reuse the local one. |
-| `RELAY_PUBLIC_DEMO` | `false` (ignored in production, set anyway for clarity) |
-| `RELAY_MODEL_PROVIDER` | `none` until a model is verified and paid calls are authorized |
+| `RELAY_ENV` | `production` |
+| `RELAY_DB` | see above |
+| `RELAY_SERVICE_KEY` | new random 32+ chars, generated privately; never the local one |
+| `RELAY_PUBLIC_DEMO` | `false` (production refuses to start if `true`) |
+| `RELAY_SERVE_WEB` | `false` (Vercel serves the frontend) |
+| `DISCORD_CLIENT_ID`, `DISCORD_CLIENT_SECRET` | Discord application OAuth2 credentials |
+| `RELAY_OAUTH_REDIRECT_URI` | `https://<frontend-domain>/auth/discord/callback` |
+| `RELAY_FRONTEND_URL` | `https://<frontend-domain>` |
+| `RELAY_ALLOWED_ORIGINS` | `https://<frontend-domain>` |
+| `RELAY_MODEL_PROVIDER` | `none` until a model id is verified and paid calls are authorized |
 | `RELAY_DELIVERY_ENABLED` | `false` until consent/cancellation/delivery tests pass |
-| `DISCORD_BOT_TOKEN` | Only needed when delivery is enabled (API sends DMs for n8n ticks) |
+| `DISCORD_BOT_TOKEN` | only needed on `api` when delivery is enabled (DMs sent by the tick) |
+| `RELAY_RETENTION_DAYS` | e.g. `30` |
+
+Production startup refuses: short service key, `RELAY_PUBLIC_DEMO=true`, non-HTTPS OAuth settings,
+outdated schema.
 
 ## Railway: service `bot`
 
-- Same repo and branch. No public domain, no healthcheck, no volume.
+- Same repo/branch. No public domain, no healthcheck, no volume. Restart on failure.
 - Start command: `python -m relay.bot`
-- Restart policy: on failure.
-- Variables:
+- Variables: `DISCORD_BOT_TOKEN`, `DISCORD_GUILD_ID` (test server, fast command sync),
+  `RELAY_SERVICE_KEY` (same as api, e.g. `${{api.RELAY_SERVICE_KEY}}`; confirm reference syntax in the
+  dashboard), `RELAY_BASE_URL=https://<api-public-domain>`.
+- Bot needs only the `applications.commands` + `bot` scopes and permission to send messages/embeds
+  in the study channel. Intents: `guilds` only. No Message Content intent.
 
-| Variable | Value |
-|---|---|
-| `DISCORD_BOT_TOKEN` | From the Discord Developer Portal |
-| `DISCORD_GUILD_ID` | Test server ID (fast guild-scoped command sync) |
-| `RELAY_SERVICE_KEY` | Same value as `api`. A Railway reference variable such as `${{api.RELAY_SERVICE_KEY}}` avoids copying it; confirm the syntax in the dashboard. |
-| `RELAY_BASE_URL` | `https://<api public domain>` (private networking is an optional later change) |
+## Vercel (Dev)
 
-Bot intents: `guilds` only; no Message Content intent.
+See `docs/NEXTJS_BACKEND_HANDOFF.md`. Summary: server-only `RELAY_API_ORIGIN=https://<api-public-domain>`,
+rewrites for `/api/*`, `/auth/*`, `/health`; no `/internal/*`; no secrets in Vercel.
 
-## Vercel: `web/` (Dev)
+## n8n
 
-Dev owns this; Rithik does not edit `web/`. Notes from the backend side:
+See `docs/N8N_RUNBOOK.md`. HTTP nodes point at `https://<api-public-domain>`; Header Auth credential
+`X-Relay-Key`. Start inactive/dry-run.
 
-- Project root directory: `web`. No build step (static HTML/CSS/JS).
-- `web/index.html` currently references `/static/style.css` and `/static/app.js` (FastAPI's mount).
-  On Vercel those files are served from `/`, so either change the paths or add a rewrite.
-- `app.js` calls relative `/api/...` and `/health`. A `web/vercel.json` can proxy them to Railway,
-  which keeps the browser same-origin (no CORS change needed on the API):
+## Why no railway.json
 
-```json
-{
-  "rewrites": [
-    { "source": "/api/:path*", "destination": "https://<api public domain>/api/:path*" },
-    { "source": "/health", "destination": "https://<api public domain>/health" },
-    { "source": "/static/:path*", "destination": "/:path*" }
-  ]
-}
-```
+Railway's Config as Code (`railway.json`/`railway.toml`) is deprecated and stops being read on
+2026-12-01; its replacement (`.railway/railway.ts` + `railway config apply`) can come later.
+Configure the services in the dashboard as above.
 
-- Never proxy `/internal/*` and never put `RELAY_SERVICE_KEY` or bot tokens in Vercel.
-- **Production consequence:** with `RELAY_ENV=production`, browser create/join return 403
-  ("Public demo creation is disabled; join through Discord."). The web room cannot start sessions
-  against the production API until server-verified Discord identity linking exists. The UI must show
-  that state honestly. For a clickable public demo, either use fixture mode in the frontend or point
-  a separate Vercel preview at a separate Railway environment (`RELAY_ENV=local`,
-  `RELAY_PUBLIC_DEMO=true`, its own volume, no bot token, synthetic data only). Decide as a team.
+## Limits (documented, not hidden)
+
+- Rate limits are in-process (per replica): login/callback 20/min per client address as seen by
+  the app, facilitation 6/min per session, bot 30/min per Discord user. Not distributed enforcement.
+- The bot's status-card message ids live in bot memory; after a bot restart it posts a fresh card.
+  Buttons keep working after restarts (dynamic custom ids bound to session id).
+- Backups/logs on Railway are outside RELAY's purge; deletion is database-row deletion.
 
 ## Verification checklist (fill in with real results)
 
-1. `GET https://<api>/health` returns `{"ok": true, "live_model": false, "delivery_enabled": false}`.
-2. `POST https://<api>/api/sessions` returns 403 in production.
-3. `POST https://<api>/internal/discord` without `X-Relay-Key` returns 403.
-4. Bot logs `RELAY connected as ...`; `/relay create` and `/relay join` work from two accounts.
-5. Redeploy `api`, then `/relay status` still shows the same session (volume persistence).
-   Local equivalent: `tests/test_api.py::test_sessions_survive_api_restart`.
-6. Vercel URL loads, `/health` through the rewrite returns the same JSON, no console errors.
+1. `GET https://<api>/ready` → `{"ready": true}`; `/health` flags show model/delivery off.
+2. `POST https://<api>/api/sessions` → 403. `POST https://<api>/internal/discord` without key → 403/422.
+3. Bot logs `RELAY connected as ...`; slash commands appear in the test server.
+4. Two Discord accounts complete create → join → answer → explain → fresh answer → debrief.
+5. Redeploy `api`; `/relay status` still shows the session.
+6. Through the Vercel domain: login, `/auth/me`, member vs non-member access, CSRF rejection.
 
 ## Verified
 
-Nothing yet. Local only: full pytest suite, compileall, `node --check web/app.js`.
+Nothing on Railway/Vercel yet. Local evidence: see docs/BACKEND_PROGRESS.md.

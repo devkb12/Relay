@@ -12,34 +12,47 @@
     {
       "name": "Demo Host",
       "responded": false,
-      "is_me": true
+      "state": "present",
+      "is_me": true,
+      "is_host": true
     },
     {
       "name": "Demo Member B",
       "responded": false,
-      "is_me": false
+      "state": "present",
+      "is_me": false,
+      "is_host": false
     },
     {
       "name": "Demo Member C",
       "responded": false,
-      "is_me": false
+      "state": "present",
+      "is_me": false,
+      "is_host": false
     },
     {
       "name": "Demo Member D",
       "responded": false,
-      "is_me": false
+      "state": "present",
+      "is_me": false,
+      "is_host": false
     }
   ],
   "me": {
     "name": "Demo Host",
     "reminders": false,
-    "availability": []
+    "availability": [],
+    "timezone": "America/Phoenix",
+    "withdrawn": false
   },
   "plan": null,
   "plan_version": 3,
   "approved_count": 0,
   "approved_by_me": false,
+  "plan_cancelled": null,
+  "needs_reproposal": false,
   "schedule_confirmed": false,
+  "paused": false,
   "source": null,
   "question": null,
   "my_answer": null,

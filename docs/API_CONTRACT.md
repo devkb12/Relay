@@ -1,68 +1,109 @@
-# Actual starter API: Rithik owns changes; Dev consumes it
+# RELAY API contract (Rithik owns changes; Dev consumes)
 
-This is documentation of the included code, not a proposed future API. Source of truth:
-relay/api.py for requests and relay/core.py::_project for member-scoped responses.
-contracts/openapi.json documents request inputs. Some response schemas are generic because the
-starter returns dicts; use contracts/fixtures/ and the projection code for actual response fields.
-Generate again with `python -m scripts.export_contract` after an agreed backend change.
+Documentation of the code in this checkout, not a proposal. Sources of truth: `relay/api.py`
+(routes, inputs), `relay/core.py::_project` (member-scoped view), `relay/api.py::presentation_view`.
+`contracts/openapi.json` documents inputs; response bodies are dicts, so use
+`contracts/fixtures/*.json` for real field shapes. Regenerate both with
+`python -m scripts.export_contract` after any backend change, and tell Dev what changed.
 
 ## Auth and scope
-- Same-origin browser UI is served by FastAPI at /; assets are /static/.
-- Local create/join require RELAY_PUBLIC_DEMO=true. They are synthetic test identity endpoints,
-  not Discord login. Set false on any untrusted deployment and implement identity first.
-  With RELAY_ENV=production they always return 403, regardless of RELAY_PUBLIC_DEMO.
-- Participant calls use Authorization: Bearer <participant-token>. Do not share tokens or put
-  them in public URLs. A host token is still subject to server-side role checks.
-- /internal/* requires X-Relay-Key. It is server-to-server only, never a browser credential.
-- The prototype UI and Discord sessions are not automatically identity-linked.
 
-## Browser-facing routes
+| Caller | Credential | Where it is valid |
+|---|---|---|
+| Browser (production) | `relay_session` HttpOnly cookie from Discord OAuth (`__Host-relay_session` over HTTPS) + `X-CSRF-Token` header on every POST/DELETE | `/api/*`, `/auth/*` via the Next.js same-origin proxy |
+| Browser (local demo only) | `Authorization: Bearer <participant token>` from `POST /api/sessions` / `join` | Only when `RELAY_PUBLIC_DEMO=true` **and** `RELAY_ENV` is not `production`; otherwise 401/403 |
+| Discord bot, n8n | `X-Relay-Key` service key | `/internal/*` only. Server-to-server. Never proxied, never in a browser |
+
+- Authentication is not authorization. Every session route maps the caller to a participant of
+  **that** session (`discord:<verified id>`); a valid login for someone who is not a member gets 403.
+  Knowing a session id grants nothing.
+- Cookie-authenticated mutations also require an `Origin` in `RELAY_ALLOWED_ORIGINS` (exact match)
+  when the browser sends one, plus the CSRF token from `GET /auth/me`.
+- All `/api`, `/auth`, `/internal` responses carry `Cache-Control: no-store`, `Vary: Cookie, Authorization`
+  and `X-Request-ID` (echoes a safe incoming `X-Request-ID`, else generated).
+
+## Browser auth routes
+
+| Method/path | Result |
+|---|---|
+| GET /auth/discord/login?return_to=/path | 302 to Discord (scope `identify`), sets short-lived state cookie. Use a full-page navigation, not fetch. `return_to` must be a relative path; anything else becomes `/`. |
+| GET /auth/discord/callback | Discord redirects here (through the frontend domain). Verifies state + browser cookie + `iss`, exchanges the code, revokes Discord's access token, sets the session cookie, 302 to `RELAY_FRONTEND_URL + return_to`. Cancel/error → `/?login=cancelled`. |
+| GET /auth/me | `{authenticated:false, login_available, demo_mode}` or `{authenticated:true, user:{name}, csrf_token, expires_at, demo_mode}` |
+| POST /auth/logout | Requires `X-CSRF-Token`. Revokes the server session, clears the cookie. |
+| GET /api/me/sessions | Sessions the signed-in Discord user belongs to: `[{id, concept, stage, is_host, created_at, paused}]` |
+
+Sessions are created and joined in Discord (`/relay create`, `/relay join`). The browser opens them.
+
+## Session routes (cookie+CSRF, or demo bearer)
+
 | Method/path | Body | Result |
 |---|---|---|
-| GET /health | none | configured flags; not proof a model/provider call succeeds |
-| GET /api/concepts | none | id/title choices only |
-| POST /api/sessions | name, concept_id | session_id, token, member_id; local demo only |
-| POST /api/sessions/{sid}/join | name | personal capability credentials; local demo only |
-| GET /api/sessions/{sid} | none | member-scoped session view |
-| POST /api/sessions/{sid}/advance | expected_stage | host-only stage transition |
-| POST /api/sessions/{sid}/answer | question_id, choice, confidence, optional rationale | updated private view |
-| POST /api/sessions/{sid}/explain | text, source_fallback | shared voluntary explanation; fallback host-only |
-| POST /api/sessions/{sid}/facilitate | none | bounded hint or labeled fallback; host-only discussion |
-| POST /api/sessions/{sid}/availability | windows: [{start,end}] | updated view; offset-aware ISO strings |
-| POST /api/sessions/{sid}/propose | durations: [60,45,30] | {options,state,notice}; host-only |
-| POST /api/sessions/{sid}/approve | version | approval for that plan version |
-| POST /api/sessions/{sid}/consent | enabled | reminder preference and jobs updated |
-| POST /api/sessions/{sid}/challenge | reason | paused-review state |
-| POST /api/sessions/{sid}/resolve | decision: resume/discard, note | host-reviewed resolution |
-| GET /api/sessions/{sid}/calendar.ics | none | text/calendar after all approve; NOT a calendar write |
-| DELETE /api/sessions/{sid} | none | host removes local session/jobs |
+| GET /api/sessions/{sid} | – | private member-scoped view (below) |
+| GET /api/sessions/{sid}/presentation | – | shared-screen view: no `me`, `my_answer`, `my_results`, availability, approvals-by-me |
+| POST /api/sessions/{sid}/advance | `expected_stage`, `nonresponders: wait\|mark_missing` | host only. `mark_missing` records non-answerers as **missing** (never incorrect); needs ≥2 responses |
+| POST /api/sessions/{sid}/answer | `question_id, choice (A-D\|SKIP), confidence, rationale?` | locked private attempt. Identical retry = same result; changed retry = 409 |
+| POST /api/sessions/{sid}/explain | `text` (12-1200 chars, ≥3 words) or `source_fallback:true` (host) | shared explanation; identical retry not duplicated |
+| POST /api/sessions/{sid}/facilitate | – | host, discussion only. Live model or labeled reviewed fallback; stale results rejected |
+| POST /api/sessions/{sid}/availability | `windows:[{start,end}]` (offset-aware ISO), `timezone?` (IANA) | lobby only; must be future, start within 60 days; invalidates plan + approvals |
+| POST /api/sessions/{sid}/propose | `durations:[60,45,30]` | host; `{options,state,notice}`; needs availability from every active member |
+| POST /api/sessions/{sid}/cancel-plan | – | host; `plan_cancelled` stays visible |
+| POST /api/sessions/{sid}/approve | `version`, `accept_shorter` | exact plan version; shorter alternatives need `accept_shorter:true` |
+| POST /api/sessions/{sid}/consent | `enabled` | reminder + delayed-practice opt-in; off cancels pending jobs |
+| POST /api/sessions/{sid}/challenge | `reason` (5-500) | any member; pauses scoring/answers/advance |
+| GET /api/sessions/{sid}/review | – | host; challenged item + key + source. No classmates' reasoning |
+| POST /api/sessions/{sid}/resolve | `decision: resume\|discard`, `note` (10-500), `challenge_id?` | host; stale `challenge_id` → 409. Discard suppresses scores and cancels jobs |
+| POST /api/sessions/{sid}/leave | – | withdraw (not the host). Deletes your answers, reasoning, availability, pending jobs |
+| GET /api/sessions/{sid}/calendar.ics | – | only after every active member approved the current version. A file, NOT a calendar write |
+| DELETE /api/sessions/{sid} | – | host; deletes session, jobs and audit rows |
 
-## State projection
-stage is exactly lobby, diagnostic, discussion, transfer or debrief. Map friendly UI labels to
-those values; do not send invented stage names. revision supports stale-state awareness.
-challenge.pending pauses scoring/progression without adding a stage. invalidated marks a discarded item.
+Local demo only: `POST /api/sessions {name, concept_id}`, `POST /api/sessions/{sid}/join {name}`.
 
-Relevant fields: id, concept, stage, revision, pack_hash, is_host, members, me, plan, plan_version,
-approved_count, approved_by_me, schedule_confirmed, question, my_answer, source, hint, explanations,
-challenge, invalidated, my_results, group, notice. Fields can be null. The backend deliberately
-withholds some fields at some stages. members carries name/responded/is_me, NOT peer answers.
+## Private view fields
 
-Never expose private my_results on a public shared screen. A presentation toggle is display
-behavior, not authorization. Group metrics are suppressed for fewer than three paired responders;
-a small aggregate is not an anonymity guarantee. Do not fabricate a chart when group is null.
+`id, concept, stage, revision, pack_hash, is_host, paused, members[], me, plan, plan_version,
+approved_count, approved_by_me, plan_cancelled, needs_reproposal, schedule_confirmed, question,
+my_answer, source, hint, discussion_signal, explanations[], challenge, invalidated, my_results,
+group, retention_due_at, retention_note, notice`. Fields can be null; the backend withholds some
+per stage.
 
-## Errors / behavior
-401: missing or invalid bearer format. 403: role, credential, or demo restriction.
-404: missing session. 409: changed stage, stale plan, locked answer, or blocked transition.
-422: input validation. 400: other explicit domain errors. Error bodies include detail, which may
-be a validation list. On 409 re-fetch the current view; do not force a local state transition.
-Disable repeated submission while pending, but server idempotency is authoritative.
+- `stage` is exactly `lobby | diagnostic | discussion | transfer | debrief`. `paused` (=
+  `challenge.pending`) is an overlay, not a stage. Use `revision` to skip re-rendering unchanged polls.
+- `members[]`: `{name, state, responded, is_me, is_host}`, `state` ∈ `waiting | responded | missing |
+  withdrawn | present`. Never peer answers.
+- `question`: `{id, prompt, options}` only. No key, no explanation.
+- `hint`: `{discussion_question, possible_misconception, mode, feedback_source, fallback_reason?,
+  evidence_quote?, source_id?}`; `feedback_source` ∈ `live_model | reviewed_fallback`. Show which.
+- `my_results[phase]`: `{status, choice, correct, explanation, question_id}`, `status` ∈ `correct |
+  incorrect | skipped | missing | invalidated`. Show these differently; missing/skipped are not wrong.
+- `group` (null below 3 paired non-skipped responders, or when discarded): `paired_responses,
+  initial_correct, fresh_correct, active_participants, withdrawn, initial_outcomes, fresh_outcomes,
+  warning`. Always show denominators and the warning; never call the difference a learning gain.
+- `plan`: `{start, end, minutes, shorter_alternative, start_local, timezone}` (UTC + display label).
+- `me`: `{name, reminders, availability, timezone, withdrawn}`. A withdrawn member gets a minimal view.
 
-## Synthetic UI fixtures
-contracts/fixtures/*.json were generated from the backend using original test material. They
-contain no live users or credentials. Label them as fixture mode whenever used as the UI source.
-The full scores in a fixture are not observed student outcomes. Do not use them in a pitch as data.
+## Errors
 
-## Deferred endpoints
-There are no Google OAuth, arbitrary course uploads, real browser/Discord linking, or participant
-withdrawal endpoints yet. Add requests to docs/design/API_REQUESTS.md, not fictional calls.
+Body: `{"detail": "...", "request_id": "..."}` (422 validation keeps FastAPI's list in `detail`).
+401 not signed in / bearer disabled · 403 not a member, not host, CSRF/origin, withdrawn ·
+404 session not found · 409 stale stage/plan/review, locked answer, paused, blocked transition ·
+410 (bot only) control bound to an old/deleted session · 422 input · 429 rate limited · 400 other
+domain rule · 503 login not configured / not ready. On 409, re-fetch and re-render; never replay
+the user's changed intent automatically. Disable buttons while a request is pending.
+
+## Internal routes (X-Relay-Key)
+
+`POST /internal/discord` (bot; actions create, join, view, advance, answer, explain, availability,
+propose, cancel_plan, approve, consent, facilitate, challenge, review, resolve, leave, delete;
+`session_id` binds buttons) · `POST /internal/automation/tick {kind, dry_run}` · `GET /internal/jobs?status=`
+· `POST /internal/jobs/{id}/reconcile {outcome, note}` · `POST /internal/maintenance/purge` ·
+`POST /internal/automation/error` · `GET /ready` (DB + schema) · `GET /health` (liveness/config flags).
+
+## Fixtures
+
+`contracts/fixtures/*.json` come from the real backend with original synthetic material. No users,
+tokens or credentials. Label fixture mode in the UI. Scores in fixtures are not observed outcomes.
+
+## Not implemented
+
+Google Calendar OAuth, question authoring/upload, push/streaming updates, multi-instance rate limits.
+Request additions in `docs/design/API_REQUESTS.md`.

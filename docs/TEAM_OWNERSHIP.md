@@ -19,7 +19,8 @@ Dev consumes the real API and checked-in synthetic fixtures. Rithik owns API cha
 contracts/openapi.json after changes. A fixture is explicitly labeled demo data, never live data.
 Dev documents missing fields in docs/design/API_REQUESTS.md instead of modifying core files.
 Rithik implements agreed API additions and coordinates fixture updates. Use rendered text, not
-unsafe HTML, for model/source/peer content. Same-origin static hosting is the current default.
+unsafe HTML, for model/source/peer content. The Next.js app proxies /api and /auth same-origin to
+FastAPI (docs/NEXTJS_BACKEND_HANDOFF.md); /internal is never proxied.
 
 ## Important shared boundary
 The existing browser identity selector is local test infrastructure, not Discord login. Public

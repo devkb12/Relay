@@ -1,3 +1,4 @@
 {
-  "detail": "The stage changed. Refresh before continuing."
+  "detail": "The stage changed. Refresh before continuing.",
+  "request_id": "synthetic-request-id"
 }

@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "RELAY Track 3 Starter",
-    "version": "0.1.0"
+    "title": "RELAY API",
+    "version": "0.2.0"
   },
   "paths": {
     "/health": {
@@ -21,10 +21,204 @@
         }
       }
     },
+    "/ready": {
+      "get": {
+        "summary": "Ready",
+        "operationId": "ready_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/concepts": {
       "get": {
         "summary": "Concepts",
         "operationId": "concepts_api_concepts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/discord/login": {
+      "get": {
+        "summary": "Login",
+        "operationId": "login_auth_discord_login_get",
+        "parameters": [
+          {
+            "name": "return_to",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "/",
+              "title": "Return To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/discord/callback": {
+      "get": {
+        "summary": "Callback",
+        "operationId": "callback_auth_discord_callback_get",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Code"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "State"
+            }
+          },
+          {
+            "name": "iss",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Iss"
+            }
+          },
+          {
+            "name": "error",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Error"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "summary": "Me",
+        "operationId": "me_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "Logout",
+        "operationId": "logout_auth_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/me/sessions": {
+      "get": {
+        "summary": "My Sessions",
+        "operationId": "my_sessions_api_me_sessions_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -83,6 +277,7 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
             }
           }
@@ -129,23 +324,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -179,23 +359,45 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
           },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
-              ],
-              "title": "Authorization"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sessions/{sid}/presentation": {
+      "get": {
+        "summary": "Presentation",
+        "operationId": "presentation_api_sessions__sid__presentation_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sid"
             }
           }
         ],
@@ -231,23 +433,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -293,23 +480,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -355,23 +527,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -417,23 +574,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -479,23 +621,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -531,6 +658,43 @@
         }
       }
     },
+    "/api/sessions/{sid}/cancel-plan": {
+      "post": {
+        "summary": "Cancel Plan",
+        "operationId": "cancel_plan_api_sessions__sid__cancel_plan_post",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/sessions/{sid}/approve": {
       "post": {
         "summary": "Approve",
@@ -541,23 +705,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -603,23 +752,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -665,23 +799,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -717,6 +836,43 @@
         }
       }
     },
+    "/api/sessions/{sid}/review": {
+      "get": {
+        "summary": "Review",
+        "operationId": "review_api_sessions__sid__review_get",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/sessions/{sid}/resolve": {
       "post": {
         "summary": "Resolve",
@@ -727,23 +883,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -779,6 +920,43 @@
         }
       }
     },
+    "/api/sessions/{sid}/leave": {
+      "post": {
+        "summary": "Leave",
+        "operationId": "leave_api_sessions__sid__leave_post",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Sid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/sessions/{sid}/calendar.ics": {
       "get": {
         "summary": "Calendar",
@@ -789,23 +967,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -841,23 +1004,8 @@
             "in": "path",
             "required": true,
             "schema": {
+              "type": "string",
               "title": "Sid"
-            }
-          },
-          {
-            "name": "authorization",
-            "in": "header",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Authorization"
             }
           }
         ],
@@ -915,6 +1063,175 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/jobs": {
+      "get": {
+        "summary": "Jobs",
+        "operationId": "jobs_internal_jobs_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "unknown",
+                "failed",
+                "pending",
+                "leased",
+                "sent",
+                "cancelled"
+              ],
+              "type": "string",
+              "default": "unknown",
+              "title": "Status"
+            }
+          },
+          {
+            "name": "x-relay-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Relay-Key"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/jobs/{job_id}/reconcile": {
+      "post": {
+        "summary": "Reconcile Job",
+        "operationId": "reconcile_job_internal_jobs__job_id__reconcile_post",
+        "parameters": [
+          {
+            "name": "job_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Job Id"
+            }
+          },
+          {
+            "name": "x-relay-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Relay-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reconcile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/maintenance/purge": {
+      "post": {
+        "summary": "Purge",
+        "operationId": "purge_internal_maintenance_purge_post",
+        "parameters": [
+          {
+            "name": "x-relay-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Relay-Key"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1047,8 +1364,8 @@
     },
     "/": {
       "get": {
-        "summary": "Index",
-        "operationId": "index__get",
+        "summary": "Root",
+        "operationId": "root__get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -1068,7 +1385,23 @@
         "properties": {
           "expected_stage": {
             "type": "string",
+            "enum": [
+              "lobby",
+              "diagnostic",
+              "discussion",
+              "transfer",
+              "debrief"
+            ],
             "title": "Expected Stage"
+          },
+          "nonresponders": {
+            "type": "string",
+            "enum": [
+              "wait",
+              "mark_missing"
+            ],
+            "title": "Nonresponders",
+            "default": "wait"
           }
         },
         "type": "object",
@@ -1081,10 +1414,12 @@
         "properties": {
           "question_id": {
             "type": "string",
+            "maxLength": 80,
             "title": "Question Id"
           },
           "choice": {
             "type": "string",
+            "maxLength": 8,
             "title": "Choice"
           },
           "confidence": {
@@ -1116,6 +1451,11 @@
           "version": {
             "type": "integer",
             "title": "Version"
+          },
+          "accept_shorter": {
+            "type": "boolean",
+            "title": "Accept Shorter",
+            "default": false
           }
         },
         "type": "object",
@@ -1133,7 +1473,7 @@
           },
           "user_id": {
             "type": "string",
-            "pattern": "^\\d+$",
+            "pattern": "^\\d{1,25}$",
             "title": "User Id"
           },
           "name": {
@@ -1158,9 +1498,24 @@
               "facilitate",
               "challenge",
               "resolve",
+              "review",
+              "cancel_plan",
+              "leave",
               "delete"
             ],
             "title": "Action"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 40
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
           },
           "data": {
             "additionalProperties": true,
@@ -1216,6 +1571,7 @@
           },
           "concept_id": {
             "type": "string",
+            "maxLength": 60,
             "title": "Concept Id",
             "default": "compound-change"
           }
@@ -1233,6 +1589,8 @@
               "type": "integer"
             },
             "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
             "title": "Durations",
             "default": [
               60,
@@ -1307,6 +1665,31 @@
         ],
         "title": "Join"
       },
+      "Reconcile": {
+        "properties": {
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "sent",
+              "failed",
+              "cancelled"
+            ],
+            "title": "Outcome"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 3,
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "outcome",
+          "note"
+        ],
+        "title": "Reconcile"
+      },
       "Resolve": {
         "properties": {
           "decision": {
@@ -1322,6 +1705,18 @@
             "maxLength": 500,
             "minLength": 10,
             "title": "Note"
+          },
+          "challenge_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 20
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Challenge Id"
           }
         },
         "type": "object",
@@ -1397,16 +1792,48 @@
         ],
         "title": "ValidationError"
       },
+      "Window": {
+        "properties": {
+          "start": {
+            "type": "string",
+            "maxLength": 40,
+            "title": "Start"
+          },
+          "end": {
+            "type": "string",
+            "maxLength": 40,
+            "title": "End"
+          }
+        },
+        "type": "object",
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "Window"
+      },
       "Windows": {
         "properties": {
           "windows": {
             "items": {
-              "additionalProperties": true,
-              "type": "object"
+              "$ref": "#/components/schemas/Window"
             },
             "type": "array",
             "maxItems": 12,
+            "minItems": 1,
             "title": "Windows"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
           }
         },
         "type": "object",

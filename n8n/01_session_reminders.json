@@ -2,7 +2,7 @@
   "name": "RELAY / Approved-session reminders",
   "nodes": [
     {
-      "id": "40353af4-5ad8-4ce7-a651-88d1d839cec9",
+      "id": "df047e34-189d-5f71-81d3-583520da6b84",
       "name": "Every minute",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -22,7 +22,7 @@
       }
     },
     {
-      "id": "7527b548-ba9e-45cf-9a9f-a10448032566",
+      "id": "ce2883d3-458c-58f2-a9e3-76e8752deb1d",
       "name": "Consent-check and deliver due jobs",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,

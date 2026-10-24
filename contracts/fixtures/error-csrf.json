@@ -1,0 +1,4 @@
+{
+  "detail": "Missing or invalid CSRF token.",
+  "request_id": "synthetic-request-id"
+}

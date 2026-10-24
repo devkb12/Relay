@@ -2,7 +2,7 @@
   "name": "RELAY / Opt-in delayed practice",
   "nodes": [
     {
-      "id": "a6f65c9e-b292-4f92-b2a7-2a4c78561a4f",
+      "id": "df047e34-189d-5f71-81d3-583520da6b84",
       "name": "Every minute",
       "type": "n8n-nodes-base.scheduleTrigger",
       "typeVersion": 1.2,
@@ -22,7 +22,7 @@
       }
     },
     {
-      "id": "4b762127-9c8f-4965-8c64-0fc9ba3a6b6e",
+      "id": "ce2883d3-458c-58f2-a9e3-76e8752deb1d",
       "name": "Consent-check and deliver due jobs",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
@@ -42,6 +42,48 @@
           "timeout": 30000
         }
       }
+    },
+    {
+      "id": "766cab43-466b-58b5-95b0-50c05cbffc17",
+      "name": "Daily 03:30 Phoenix",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        240,
+        480
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "30 3 * * *"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "7e0cab0f-f3a6-5dc2-9744-6f121feab2f5",
+      "name": "Apply retention policy",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        530,
+        480
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://relay-api.example.invalid/internal/maintenance/purge",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{}",
+        "options": {
+          "timeout": 30000
+        }
+      }
     }
   ],
   "connections": {
@@ -50,6 +92,17 @@
         [
           {
             "node": "Consent-check and deliver due jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily 03:30 Phoenix": {
+      "main": [
+        [
+          {
+            "node": "Apply retention policy",
             "type": "main",
             "index": 0
           }

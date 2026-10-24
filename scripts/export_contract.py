@@ -10,10 +10,10 @@ def write(path,obj):
 
 def main():
     with tempfile.TemporaryDirectory() as td:
-        keys=('RELAY_DB','RELAY_MODEL_PROVIDER','RELAY_DELIVERY_ENABLED','RELAY_PUBLIC_DEMO')
+        keys=('RELAY_DB','RELAY_MODEL_PROVIDER','RELAY_DELIVERY_ENABLED','RELAY_PUBLIC_DEMO','RELAY_ENV')
         old={k:os.environ.get(k) for k in keys}
         os.environ.update(RELAY_DB=str(Path(td)/'default.sqlite3'),RELAY_MODEL_PROVIDER='none',
-                          RELAY_DELIVERY_ENABLED='false',RELAY_PUBLIC_DEMO='true')
+                          RELAY_DELIVERY_ENABLED='false',RELAY_PUBLIC_DEMO='true',RELAY_ENV='local')
         try:
             from relay.api import make_app
             from relay.core import Relay
@@ -27,9 +27,15 @@ def main():
             host=core.create('Demo Host');sid=host['session_id'];people=[host]
             for name in ('Demo Member B','Demo Member C','Demo Member D'):
                 people.append(core.join(sid,name))
+            from relay.api import presentation_view
+            def scrub(view):
+                view['id']='synthetic-session'
+                if view.get('challenge'): view['challenge']['id']='synthetic-challenge'
+                return view
             def snap(name,person=host):
-                view=core.view(sid,person['token']);view['id']='synthetic-session'
-                write(ROOT/f'contracts/fixtures/{name}.json',view)
+                write(ROOT/f'contracts/fixtures/{name}.json',scrub(core.view(sid,person['token'])))
+            def present(name):
+                write(ROOT/f'contracts/fixtures/{name}.json',presentation_view(scrub(core.view(sid,host['token']))))
             snap('lobby')
             start=now+timedelta(days=1);end=start+timedelta(hours=2)
             for person in people:
@@ -43,16 +49,25 @@ def main():
             wrong=next(k for k in c['diagnostic']['options'] if k!=c['diagnostic']['correct'])
             for person in people:
                 core.answer(sid,person['token'],c['diagnostic']['id'],wrong,'confident')
-            core.advance(sid,host['token'],'diagnostic');snap('discussion')
+            core.advance(sid,host['token'],'diagnostic');snap('discussion');present('presentation-discussion')
             core.challenge(sid,people[1]['token'],'Synthetic review request: can we check the stated assumption?')
             snap('challenge-paused')
             core.resolve_challenge(sid,host['token'],'resume','Reviewed the original teaching fixture; the stated assumption is explicit.')
             core.explain(sid,people[1]['token'],'The second percentage operates on the updated amount, not the initial amount.')
             core.advance(sid,host['token'],'discussion');snap('transfer')
-            for person in people:
+            for person in people[:3]:
                 core.answer(sid,person['token'],c['transfer']['id'],c['transfer']['correct'],'somewhat')
-            core.advance(sid,host['token'],'transfer');snap('debrief')
-            write(ROOT/'contracts/fixtures/error-stale.json',{'detail':'The stage changed. Refresh before continuing.'})
+            core.answer(sid,people[3]['token'],c['transfer']['id'],'SKIP')
+            core.advance(sid,host['token'],'transfer');snap('debrief');snap('participant-debrief-skipped',people[3])
+            present('presentation-debrief')
+            rid='synthetic-request-id'
+            write(ROOT/'contracts/fixtures/error-stale.json',{'detail':'The stage changed. Refresh before continuing.','request_id':rid})
+            write(ROOT/'contracts/fixtures/error-unauthenticated.json',{'detail':'Sign in with Discord to open this session.','request_id':rid})
+            write(ROOT/'contracts/fixtures/error-csrf.json',{'detail':'Missing or invalid CSRF token.','request_id':rid})
+            write(ROOT/'contracts/fixtures/error-stale-control.json',{'detail':'This button belongs to an older or deleted RELAY session. Use /relay question or /relay status for the current one.','request_id':rid})
+            write(ROOT/'contracts/fixtures/auth-me-signed-out.json',{'authenticated':False,'login_available':True,'demo_mode':False})
+            write(ROOT/'contracts/fixtures/auth-me-signed-in.json',{'authenticated':True,'user':{'name':'Demo Member B'},'csrf_token':'synthetic-csrf-token','expires_at':now.timestamp()+43200,'demo_mode':False})
+            write(ROOT/'contracts/fixtures/me-sessions.json',[{'id':'synthetic-session','concept':{'id':'compound-change','title':c['title']},'stage':'debrief','is_host':False,'created_at':now.timestamp(),'paused':False}])
         finally:
             for k,v in old.items():
                 if v is None:os.environ.pop(k,None)

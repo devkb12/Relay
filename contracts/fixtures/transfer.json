@@ -12,22 +12,30 @@
     {
       "name": "Demo Host",
       "responded": false,
-      "is_me": true
+      "state": "waiting",
+      "is_me": true,
+      "is_host": true
     },
     {
       "name": "Demo Member B",
       "responded": false,
-      "is_me": false
+      "state": "waiting",
+      "is_me": false,
+      "is_host": false
     },
     {
       "name": "Demo Member C",
       "responded": false,
-      "is_me": false
+      "state": "waiting",
+      "is_me": false,
+      "is_host": false
     },
     {
       "name": "Demo Member D",
       "responded": false,
-      "is_me": false
+      "state": "waiting",
+      "is_me": false,
+      "is_host": false
     }
   ],
   "me": {
@@ -38,18 +46,25 @@
         "start": "2026-10-25T20:00:00Z",
         "end": "2026-10-25T22:00:00Z"
       }
-    ]
+    ],
+    "timezone": "America/Phoenix",
+    "withdrawn": false
   },
   "plan": {
     "start": "2026-10-25T20:00:00Z",
     "end": "2026-10-25T21:00:00Z",
     "minutes": 60,
-    "shorter_alternative": false
+    "shorter_alternative": false,
+    "start_local": "Sun Oct 25, 01:00 PM MST",
+    "timezone": "America/Phoenix"
   },
   "plan_version": 8,
   "approved_count": 4,
   "approved_by_me": true,
+  "plan_cancelled": null,
+  "needs_reproposal": false,
   "schedule_confirmed": true,
+  "paused": false,
   "source": null,
   "question": {
     "id": "compound-t1",
@@ -64,6 +79,7 @@
   "my_answer": null,
   "group": null,
   "challenge": {
+    "id": "synthetic-challenge",
     "reason": "Synthetic review request: can we check the stated assumption?",
     "pending": false,
     "stage": "discussion",
