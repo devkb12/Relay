@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>RELAY - Study together. Check independently.</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="Relay home"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="6" width="19" height="27" rx="9" fill="none" stroke="currentColor" stroke-width="3"/><rect x="18" y="6" width="19" height="27" rx="9" fill="none" stroke="currentColor" stroke-width="3"/></svg><span>relay<span class="brand-dot">.</span></span></a>
+  <div class="sidebar-label">THE STUDY ROOM</div>
+  <div class="nav-item active"><span class="nav-icon">&#9673;</span> Live session <span class="live-dot"></span></div>
+  <div class="nav-item"><span class="nav-icon">&#9671;</span> Evidence, not rankings</div>
+  <div class="sidebar-label space-top">YOUR CONCEPT</div>
+  <div id="conceptNav" class="concept-nav"><span class="small-muted">Choose a teaching fixture to begin.</span></div>
+  <div class="sidebar-bottom"><div class="small-label">TRACK 03 / GROUP CHAT</div><p>Pass the understanding.<br>Not just the answer.</p><div class="mini-pill">Two-builder starter</div></div>
+</aside>
+<main>
+<header class="topbar"><div><span class="breadcrumb">Study room</span><span class="crumb-divider">/</span><span id="roomLabel">New session</span></div><div class="header-actions"><span id="connection" class="status-pill">Connecting</span><button class="button subtle" id="presentBtn">Presentation view</button></div></header>
+<div class="page-content">
+<div class="notice-banner"><span class="notice-icon">i</span><span><strong>Local prototype.</strong> Original teaching fixtures, not ASU course content. No live Discord, calendar, or model connection is implied.</span></div>
+<section class="page-heading"><div class="eyebrow">A BETTER KIND OF STUDY SESSION</div><h1>Find the time.<br><span>Pass the understanding.</span></h1><p>Think privately. Explain together. Try a fresh problem.</p></section>
+<div id="error" class="error-box" role="alert" hidden></div>
+<section id="setup" class="setup-grid">
+  <div class="panel"><div class="eyebrow">START A SMALL SESSION</div><h2>Bring your group.</h2><p class="muted">Two to eight participants. One concept at a time.</p><label for="hostName">Your display name</label><input id="hostName" value="Rithik" maxlength="40"><label for="conceptSelect">Teaching fixture</label><select id="conceptSelect"></select><label class="consent-line"><input type="checkbox" id="privacyConsent"> I understand this service processes practice answers. Individual results stay private in the interface; small-group aggregates can still reveal information.</label><button class="button primary wide" id="createBtn">Create a study room <span>&#8599;</span></button></div>
+  <div class="panel join-panel"><div class="eyebrow">HAVE A ROOM CODE?</div><h2>Join the conversation.</h2><label for="joinCode">Room code</label><input id="joinCode" placeholder="Paste the shared session code"><label for="joinName">Your display name</label><input id="joinName" placeholder="Your name" maxlength="40"><p class="small-muted">Joining permits processing of your practice responses. Reminders remain off until you opt in.</p><button class="button secondary wide" id="joinBtn">Join room</button><div class="quiet-note"><span>&#9678;</span><p>All answers are withheld from peers during the independent attempt. There is no public leaderboard.</p></div></div>
+</section>
+<section id="workspace" hidden>
+  <div class="room-toolbar"><div><span class="small-label">ROOM CODE</span><button class="code-button" id="copyCode"></button></div><div class="tester-controls"><label for="identity">Local test identity</label><select id="identity"></select><button class="button subtle" id="addTester">+ Test participant</button></div></div>
+  <div id="stageRail" class="stage-rail"></div>
+  <div class="workspace-grid">
+    <div class="main-column">
+      <section id="mainCard" class="panel main-card" aria-live="polite"></section>
+      <section id="peerPanel" class="panel peer-panel"></section>
+      <section id="explanations" class="panel" hidden></section>
+    </div>
+    <aside class="context-column">
+      <section class="panel evidence-card"><div class="eyebrow">YOUR EVIDENCE</div><h3>Show the source.<br>Keep the uncertainty.</h3><div id="sourceCard"></div></section>
+      <section class="panel schedule-card"><div class="eyebrow">MAKE IT HAPPEN</div><h3>Find a shared window.</h3><div id="scheduleCard"></div></section>
+      <section class="quiet-card"><span class="quiet-mark">&#8644;</span><div><strong>No answer autopilot.</strong><p>Relay makes space for peers before offering a hint.</p></div></section>
+    </aside>
+  </div>
+</section>
+<footer><span>RELAY / Learn together. Check independently.</span><span>Source-aware &middot; Consent-first &middot; No grade prediction</span></footer>
+</div></main></div>
+<dialog id="sourceDialog"><div class="dialog-top"><span class="eyebrow">SOURCE DRAWER</span><button class="button subtle" id="closeSource">Close</button></div><h2 id="sourceTitle"></h2><p id="sourceText"></p><div class="quiet-note">This is original demonstration material, not an instructor endorsement.</div></dialog>
+<script src="/static/app.js"></script>
+</body></html>

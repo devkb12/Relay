@@ -1,0 +1,77 @@
+{
+  "id": "synthetic-session",
+  "concept": {
+    "id": "compound-change",
+    "title": "Successive percentage changes"
+  },
+  "stage": "discussion",
+  "revision": 20,
+  "pack_hash": "28a18a9bb9f4a3dc5cf8ae01b17d7095ceda2a2e1f1f48fff9d93ad0c45bcfaa",
+  "is_host": true,
+  "members": [
+    {
+      "name": "Demo Host",
+      "responded": false,
+      "is_me": true
+    },
+    {
+      "name": "Demo Member B",
+      "responded": false,
+      "is_me": false
+    },
+    {
+      "name": "Demo Member C",
+      "responded": false,
+      "is_me": false
+    },
+    {
+      "name": "Demo Member D",
+      "responded": false,
+      "is_me": false
+    }
+  ],
+  "me": {
+    "name": "Demo Host",
+    "reminders": false,
+    "availability": [
+      {
+        "start": "2026-10-25T20:00:00Z",
+        "end": "2026-10-25T22:00:00Z"
+      }
+    ]
+  },
+  "plan": {
+    "start": "2026-10-25T20:00:00Z",
+    "end": "2026-10-25T21:00:00Z",
+    "minutes": 60,
+    "shorter_alternative": false
+  },
+  "plan_version": 8,
+  "approved_count": 4,
+  "approved_by_me": true,
+  "schedule_confirmed": true,
+  "source": {
+    "source_id": "relay-note-01",
+    "source_title": "Original teaching note: multiplicative change",
+    "source_text": "A percentage change acts on the value at that step. A gain of p percent multiplies the current value by 1 + p/100; a loss of q percent multiplies the current value by 1 - q/100. Successive changes multiply their factors. Adding the percentages is generally not equivalent."
+  },
+  "question": null,
+  "my_answer": null,
+  "group": null,
+  "challenge": {
+    "reason": "Synthetic review request: can we check the stated assumption?",
+    "pending": true,
+    "stage": "discussion",
+    "resolution": null
+  },
+  "invalidated": false,
+  "explanations": [],
+  "hint": {
+    "discussion_question": "What value is the second percentage applied to: the original amount, or the amount after the first change? Explain that distinction to a peer.",
+    "mode": "curated fallback",
+    "possible_misconception": "Use the source to examine the reasoning."
+  },
+  "my_results": {},
+  "notice": "Original demonstration material. No grade or mastery prediction.",
+  "discussion_signal": "Check the shared assumption"
+}

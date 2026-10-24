@@ -1,0 +1,12 @@
+{
+  "scope": "Synthetic Chromium UI test, real FastAPI logic through an in-process bridge; no browser HTTP transport test",
+  "checks": [
+    "Discussion uses aggregate signals without exposing individual correctness.",
+    "Source drawer opens and closes.",
+    "Peer explanation, private fresh answer, and aggregate debrief run against real backend state.",
+    "Presentation mode hides private results.",
+    "390px viewport has no horizontal overflow; reduced-motion preference is enabled."
+  ],
+  "js_errors": [],
+  "status": "passed"
+}

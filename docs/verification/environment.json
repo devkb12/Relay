@@ -1,0 +1,12 @@
+{
+  "python": "3.13.5",
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+  "versions": {
+    "fastapi": "0.128.2",
+    "httpx": "0.28.1",
+    "pytest": "9.0.2",
+    "pydantic": "2.13.5",
+    "playwright": "1.57.0"
+  },
+  "scope": "Local synthetic tests; no live Discord, model, n8n, GitHub write or learning study."
+}

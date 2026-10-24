@@ -1,0 +1,25 @@
+name: RELAY local tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.13']
+    env:
+      RELAY_MODEL_PROVIDER: none
+      RELAY_DELIVERY_ENABLED: 'false'
+      RELAY_PUBLIC_DEMO: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pytest
+      - run: python -m compileall -q relay scripts
+      - run: node --check web/app.js

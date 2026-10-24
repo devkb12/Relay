@@ -1,0 +1,182 @@
+{
+  "notice": "Original synthetic teaching fixtures. Arithmetic is checked by unit tests. Not ASU course material, not a psychometrically validated assessment. Team instructional review is still required.",
+  "concepts": [
+    {
+      "id": "compound-change",
+      "title": "Successive percentage changes",
+      "source_id": "relay-note-01",
+      "source_title": "Original teaching note: multiplicative change",
+      "source_text": "A percentage change acts on the value at that step. A gain of p percent multiplies the current value by 1 + p/100; a loss of q percent multiplies the current value by 1 - q/100. Successive changes multiply their factors. Adding the percentages is generally not equivalent.",
+      "hint": "What value is the second percentage applied to: the original amount, or the amount after the first change? Explain that distinction to a peer.",
+      "diagnostic": {
+        "id": "compound-d1",
+        "prompt": "A practice account starts at $100. It rises 50%, then falls 50%. What is its final value?",
+        "options": {
+          "A": "$100",
+          "B": "$125",
+          "C": "$75",
+          "D": "$50"
+        },
+        "correct": "C",
+        "explanation": "100 x 1.50 x 0.50 = 75. The loss applies to 150, not 100.",
+        "misconceptions": {
+          "A": "adding percentages instead of multiplying factors",
+          "B": "using an inconsistent percentage base",
+          "D": "ignoring the first change"
+        }
+      },
+      "transfer": {
+        "id": "compound-t1",
+        "prompt": "An item costs $200. Its price rises 25%, then receives a 20% discount on the new price. What is the final price?",
+        "options": {
+          "A": "$200",
+          "B": "$210",
+          "C": "$190",
+          "D": "$250"
+        },
+        "correct": "A",
+        "explanation": "200 x 1.25 x 0.80 = 200. Unlike equal up/down percentages, these factors exactly cancel.",
+        "misconceptions": {
+          "B": "adding the percentage changes",
+          "C": "using the original price inconsistently",
+          "D": "ignoring the second change"
+        }
+      },
+      "retention": {
+        "id": "compound-r1",
+        "prompt": "A quantity starts at 80, decreases by 25%, then increases by 50%. What is its final value?",
+        "options": {
+          "A": "100",
+          "B": "90",
+          "C": "80",
+          "D": "60"
+        },
+        "correct": "B",
+        "explanation": "80 x 0.75 x 1.50 = 90.",
+        "misconceptions": {
+          "A": "adding the percentage changes",
+          "C": "assuming opposing changes cancel",
+          "D": "ignoring the second change"
+        }
+      }
+    },
+    {
+      "id": "base-rates",
+      "title": "Base rates and flagged messages",
+      "source_id": "relay-note-02",
+      "source_title": "Original teaching note: count the flagged population",
+      "source_text": "To find the fraction of flagged messages that are actually spam, divide the number of true spam messages flagged by the total number of messages flagged. The total includes true positives and false positives. A filter's sensitivity alone does not determine this fraction; the population counts also matter.",
+      "hint": "Make two counts first: actual spam flagged, and non-spam flagged. Which messages belong in the denominator?",
+      "diagnostic": {
+        "id": "base-d1",
+        "prompt": "Of 1,000 messages, 100 are spam. A filter flags 90% of spam and 10% of non-spam. What fraction of flagged messages are spam?",
+        "options": {
+          "A": "90%",
+          "B": "50%",
+          "C": "10%",
+          "D": "80%"
+        },
+        "correct": "B",
+        "explanation": "90 spam and 90 non-spam messages are flagged. 90 / 180 = 50%.",
+        "misconceptions": {
+          "A": "confusing sensitivity with the fraction of flags that are correct",
+          "C": "using the base rate without the flag information",
+          "D": "subtracting rates instead of counting messages"
+        }
+      },
+      "transfer": {
+        "id": "base-t1",
+        "prompt": "Of 1,000 messages, 200 are spam. A filter flags 60% of spam and 5% of non-spam. What fraction of flagged messages are spam?",
+        "options": {
+          "A": "55%",
+          "B": "60%",
+          "C": "75%",
+          "D": "95%"
+        },
+        "correct": "C",
+        "explanation": "120 spam plus 40 non-spam messages are flagged. 120 / 160 = 75%.",
+        "misconceptions": {
+          "A": "subtracting rates instead of counting messages",
+          "B": "using sensitivity as predictive value",
+          "D": "using specificity as predictive value"
+        }
+      },
+      "retention": {
+        "id": "base-r1",
+        "prompt": "In 500 messages, 50 are spam. A filter flags 80% of spam and 10% of non-spam. Approximately what fraction of flagged messages are spam?",
+        "options": {
+          "A": "80%",
+          "B": "47.1%",
+          "C": "90%",
+          "D": "10%"
+        },
+        "correct": "B",
+        "explanation": "40 spam and 45 non-spam messages are flagged. 40 / 85 is about 47.1%.",
+        "misconceptions": {
+          "A": "sensitivity-as-predictive-value",
+          "C": "specificity-as-predictive-value",
+          "D": "ignoring the flag information"
+        }
+      }
+    },
+    {
+      "id": "correlation",
+      "title": "Association is not identification",
+      "source_id": "relay-note-03",
+      "source_title": "Original teaching note: observational comparisons",
+      "source_text": "An observational association does not by itself identify a causal effect. Other variables can influence both the measured exposure and outcome. A plausible mechanism does not remove this issue. Random assignment can help identify causal effects when the experiment and analysis are appropriate, but a correlation alone does not establish causation.",
+      "hint": "Can you name a third variable that could influence both the activity and the outcome? What does the comparison actually establish?",
+      "diagnostic": {
+        "id": "corr-d1",
+        "prompt": "Students who use a study app have higher exam scores in a survey. What does the survey alone establish?",
+        "options": {
+          "A": "The app caused the higher scores",
+          "B": "An association, not necessarily a causal effect",
+          "C": "The app has no effect",
+          "D": "All users will improve"
+        },
+        "correct": "B",
+        "explanation": "Motivation or prior knowledge could affect both app use and scores. The survey establishes an association.",
+        "misconceptions": {
+          "A": "treating an observational association as causal",
+          "C": "treating lack of causal identification as proof of no effect",
+          "D": "generalizing a group association to every individual"
+        }
+      },
+      "transfer": {
+        "id": "corr-t1",
+        "prompt": "Neighborhoods with more bicycle lanes have fewer traffic injuries in an observational dataset. Which conclusion is supported by that fact alone?",
+        "options": {
+          "A": "Adding lanes always reduces injuries",
+          "B": "Bicycle lanes cannot affect safety",
+          "C": "Every cyclist is safer",
+          "D": "There is an association; other differences may contribute"
+        },
+        "correct": "D",
+        "explanation": "The observed relationship alone does not isolate the causal effect of lanes.",
+        "misconceptions": {
+          "A": "causal overclaim from an observational comparison",
+          "B": "mistaking uncertainty for proof of no effect",
+          "C": "individual certainty from group-level data"
+        }
+      },
+      "retention": {
+        "id": "corr-r1",
+        "prompt": "People who attend optional tutorials score higher. Which next step would better investigate a causal effect?",
+        "options": {
+          "A": "Assume the association is causal",
+          "B": "Ignore all possible confounding",
+          "C": "Consider an appropriately designed randomized study",
+          "D": "Conclude tutorials have no benefit"
+        },
+        "correct": "C",
+        "explanation": "An appropriately designed randomized study can help separate treatment effects from prior differences.",
+        "misconceptions": {
+          "A": "association-as-causation",
+          "B": "ignoring confounding",
+          "D": "uncertainty-as-no-effect"
+        }
+      }
+    }
+  ]
+}
