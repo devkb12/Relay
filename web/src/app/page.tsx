@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, BookOpenCheck, EyeOff, Flag, Gauge, MessageSquareText, Repeat2, ShieldCheck, Sparkles, Users } from 'lucide-react';
+import { ArrowRight, BookOpenCheck, EyeOff, Play, Flag, Gauge, MessageSquareText, Repeat2, ShieldCheck, Sparkles, Users } from 'lucide-react';
 import discussion from '@/fixtures/discussion.json';
 import { buttonVariants } from '@/components/ui/button';
 import { RelayMark, Wordmark } from '@/components/graphics';
@@ -83,6 +83,7 @@ export default function Home() {
                 <EntryCta />
               </div>
               <p className="rise rise-4 -mt-3 max-w-md text-sm text-muted">No account needed for the sample: fictional peers, original practice material, nothing sent. Real sessions run in your Discord server.</p>
+              <Link href="/tour" className="rise rise-5 inline-flex items-center gap-2 text-sm font-semibold text-primary underline underline-offset-4"><Play className="size-4 fill-primary" strokeWidth={1.75} />Watch the 2-minute tour: how it works in Discord</Link>
               <ul className="rise rise-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
                 <li className="inline-flex items-center gap-2"><EyeOff className="size-4 text-ink" strokeWidth={1.75} />Answers stay private</li>
                 <li className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-ink" strokeWidth={1.75} />No rankings, ever</li>

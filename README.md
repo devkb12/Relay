@@ -20,6 +20,10 @@ check. Then a *different* problem on the same idea, answered alone again, and a 
 was checked, what you did, and one honest next step. It never grades, ranks or claims mastery. It can
 also find a time everyone can make, as a supporting step.
 
+**Watch it:** `/tour` is a two-minute narrated walkthrough of a session in Discord, from set-up and
+sign-in to the receipt (MP4: `web/public/tour/relay-tour.mp4`). It is a recreation with a fictional
+group; RELAY's own screens use its real components.
+
 **Try it:** `/demo` plays one round in your browser with fictional peers and original practice
 material; nothing is sent. Real sessions start with `/relay create` in Discord.
 

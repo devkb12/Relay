@@ -127,3 +127,17 @@ record a real demonstration, and accurately describe all remaining limits in the
 - **Not verified:** the deployed Vercel site with a backend (no tunnel exists yet), Discord OAuth on a real
   domain, a two-account Discord ↔ web round, a live Gemini call (no key), a person reviewing the Iris pack.
   See docs/LIVE_CONNECTION_DIAGNOSIS.md.
+
+## Product tour and live connection (2026-10-25)
+
+- Deployed site connected through a Cloudflare Quick Tunnel to the laptop's public listener (port 8787):
+  `/connection` → connected; through the Vercel proxy `/health` OK, `/auth/me` login available and demo
+  off, `/internal/*` 404, an unauthenticated session read 401, `/auth/discord/login` → 302 to Discord with
+  the registered callback. Discord OAuth client ID/secret accepted by Discord (client-credentials check).
+  **Not yet verified:** a person completing Discord sign-in and the two-account web ↔ Discord round.
+- `/tour`: 12-scene narrated film (133 s) driven by the soundtrack clock; MP4 recorded from the same frames
+  (1280×720 H.264 30 fps + AAC). Frames pulled from the MP4 at scene times match the timeline.
+  Playwright 29 passed (new: tour plays, chapters jump, label shown, audio served); Vitest 101 passed.
+  The animated frame is excluded from the axe contrast scan as moving-picture content; its alternative
+  (captions, chapters, full transcript) is scanned.
+

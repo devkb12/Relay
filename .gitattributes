@@ -11,3 +11,5 @@
 *.zip binary
 # Dataset snapshots are verified by SHA-256: never rewrite their line endings.
 data/packs/** -text
+*.mp4 binary
+*.m4a binary

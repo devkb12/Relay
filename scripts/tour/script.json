@@ -1,0 +1,31 @@
+{
+  "note": "Narration for the RELAY product film (/tour). Scene ids are used by web/src/components/tour. Edit text here, then rerun scripts/tour/build_audio.py.",
+  "voice": "Microsoft Zira Desktop",
+  "rate": 0,
+  "scenes": [
+    { "id": "intro", "chapter": "RELAY", "pad": 1.6,
+      "text": "This is RELAY. Don't just agree. Understand." },
+    { "id": "problem", "chapter": "The problem", "pad": 1.0,
+      "text": "In a study group chat, the fastest person posts the answer. Everyone nods. And three people leave thinking they understood it." },
+    { "id": "install", "chapter": "Set up", "pad": 1.0,
+      "text": "RELAY lives in your Discord server. An admin adds the bot once. Then anyone can start a study session in a channel, with slash relay create." },
+    { "id": "team", "chapter": "Form the team", "pad": 1.0,
+      "text": "Friends join with slash relay join. Each person adds when they're free, privately. RELAY proposes one time, and everyone approves that exact version." },
+    { "id": "signin", "chapter": "Sign in", "pad": 1.0,
+      "text": "The bot posts a link to the web room. Sign in with Discord. RELAY only asks who you are, and shows only the sessions you've joined." },
+    { "id": "think", "chapter": "Think privately", "pad": 0.8,
+      "text": "Round one. Think privately. Everyone answers alone, and says how sure they are. Nobody sees anyone else's answer." },
+    { "id": "moment", "chapter": "The moment", "pad": 1.0,
+      "text": "Here's the moment RELAY is built for. Three friends agreed, confidently, and they were all wrong. RELAY doesn't follow the majority. It checks the reviewed source, and gives the group one question to talk through." },
+    { "id": "explain", "chapter": "Explain together", "pad": 0.8,
+      "text": "A friend explains the idea in their own words, and passes the baton. Hints come from a reviewed teaching note. An AI model can draft them too, always labeled, and it never grades anyone." },
+    { "id": "challenge", "chapter": "Challenge it", "pad": 0.8,
+      "text": "Think a question is unfair? Anyone can challenge it. The room pauses, the host checks the source, then resumes or discards it. Nobody is marked wrong." },
+    { "id": "fresh", "chapter": "Fresh problem", "pad": 0.8,
+      "text": "Then a fresh problem. A different scenario, the same idea, answered alone again." },
+    { "id": "reflect", "chapter": "Reflect", "pad": 1.0,
+      "text": "Finally, everyone gets a private receipt. What was checked, what you did, and one honest next step. No scores. No rankings." },
+    { "id": "outro", "chapter": "Try it", "pad": 2.4,
+      "text": "Your group explains it. RELAY checks a fresh problem. Try a sample round, right in your browser." }
+  ]
+}

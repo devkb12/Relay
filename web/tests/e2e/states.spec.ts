@@ -78,12 +78,14 @@ for (const width of [360, 390, 820, 1280, 1920]) {
     const ctx = await browser.newContext({ viewport: { width, height: width < 600 ? 800 : 1000 } });
     const page = await ctx.newPage();
     const con = watchConsole(page);
-    for (const path of ['/', '/demo', '/demo/debrief', '/demo/present', '/demo/stages', '/demo/stages/schedule', '/demo/stages/debrief', '/room']) {
+    for (const path of ['/', '/demo', '/demo/debrief', '/demo/present', '/demo/stages', '/demo/stages/schedule', '/demo/stages/debrief', '/room', '/tour']) {
       await page.goto(path);
       await page.waitForLoadState('load');
       await page.waitForTimeout(600); // let 200ms entrance fades settle so contrast is measured at rest
       await noHorizontalOverflow(page);
-      const axe = await new AxeBuilder({ page }).analyze();
+      // The tour's animated frame is moving picture content (like a video); its accessible
+      // alternative is the captions, chapter list and full transcript, which are scanned.
+      const axe = await new AxeBuilder({ page }).exclude('[data-film]').analyze();
       const bad = axe.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
       expect(bad.map((v) => `${path}: ${v.id} (${v.nodes.length})`)).toEqual([]);
     }
@@ -91,3 +93,19 @@ for (const width of [360, 390, 820, 1280, 1920]) {
     await ctx.close();
   });
 }
+
+test('the product tour plays from the soundtrack clock, jumps by chapter, and labels itself', async ({ page }) => {
+  const con = watchConsole(page);
+  await page.goto('/tour');
+  await expect(page.getByRole('button', { name: /Play the tour/ })).toBeVisible();
+  await expect(page.getByText('Transcript')).toBeVisible();
+  const chapters = page.getByRole('navigation', { name: 'Chapters' }).getByRole('button');
+  await expect(chapters).toHaveCount(12);
+  await chapters.filter({ hasText: 'The moment' }).click();
+  await expect(page.getByText('Recreated walkthrough · fictional study group')).toBeVisible();
+  await expect(chapters.filter({ hasText: 'The moment' })).toHaveAttribute('aria-current', 'step');
+  const audio = await page.evaluate(() => fetch('/tour/relay-tour.m4a', { method: 'HEAD' }).then((r) => r.status));
+  expect(audio).toBe(200);
+  await noHorizontalOverflow(page);
+  con.assertClean([/play\(\) failed|NotAllowedError|AbortError/i]);
+});
