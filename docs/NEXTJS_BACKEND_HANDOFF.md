@@ -1,5 +1,10 @@
 # Next.js ↔ FastAPI handoff (for Dev)
 
+> **Current hosting ($0):** the backend runs on Rithik's laptop and is published with Tailscale Funnel
+> at `https://<laptop>.<tailnet>.ts.net` (Rithik sends the exact URL). Set Vercel's server-only
+> `RELAY_API_ORIGIN` to that URL. It works only while the laptop and launcher are running; build and
+> test screens against `contracts/fixtures/` otherwise. See docs/LOCAL_PUBLIC_HOSTING.md.
+
 Rithik owns everything on the FastAPI side. This file is the exact contract the Next.js app needs.
 Nothing here was tested through a deployed Vercel domain yet: items marked **VERIFY** must be
 checked on the real domains before anyone claims browser login works.
@@ -10,7 +15,7 @@ Browser code calls relative paths only (`/api/...`, `/auth/...`). Next.js rewrit
 
 ```js
 // next.config.js (or .mjs) - RELAY_API_ORIGIN is a server-only Vercel env var, e.g.
-// https://relay-api-production.up.railway.app  (NOT NEXT_PUBLIC_*)
+// https://<laptop>.<tailnet>.ts.net (Tailscale Funnel)  (NOT NEXT_PUBLIC_*)
 module.exports = {
   async rewrites() {
     const api = process.env.RELAY_API_ORIGIN;

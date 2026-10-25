@@ -40,8 +40,29 @@ Fixes from the live run: bot no longer crashes on 403/50001 when not yet in the 
 join); question prompt warns not to type answers in the channel (a tester did); results use
 student-facing labels ("Initial attempt", "Fresh problem").
 
-Not yet exercised live: challenge/resolve, schedule/approve buttons, withdrawal, `close_round`,
-stale-button refusal, `/relay hint`, delete.
+Second live run (after rotating the bot token and service key): create -> join -> next ->
+`/relay challenge` paused the item -> host `/relay review` OK, member `/relay review` refused (403)
+-> paused `/relay question` -> `/relay resolve` resume -> `/relay delete confirm:True`. The earlier
+session in the same channel stayed byte-for-byte unchanged; the deleted session left no orphan
+jobs, memberships or audit rows; 0 tracebacks.
+
+Stale-button refusal: tester reported the "older or deleted session" message, but the API log shows
+no button request (a stale press is logged as 410), so it is NOT confirmed live; covered by
+`test_old_button_cannot_act_on_newer_session_in_same_channel`.
+
+Not yet exercised live: schedule/approve buttons, withdrawal (`/relay leave`), `close_round`,
+`/relay hint`, a logged stale-button 410.
+
+`main` fast-forwarded to 48d71dc (2026-10-24) after these checks; rithik/core continues from there.
+
+## Hosting decision (2026-10-24)
+
+Railway sign-ups closed; paid hosting and payment methods not authorized. Active plan: $0 laptop
+hosting (docs/LOCAL_PUBLIC_HOSTING.md). Added `relay.local_host` (init/check/start: public :8787
+without /internal, private :8000 for the bot, shared SQLite in %LOCALAPPDATA%), production hides
+/docs, preflight rejects SQLite in synced folders. Local rehearsal passed all boundary checks.
+Found: Docker (another project's Keycloak) and WSL hold :8080 on this laptop; public port is 8787
+and the launcher refuses to start on any busy loopback port.
 
 ## Checks actually run (2026-10-24, Windows, Python 3.14.3)
 

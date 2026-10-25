@@ -144,3 +144,10 @@ class Store:
 def default_db():
     """RELAY_DB wins; Railway/Heroku-style DATABASE_URL is accepted; local default is SQLite."""
     return os.getenv('RELAY_DB') or os.getenv('DATABASE_URL') or 'relay.sqlite3'
+
+def load_local_env():
+    """Read .env for local development only. In production every setting comes from the platform,
+    so a stray developer .env can never redirect the database or inject credentials."""
+    if os.getenv('RELAY_ENV', '').strip().lower() != 'production':
+        from dotenv import load_dotenv
+        load_dotenv()
