@@ -10,6 +10,20 @@ def _https_origin(value):
     u = urlparse(value or '')
     return u.scheme == 'https' and bool(u.netloc) and u.path in ('', '/') and not u.query
 
+def _durable_db(db):
+    if db.startswith(('postgres://', 'postgresql://')) or db.startswith('/data/'):
+        return True
+    return os.path.isabs(db) and db.endswith(('.sqlite3', '.db'))
+
+def _synced_folder(db):
+    # A live SQLite file inside a sync client's folder can be locked or corrupted mid-write.
+    return not db.startswith(('postgres://', 'postgresql://')) and any(x in db.lower() for x in ('onedrive', 'dropbox', 'google drive', 'icloud'))
+
+def _bot_base(base):
+    u = urlparse(base or '')
+    if u.scheme == 'https' and u.netloc: return True
+    return u.scheme == 'http' and u.hostname in ('127.0.0.1', 'localhost')  # same-machine private listener
+
 def checks(role, env):
     get = lambda k: (env.get(k) or '').strip()
     prod = get('RELAY_ENV').lower() == 'production'
@@ -20,25 +34,28 @@ def checks(role, env):
         db = get('RELAY_DB') or get('DATABASE_URL')
         out += [
             ('database set (RELAY_DB or DATABASE_URL)', bool(db), True),
-            ('database is PostgreSQL or a /data volume path', db.startswith(('postgres://', 'postgresql://')) or db.startswith('/data/'), True),
+            ('database is PostgreSQL, a /data volume, or an absolute local SQLite path', _durable_db(db), True),
+            ('database file is not inside a OneDrive/Dropbox synced folder', not _synced_folder(db), True),
             ('RELAY_PUBLIC_DEMO is false', get('RELAY_PUBLIC_DEMO').lower() in ('', 'false'), True),
             ('RELAY_SERVE_WEB is false (Vercel serves the UI)', get('RELAY_SERVE_WEB').lower() == 'false', False),
             ('RELAY_MODEL_PROVIDER is none (no paid inference)', get('RELAY_MODEL_PROVIDER').lower() in ('', 'none'), False),
             ('RELAY_DELIVERY_ENABLED is false (no live DMs)', get('RELAY_DELIVERY_ENABLED').lower() in ('', 'false'), False),
         ]
         oauth = [get(k) for k in ('DISCORD_CLIENT_ID', 'DISCORD_CLIENT_SECRET', 'RELAY_OAUTH_REDIRECT_URI')]
-        if any(oauth):
+        # Mirrors relay.auth: login turns on only when id, secret and redirect are all set.
+        if all(oauth):
             front = get('RELAY_FRONTEND_URL').rstrip('/')
             redirect = get('RELAY_OAUTH_REDIRECT_URI')
             origins = [o.strip().rstrip('/') for o in get('RELAY_ALLOWED_ORIGINS').split(',') if o.strip()]
             out += [
-                ('OAuth: client id, secret and redirect all set', all(oauth), True),
                 ('OAuth: DISCORD_CLIENT_ID is numeric', get('DISCORD_CLIENT_ID').isdigit(), True),
                 ('OAuth: RELAY_FRONTEND_URL is an https origin', _https_origin(front), True),
                 ('OAuth: redirect is <frontend>/auth/discord/callback', redirect == front + '/auth/discord/callback', True),
                 ('OAuth: RELAY_ALLOWED_ORIGINS are https origins', bool(origins) and all(_https_origin(o) for o in origins), True),
                 ('OAuth: frontend origin is allowed', front in origins, True),
             ]
+        elif any(oauth):
+            out.append(('OAuth incomplete: browser login stays disabled until id, secret and redirect are all set', False, False))
         else:
             out.append(('OAuth configured (browser login)', False, False))
     else:
@@ -46,7 +63,7 @@ def checks(role, env):
         out += [
             ('DISCORD_BOT_TOKEN set (3 segments)', get('DISCORD_BOT_TOKEN').count('.') == 2, True),
             ('DISCORD_GUILD_ID numeric', get('DISCORD_GUILD_ID').isdigit(), False),
-            ('RELAY_BASE_URL is https', urlparse(base).scheme == 'https' and bool(urlparse(base).netloc), True),
+            ('RELAY_BASE_URL is https, or the private loopback listener', _bot_base(base), True),
         ]
     return out
 

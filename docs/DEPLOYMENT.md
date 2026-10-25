@@ -1,5 +1,9 @@
 # RELAY deployment (Railway API + bot, Vercel Next.js, n8n)
 
+> **Paused (2026-10-24):** Railway sign-ups were closed and paid hosting is not authorized. The
+> active setup is $0 laptop hosting via Tailscale Funnel: docs/LOCAL_PUBLIC_HOSTING.md. This file
+> stays valid if a hosted backend is approved later.
+
 Status: configuration prepared and rehearsed locally (production mode on PostgreSQL 16 in Docker:
 unmigrated boot refused, explicit migration, preflight, `/ready`, demo/bearer/internal refusals,
 OAuth redirect + `__Host-` Secure cookie, bot-route cycle, restart persistence: 12/12 passed;

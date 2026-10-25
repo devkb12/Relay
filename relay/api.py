@@ -102,7 +102,9 @@ def make_app(db_path=None):
     core=Relay(store,secret=service_key)
     auth=Auth(store,load_config(production()),service_key)
     limits=RateLimiter()
-    app=FastAPI(title='RELAY API',version='0.2.0')
+    # Interactive docs are a local convenience; production does not publish them.
+    docs={'docs_url':None,'redoc_url':None,'openapi_url':None} if production() else {}
+    app=FastAPI(title='RELAY API',version='0.2.0',**docs)
     app.state.core,app.state.auth,app.state.limits=core,auth,limits
 
     @app.middleware('http')
@@ -365,7 +367,10 @@ def make_app(db_path=None):
         def root(): return FileResponse(index)
     else:
         @app.get('/')
-        def root(): return {'service':'RELAY API','docs':'/docs','health':'/health'}
+        def root(): return {'service':'RELAY API','health':'/health'}
+    if os.getenv('RELAY_EXPOSE_INTERNAL','true').strip().lower()=='false':
+        # Public listener (e.g. behind Tailscale Funnel): server-to-server routes do not exist here at all.
+        app.router.routes=[r for r in app.router.routes if not getattr(r,'path','').startswith('/internal')]
     return app
 
 def presentation_view(v):

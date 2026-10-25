@@ -55,6 +55,15 @@ Not yet exercised live: schedule/approve buttons, withdrawal (`/relay leave`), `
 
 `main` fast-forwarded to 48d71dc (2026-10-24) after these checks; rithik/core continues from there.
 
+## Hosting decision (2026-10-24)
+
+Railway sign-ups closed; paid hosting and payment methods not authorized. Active plan: $0 laptop
+hosting (docs/LOCAL_PUBLIC_HOSTING.md). Added `relay.local_host` (init/check/start: public :8787
+without /internal, private :8000 for the bot, shared SQLite in %LOCALAPPDATA%), production hides
+/docs, preflight rejects SQLite in synced folders. Local rehearsal passed all boundary checks.
+Found: Docker (another project's Keycloak) and WSL hold :8080 on this laptop; public port is 8787
+and the launcher refuses to start on any busy loopback port.
+
 ## Checks actually run (2026-10-24, Windows, Python 3.14.3)
 
 | Command | Result |
