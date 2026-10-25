@@ -17,6 +17,7 @@ KEY=os.getenv('RELAY_SERVICE_KEY','')
 SID=r'[A-Za-z0-9_-]{6,40}'
 STATUS_LABEL={'correct':'Correct','incorrect':'Not correct','skipped':'Skipped','missing':'No response recorded',
               'withdrawn':'Withdrawn','invalidated':'Item discarded; not scored'}
+PHASE_LABEL={'diagnostic':'Initial attempt','transfer':'Fresh problem','retention':'Delayed practice'}
 
 class RelayFailure(Exception): pass
 
@@ -164,10 +165,22 @@ class RelayClient(discord.Client):
     async def setup_hook(self):
         self.http_client=httpx.AsyncClient(timeout=httpx.Timeout(20,connect=5),limits=httpx.Limits(max_connections=20))
         self.add_dynamic_items(AnswerButton,ApproveButton)
-        guild=os.getenv('DISCORD_GUILD_ID','')
-        if guild:
-            obj=discord.Object(id=int(guild)); self.tree.copy_global_to(guild=obj); await self.tree.sync(guild=obj)
-        else: await self.tree.sync()
+        await self.sync_commands()
+    async def sync_commands(self):
+        guild=os.getenv('DISCORD_GUILD_ID','').strip()
+        try:
+            if guild:
+                obj=discord.Object(id=int(guild)); self.tree.copy_global_to(guild=obj)
+                synced=await self.tree.sync(guild=obj)
+                print(f'RELAY synced {len(synced)} slash command group(s) to the configured guild.')
+            else:
+                synced=await self.tree.sync(); print(f'RELAY synced {len(synced)} global command group(s); global commands can take time to appear.')
+        except discord.Forbidden:
+            # 50001 Missing Access: the bot is not in that guild yet. Stay connected and sync on join.
+            print('RELAY cannot register commands: the bot is not in DISCORD_GUILD_ID yet. Invite it with scopes bot+applications.commands; commands sync automatically on join.')
+    async def on_guild_join(self,guild):
+        if str(guild.id)==os.getenv('DISCORD_GUILD_ID','').strip():
+            await self.sync_commands()
     async def close(self):
         if self.http_client: await self.http_client.aclose()
         await super().close()
@@ -222,12 +235,14 @@ async def question(interaction:discord.Interaction):
         if not q:
             text='No question is open. Stage: '+s['stage']
             if s['my_results']:
-                text+='\n**Your private results**\n'+'\n'.join(f'- {k}: {STATUS_LABEL[v["status"]]}. {v["explanation"]}' for k,v in s['my_results'].items())
+                text+='\n**Your private results**\n'+'\n'.join(f'- {PHASE_LABEL[k]}: {STATUS_LABEL[v["status"]]}. {v["explanation"]}' for k,v in s['my_results'].items())
+                text+='\nTwo different problems, one session: useful practice evidence, not proof of mastery.'
             await interaction.followup.send(clip(text),ephemeral=True); return
         if s.get('my_answer'):
             await interaction.followup.send('Your attempt for this question is locked. Waiting for the group.',ephemeral=True); return
         kind='**Fresh application**: a different problem on the same idea.\n\n' if s['stage']=='transfer' else ''
-        text=kind+safe(q['prompt'],1200)+'\n\n'+'\n'.join(f'**{k}.** {safe(v,200)}' for k,v in q['options'].items())
+        text=(kind+safe(q['prompt'],1200)+'\n\n'+'\n'.join(f'**{k}.** {safe(v,200)}' for k,v in q['options'].items())
+              +'\n\n*Answer with the button below. Please do not type your answer in the channel; everyone can see channel messages.*')
         await interaction.followup.send(clip(text),view=single(AnswerButton(s['id'],q['id'])),ephemeral=True)
     except Exception as exc: await fail(interaction,exc)
 

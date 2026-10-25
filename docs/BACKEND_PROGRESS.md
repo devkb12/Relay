@@ -20,10 +20,28 @@ Last updated: 2026-10-24, branch `rithik/core`. Keep this current; another sessi
 | P0 | Model: concurrency limit, 1 retry on transient errors, output budget, choice-letter leak guard, unlabeled misconceptions, sanitized telemetry, fallback reason | Done (mocked transport) |
 | P0 | Real HTTP integration test (uvicorn process, production mode, restart) | Done |
 | P0 | n8n: purge branch, deterministic ids; executed in n8n 2.44.6 (Docker) | Done (dry-run) |
-| P0 | **Two real Discord accounts complete one cycle** | **BLOCKED: needs bot token + test server** |
+| P0 | **Two real Discord accounts complete one cycle** | **Done live 2026-10-24** (see below) |
 | P0 | Deployed Railway API/bot, Vercel proxy, live OAuth round trip | Not started (needs accounts/authorization) |
 | P0 | Live model call | Not started (needs verified model id + authorization for paid calls) |
 | P1 | Question-pack authoring, Google Calendar, more concepts, push updates | Deferred |
+
+## Live Discord verification (2026-10-24, local API + bot, private test server)
+
+Bot Relay#3368, guild-scoped command sync (1 group, 18 subcommands confirmed via Discord API).
+Two real accounts (host + one member): create -> join -> private answers via the modal-select form
+-> early `/relay next` correctly refused (1 not responded) -> discussion card -> peer `/relay explain`
+-> fresh application -> private answers -> debrief card (group results hidden: <3 paired) ->
+private results via `/relay question`. Stored state: 2/2 answers each round, 0 missing, 1 peer
+explanation, distinct items, member ids are verified Discord ids, 0 jobs (no consent). Bot restarted
+mid-session without losing the session. 0 tracebacks in bot/API logs. Model `none`, delivery off,
+API bound to 127.0.0.1.
+
+Fixes from the live run: bot no longer crashes on 403/50001 when not yet in the guild (syncs on
+join); question prompt warns not to type answers in the channel (a tester did); results use
+student-facing labels ("Initial attempt", "Fresh problem").
+
+Not yet exercised live: challenge/resolve, schedule/approve buttons, withdrawal, `close_round`,
+stale-button refusal, `/relay hint`, delete.
 
 ## Checks actually run (2026-10-24, Windows, Python 3.14.3)
 
@@ -60,7 +78,6 @@ Mocked/simulated, not live: Discord OAuth token/user endpoints, Gemini transport
 
 ## Next executable step
 
-1. Rithik: create a Discord application + bot in the Developer Portal, invite it to a private test
-   server (scopes `bot applications.commands`), put `DISCORD_BOT_TOKEN` and `DISCORD_GUILD_ID` in `.env`.
-2. Run API + bot locally (docs/DEMO_RUNBOOK.md) and complete one cycle with two accounts.
-   Record the result here. Then deploy to Railway per docs/DEPLOYMENT.md.
+1. Live-test the remaining Discord paths listed above (challenge/resolve, schedule + approve,
+   stale button after delete) with the same two accounts.
+2. Deploy API + bot to Railway per docs/DEPLOYMENT.md (needs Rithik's authorization and account).
