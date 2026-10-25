@@ -17,7 +17,7 @@ export function FacilitatorNote({ hint, signal }: { hint: NonNullable<SessionVie
   return (
     <aside className="rounded-[16px] border border-line bg-paper px-5 py-4" aria-label="Facilitator note from RELAY">
       <div className="flex flex-wrap items-center gap-2 text-sm">
-        <RelayMark className="size-5 text-ink" />
+        <RelayMark className="size-5" />
         <strong>RELAY</strong>
         {/* hint.mode verbatim, so a curated fallback never passes as live AI. */}
         <span className="mono rounded-full border border-line px-2 py-0.5 text-xs text-muted">{hint.mode}</span>

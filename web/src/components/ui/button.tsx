@@ -3,18 +3,19 @@ import { Slot } from 'radix-ui';
 import { cn } from '@/lib/utils';
 
 export const buttonVariants = cva(
-  'press inline-flex min-h-11 items-center justify-center gap-2 rounded-[12px] px-4 text-[0.95rem] font-semibold whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-60 [&_svg]:size-[18px] [&_svg]:shrink-0',
+  'press inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-[0.95rem] font-semibold whitespace-nowrap disabled:cursor-not-allowed disabled:opacity-55 [&_svg]:size-[18px] [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        primary: 'bg-blue text-white hover:bg-blue-strong',
-        secondary: 'border border-line-strong bg-card text-text hover:border-text/40',
+        primary: 'bg-blue text-white shadow-[0_6px_16px_-8px_rgba(46,84,240,0.7)] hover:bg-blue-strong',
+        dark: 'bg-ink text-white shadow-[0_8px_20px_-10px_rgba(13,27,62,0.8)] hover:bg-ink-deep',
+        secondary: 'border border-line-strong bg-card text-text hover:border-text/40 hover:shadow-[var(--shadow-soft)]',
         quiet: 'text-text hover:bg-text/5',
         ink: 'bg-on-ink text-ink hover:bg-white',
         danger: 'border border-line-strong bg-card text-text hover:border-text/50',
         done: 'border border-green/30 bg-green-tint text-green',
       },
-      size: { md: '', sm: 'min-h-9 px-3 text-sm', lg: 'min-h-12 px-5 text-base' },
+      size: { md: '', sm: 'min-h-9 px-3.5 text-sm', lg: 'min-h-13 px-7 text-base' },
     },
     defaultVariants: { variant: 'primary', size: 'md' },
   },

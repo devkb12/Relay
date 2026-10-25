@@ -53,6 +53,7 @@ test('synthetic walkthrough renders every step, labeled, and writes nothing', as
 
 test('landing track is keyboard driven and labeled synthetic', async ({ page }) => {
   await page.goto('/');
+  await page.locator('#track').scrollIntoViewIfNeeded(); // the Track loads when it nears the viewport
   await page.getByRole('tab', { name: /Explain together/ }).focus();
   await page.keyboard.press('ArrowRight');
   await expect(page.getByRole('tab', { name: /Test understanding/ })).toHaveAttribute('aria-selected', 'true');

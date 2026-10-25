@@ -1,35 +1,38 @@
 @import "tailwindcss";
 
-/* RELAY tokens. Color carries meaning, never decoration:
-   blue = your next action / live track · violet = a handoff between people · amber = paused/under review
-   green = a step that observably happened · ink = rails, headers, projector. No color describes ability. */
+/* RELAY tokens, drawn from the logo: deep wordmark navy, a violet → electric blue → cyan blend,
+   and the tassel's gold. Meaning stays fixed: blue = your next action / live track · violet = a
+   handoff between people · gold/amber = paused or under review · green = a step that observably
+   happened. The blend is brand atmosphere only; it never encodes a person's ability. */
 @theme {
-  --color-ink: #152237;
-  --color-ink-deep: #0e1729;
-  --color-ink-line: #2a3a55;
-  --color-paper: #f7f4ee;
-  --color-card: #fffdf8;
-  --color-text: #1e2535;
-  --color-muted: #5f6878;
-  --color-line: #e6e0d6;
-  --color-line-strong: #cfc6b8;
-  --color-blue: #375ce0;
-  --color-blue-strong: #2b4bc4;
+  --color-ink: #0d1b3e;
+  --color-ink-deep: #081230;
+  --color-ink-line: #26355f;
+  --color-paper: #f6f7fb;
+  --color-card: #ffffff;
+  --color-text: #141b34;
+  --color-muted: #555e78;
+  --color-line: #e4e7f0;
+  --color-line-strong: #cbd0df;
+  --color-blue: #2e54f0;
+  --color-blue-strong: #2242cc;
   --color-blue-tint: #edf1ff;
-  --color-violet: #6d4aff;
-  --color-violet-tint: #f1edff;
-  --color-amber: #8a581b;
-  --color-amber-tint: #fff3df;
-  --color-green: #13715b;
-  --color-green-tint: #e4f2ec;
-  --color-on-ink: #f2efe8;
-  --color-on-ink-muted: #b4bccb;
+  --color-violet: #6b35e8;
+  --color-violet-tint: #f2edff;
+  --color-cyan: #1fb8ec;
+  --color-gold: #f5b12e;
+  --color-amber: #8a5600;
+  --color-amber-tint: #fff3d6;
+  --color-green: #11705a;
+  --color-green-tint: #e3f3ec;
+  --color-on-ink: #eef1fa;
+  --color-on-ink-muted: #aeb8d3;
 
   --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-atkinson), "Segoe UI", system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Mono", Consolas, monospace;
 
-  --radius-card: 20px;
+  --radius-card: 22px;
   --radius-control: 12px;
 
   --ease-enter: cubic-bezier(0.2, 0, 0, 1);
@@ -39,23 +42,40 @@
   --breakpoint-desk: 75rem;
 }
 
+:root {
+  --grad-brand: linear-gradient(110deg, #7a3ff2 0%, #3a5bff 48%, #1fb8ec 100%);
+  --grad-brand-soft: linear-gradient(110deg, rgba(122, 63, 242, 0.14), rgba(58, 91, 255, 0.12) 48%, rgba(31, 184, 236, 0.14));
+  --shadow-float: 0 1px 2px rgba(13, 27, 62, 0.06), 0 18px 48px -18px rgba(13, 27, 62, 0.28);
+  --shadow-soft: 0 1px 2px rgba(13, 27, 62, 0.05), 0 8px 24px -14px rgba(13, 27, 62, 0.18);
+}
+
 @layer base {
-  html { background: var(--color-paper); color: var(--color-text); -webkit-text-size-adjust: 100%; }
+  html { background: var(--color-paper); color: var(--color-text); -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 5rem; }
   body { font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; min-height: 100dvh; }
-  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.2; text-wrap: balance; }
-  ::selection { background: var(--color-blue-tint); }
-  :focus-visible { outline: 2px solid var(--color-blue); outline-offset: 2px; border-radius: 4px; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; text-wrap: balance; }
+  /* Accent words use the true italic face (loaded on demand). */
+  h1 em, h2 em, h3 em, .font-display.italic, em.font-display { font-family: var(--font-newsreader-italic), var(--font-display); font-style: italic; }
+  ::selection { background: #dfe6ff; }
+  :focus-visible { outline: 2px solid var(--color-blue); outline-offset: 2px; border-radius: 6px; }
   .on-ink :focus-visible { outline-color: #9db2ff; }
   button, [role="button"], a { -webkit-tap-highlight-color: transparent; }
 }
 
 @layer components {
   .card { background: var(--color-card); border: 1px solid var(--color-line); border-radius: var(--radius-card); }
-  .eyebrow { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); }
+  .card-float { background: var(--color-card); border: 1px solid var(--color-line); border-radius: var(--radius-card); box-shadow: var(--shadow-float); }
+  .eyebrow { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted); }
   .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
   .measure { max-width: 66ch; }
-  .press { transition: transform 120ms var(--ease-enter), background-color 120ms var(--ease-enter), border-color 120ms var(--ease-enter); }
-  .press:active:not(:disabled) { transform: translateY(1px); }
+  .press { transition: transform 120ms var(--ease-enter), background-color 160ms var(--ease-enter), border-color 160ms var(--ease-enter), box-shadow 160ms var(--ease-enter), color 160ms var(--ease-enter); }
+  .press:active:not(:disabled) { transform: translateY(1px) scale(0.99); }
+  /* The logo's blend, used as text fill for one accent word at a time. */
+  .text-brand { background: var(--grad-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .bg-brand { background: var(--grad-brand); }
+  .bg-brand-soft { background: var(--grad-brand-soft); }
+  .ring-brand { position: relative; }
+  .ring-brand::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: var(--grad-brand);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
 }
 
 /* Drawers enter from their own edge (phones: full-screen panel rises from the bottom). */
@@ -64,6 +84,35 @@
   @keyframes relay-slide-in { from { transform: translateX(100%); } to { transform: none; } }
 }
 
+/* Page entrance for app routes (template.tsx remounts on navigation). Settles, never bounces. */
+@keyframes relay-page-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.page-in { animation: relay-page-in 260ms var(--ease-enter) both; }
+
+/* Landing hero entrance: one orchestrated moment on load. Transform only: the text is visible from the
+   first frame (so it counts as painted for LCP) and simply glides into place. */
+@keyframes relay-rise { from { transform: translateY(14px); } to { transform: none; } }
+.rise { animation: relay-rise 640ms var(--ease-enter) both; }
+.rise-1 { animation-delay: 60ms; } .rise-2 { animation-delay: 140ms; } .rise-3 { animation-delay: 220ms; } .rise-4 { animation-delay: 320ms; } .rise-5 { animation-delay: 440ms; }
+
+/* Scroll reveals. Only active once the observer script marks <html class="reveal-on">, so content
+   is fully visible without JavaScript; each element reveals once and stays. */
+.reveal-on [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 600ms var(--ease-enter), transform 600ms var(--ease-enter); }
+.reveal-on [data-reveal][data-in] { opacity: 1; transform: none; }
+/* Group-chat chaos that settles into order when it scrolls into view. */
+.reveal-on [data-settle] > * { transition: transform 720ms var(--ease-enter), opacity 520ms var(--ease-enter); }
+.reveal-on [data-settle]:not([data-in]) > * { transform: translate(var(--dx, 0), var(--dy, 0)) rotate(var(--r, 0deg)); }
+.reveal-on [data-settle][data-in] > * { transform: none; }
+.reveal-on [data-settle][data-in] > *:nth-child(2) { transition-delay: 60ms; }
+.reveal-on [data-settle][data-in] > *:nth-child(3) { transition-delay: 120ms; }
+.reveal-on [data-settle][data-in] > *:nth-child(4) { transition-delay: 180ms; }
+.reveal-on [data-settle][data-in] > *:nth-child(5) { transition-delay: 240ms; }
+
+/* Floating cards in the hero drift gently once, then rest (no loops). */
+@keyframes relay-float-in { from { transform: translateY(18px) scale(0.98); } to { transform: none; } }
+.float-in { animation: relay-float-in 760ms var(--ease-enter) both; }
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; scroll-behavior: auto !important; }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; animation-delay: 0ms !important; scroll-behavior: auto !important; }
+  .reveal-on [data-reveal], .reveal-on [data-settle] > * { opacity: 1 !important; transform: none !important; }
 }

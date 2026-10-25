@@ -2,28 +2,40 @@
  * Original RELAY SVG set. 2px round-capped lines; stations, nodes and a baton.
  * Every illustration has a text alternative or sits beside text that says the same thing.
  */
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 const line = { stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, fill: 'none' };
 
-/** Simplified R-with-cap mark (DRAFT, awaiting approval; the PNG logo wins once added). */
-export function RelayMark({ className, title }: { className?: string; title?: string }) {
+/**
+ * The RELAY logo mark (the R with the cap, from the brand file). On dark surfaces it sits on a
+ * white tile so the navy cap stays visible.
+ */
+export function RelayMark({ className, tile, title }: { className?: string; tile?: boolean; title?: string }) {
+  const img = <Image src="/brand/relay-mark.png" alt={title ?? ''} width={256} height={263} className={cn('h-full w-auto', !tile && className)} priority />;
+  if (!tile) return img;
+  return <span className={cn('grid place-items-center rounded-[10px] bg-white p-1', className)}>{img}</span>;
+}
+
+/** Mark + "Relay" set in a heavy sans like the logo's wordmark. */
+export function Wordmark({ className, tone = 'ink' }: { className?: string; tone?: 'ink' | 'paper' }) {
   return (
-    <svg viewBox="0 0 32 32" className={className} role={title ? 'img' : undefined} aria-hidden={title ? undefined : true} aria-label={title}>
+    <span className={cn('inline-flex items-center gap-2.5 font-sans text-[1.35rem] leading-none font-extrabold tracking-[-0.01em]', tone === 'paper' ? 'text-on-ink' : 'text-ink', className)}>
+      <RelayMark className={tone === 'paper' ? 'size-9' : 'h-9'} tile={tone === 'paper'} />
+      Relay
+    </span>
+  );
+}
+
+/** Small simplified glyph (draft line drawing) for places where the full-color mark would be too busy. */
+export function RelayGlyph({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} aria-hidden>
       <path d="M4 9.5 16 4l12 5.5-12 5.5z" fill="currentColor" />
       <path d="M26 10.5v4.5" {...line} strokeWidth={1.6} />
       <path d="M10.5 13v2.6c0 1.2 2.5 2 5.5 2s5.5-.8 5.5-2V13" {...line} strokeWidth={1.8} />
       <path d="M11 29V19.5h5.2a3.6 3.6 0 0 1 0 7.2H11M15.6 26.7 20.5 29" {...line} strokeWidth={2.6} strokeLinejoin="round" />
     </svg>
-  );
-}
-
-export function Wordmark({ className, tone = 'ink' }: { className?: string; tone?: 'ink' | 'paper' }) {
-  return (
-    <span className={cn('inline-flex items-center gap-2 font-sans text-lg font-extrabold tracking-[0.14em]', tone === 'paper' ? 'text-on-ink' : 'text-ink', className)}>
-      <RelayMark className="size-7" />
-      RELAY
-    </span>
   );
 }
 

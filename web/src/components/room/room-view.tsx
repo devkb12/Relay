@@ -79,6 +79,7 @@ function Rail({ basePath }: { basePath: string }) {
   const me = view.members.find((m) => m.is_me);
   return (
     <aside className="on-ink sticky top-0 hidden h-dvh flex-col gap-6 overflow-y-auto bg-ink px-6 py-6 text-on-ink desk:flex" aria-label="Session">
+      <span aria-hidden className="bg-brand absolute inset-x-0 top-0 h-1" />
       <Link href="/" className="w-fit"><Wordmark tone="paper" /></Link>
       <RoomCode tone="ink" />
       <ModeChip mode={mode} health={health} className="w-fit" />
@@ -127,7 +128,7 @@ function PhoneStrip({ basePath }: { basePath: string }) {
   return (
     <div className="sticky top-0 z-20 border-b border-line bg-card/95 md:hidden">
       <div className="flex items-center justify-between gap-2 px-4 pt-2">
-        <Link href="/" className="text-sm font-extrabold tracking-[0.14em] text-ink">RELAY</Link>
+        <Link href="/" aria-label="Relay home"><Wordmark className="text-[1.05rem] [&_img]:h-7" /></Link>
         <ModeChip mode={mode} className="text-[0.7rem]" />
       </div>
       <nav aria-label="Session stations" className="px-2 pb-1">
