@@ -2,8 +2,12 @@
 
 > **Current hosting ($0):** the backend runs on Rithik's laptop and is published with Tailscale Funnel
 > at `https://<laptop>.<tailnet>.ts.net` (Rithik sends the exact URL). Set Vercel's server-only
-> `RELAY_API_ORIGIN` to that URL. It works only while the laptop and launcher are running; build and
+> `RELAY_API_BASE_URL` to that URL. It works only while the laptop and launcher are running; build and
 > test screens against `contracts/fixtures/` otherwise. See docs/LOCAL_PUBLIC_HOSTING.md.
+>
+> **Status:** the Next.js app in `web/src` implements this contract (route-handler proxy, OAuth links,
+> CSRF in memory, 409 recovery, presentation view). Verified locally against FastAPI with Playwright;
+> not yet verified on a Vercel domain.
 
 Rithik owns everything on the FastAPI side. This file is the exact contract the Next.js app needs.
 Nothing here was tested through a deployed Vercel domain yet: items marked **VERIFY** must be
@@ -11,27 +15,18 @@ checked on the real domains before anyone claims browser login works.
 
 ## 1. Proxy: same origin, server-side destination
 
-Browser code calls relative paths only (`/api/...`, `/auth/...`). Next.js rewrites them to Railway:
+Browser code calls relative paths only (`/api/...`, `/auth/...`). Route handlers in
+`web/src/app/{api,auth}/[...path]/route.ts` and `web/src/app/health/route.ts` forward them to the
+backend (`web/src/lib/proxy.ts`). The destination is read at request time from the server-only
+`RELAY_API_BASE_URL` (e.g. `https://<laptop>.<tailnet>.ts.net`, never `NEXT_PUBLIC_*`). An unset or
+unreachable backend becomes a 503 the UI explains; `/connection` (not proxied) tells the UI whether a
+backend is configured. Route handlers were chosen over `next.config` rewrites for exactly that
+(docs/design/DECISIONS.md).
 
-```js
-// next.config.js (or .mjs) - RELAY_API_ORIGIN is a server-only Vercel env var, e.g.
-// https://<laptop>.<tailnet>.ts.net (Tailscale Funnel)  (NOT NEXT_PUBLIC_*)
-module.exports = {
-  async rewrites() {
-    const api = process.env.RELAY_API_ORIGIN;
-    return [
-      { source: '/api/:path*', destination: `${api}/api/:path*` },
-      { source: '/auth/:path*', destination: `${api}/auth/:path*` },
-      { source: '/health', destination: `${api}/health` },
-    ];
-  },
-};
-```
-
-- **Never** add a rewrite for `/internal/*`. Never put `RELAY_SERVICE_KEY`, bot tokens or model keys
+- **Never** forward `/internal/*` (the proxy has no route for it). Never put `RELAY_SERVICE_KEY`, bot tokens or model keys
   in Vercel env vars or any `NEXT_PUBLIC_*` variable.
 - Do not add Next.js API routes that re-implement scoring, stages, or session state.
-- **VERIFY** on Vercel: the rewrite forwards `Cookie`, `Origin`, `X-CSRF-Token` request headers and
+- **VERIFY** on Vercel: the proxy forwards `Cookie`, `Origin`, `X-CSRF-Token` request headers and
   passes back `Set-Cookie` and `302 Location` unchanged.
 
 ## 2. Login flow
@@ -39,7 +34,7 @@ module.exports = {
 1. "Sign in with Discord" is a normal link (full page navigation):
    `<a href={`/auth/discord/login?return_to=${encodeURIComponent('/room/' + id)}`}>`.
    `return_to` must be a path starting with `/`; anything else is replaced with `/`.
-2. Discord redirects to `https://<frontend>/auth/discord/callback`, which the rewrite sends to FastAPI.
+2. Discord redirects to `https://<frontend>/auth/discord/callback`, which the proxy sends to FastAPI.
    FastAPI sets the session cookie and redirects to `RELAY_FRONTEND_URL + return_to`.
 3. `?login=cancelled` on `/` means the user cancelled or Discord returned an error. Show a calm retry.
 4. On load call `GET /auth/me`:
@@ -48,7 +43,7 @@ module.exports = {
    - `authenticated:true` → keep `csrf_token` **in memory** (React state/context). Not localStorage.
 5. Logout: `POST /auth/logout` with `X-CSRF-Token`, then clear local state.
 
-Backend config that must match (Rithik sets on Railway):
+Backend config that must match (Rithik sets in the backend `.env`):
 
 | Setting | Value |
 |---|---|
@@ -109,10 +104,11 @@ async function relay(path: string, init: RequestInit = {}, csrf?: string) {
 
 ## 6. Local development
 
-- `uvicorn relay.api:app --reload --host 127.0.0.1 --port 8000`, Next dev server on `localhost:3000`
-  with `RELAY_API_ORIGIN=http://127.0.0.1:8000`.
-- Local OAuth: register `http://localhost:3000/auth/discord/callback` in the Discord portal and set
-  `RELAY_OAUTH_REDIRECT_URI` / `RELAY_FRONTEND_URL` / `RELAY_ALLOWED_ORIGINS` to `http://localhost:3000`.
+- `uvicorn relay.api:app --reload --host 127.0.0.1 --port 8000`, Next server on `127.0.0.1:3001`
+  (`npx next dev -H 127.0.0.1 -p 3001`, or `npm run build` then `npx next start -H 127.0.0.1 -p 3001`)
+  with `RELAY_API_BASE_URL=http://127.0.0.1:8000`. Port 3000 is often taken by Docker on Rithik's laptop.
+- Local OAuth: register `http://localhost:3001/auth/discord/callback` in the Discord portal and set
+  `RELAY_OAUTH_REDIRECT_URI` / `RELAY_FRONTEND_URL` / `RELAY_ALLOWED_ORIGINS` to `http://localhost:3001`.
   Cookies are non-Secure locally (`relay_session`); production forces Secure `__Host-relay_session`.
 - Without OAuth you can still build every screen from `contracts/fixtures/*.json` (label "fixture mode").
 - The legacy static demo (bearer tokens, identity switcher) works only with `RELAY_PUBLIC_DEMO=true`
@@ -120,7 +116,8 @@ async function relay(path: string, init: RequestInit = {}, csrf?: string) {
 
 ## 7. Integration checklist (fill in with real results)
 
-- [ ] Vercel `RELAY_API_ORIGIN` set (server-only); rewrites deployed; no `/internal` rewrite
+- [x] Proxy route handlers implemented; no `/internal` route (verified locally, Playwright)
+- [ ] Vercel `RELAY_API_BASE_URL` set (server-only); root directory `web`
 - [ ] Login round trip on the production domain; cookie is `__Host-relay_session`, HttpOnly, Secure
 - [ ] `/auth/me` shows signed-in; logout works; a second browser stays signed out
 - [ ] Member opens their session; a non-member Discord account gets 403

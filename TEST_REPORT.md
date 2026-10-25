@@ -90,3 +90,22 @@ record a real demonstration, and accurately describe all remaining limits in the
 - Mocked only: Discord OAuth endpoints, Gemini transport, Discord DM sending.
 - NOT verified: a real Discord session, a deployed domain, live OAuth, a live model call, a real DM.
   See docs/BACKEND_PROGRESS.md.
+
+## Live Discord and integration checks (2026-10-24)
+
+- Live Discord, private test server, two real accounts: create → join → private answers →
+  discussion → fresh problem → debrief; challenge → review → resolve; host delete. Passed.
+  The stale-button 410 path was not exercised live (covered by pytest).
+- Merged tree (backend + Next.js app): `python -m pytest` 140 passed, 5 skipped; compileall OK;
+  `node --check web/app.js` OK; `python scripts/browser_check.py` (legacy UI) passed.
+
+## Next.js web app checks (2026-10-24, web/)
+
+- `npm run lint` 0 problems; `npm run typecheck` 0 errors; `npm test` 80 passed (Vitest:
+  fixture schemas, proxy, client, errors); `npm run build` OK.
+- `npm run test:e2e` 20 passed, run twice (Playwright vs a temporary local FastAPI in demo mode):
+  four-student live loop on desktop 1280 and phone 390, identity switching, 409 recovery,
+  not-connected/503 states, axe accessibility at 360–1920 px, reduced motion, no horizontal overflow.
+- Throttled phone profile, landing: LCP 2.3 s, CLS ≈ 0, first-load JS ~182 KB gzipped.
+- NOT verified: a Vercel deployment, Discord sign-in through the web app on a real domain,
+  screen-reader testing by a person, real students.

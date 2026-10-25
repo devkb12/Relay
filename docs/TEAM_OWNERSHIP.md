@@ -5,7 +5,7 @@ This file supersedes the earlier plan that assigned Discord/n8n to Dev.
 | Owner | Files | Deliverable |
 |---|---|---|
 | Rithik | relay/, n8n/, data/, contracts/, tests/, .github/, Python tooling, root configuration | All core behavior, Discord integration, AI, scheduling, permissions, jobs, deployment |
-| Dev | web/, web/assets/, docs/design/, scripts/browser_check.py, optional tests/frontend/ | Frontend design, original graphics, motion, responsive UX, API-driven controls |
+| Dev | web/ (Next.js app in web/src, its tests in web/tests), docs/design/, scripts/browser_check.py | Frontend design, original graphics, motion, responsive UX, API-driven controls |
 | Both review | docs/API_CONTRACT.md, README, demo acceptance | Integration without silently changing the other owner's interface |
 
 ## Branches
@@ -23,9 +23,9 @@ unsafe HTML, for model/source/peer content. The Next.js app proxies /api and /au
 FastAPI (docs/NEXTJS_BACKEND_HANDOFF.md); /internal is never proxied.
 
 ## Important shared boundary
-The existing browser identity selector is local test infrastructure, not Discord login. Public
-web access and Discord-to-web linking require Rithik's server-verified identity/membership flow.
-Dev can build a screen for that flow, but cannot claim authentication exists before it does.
+The local identity selector (RELAY_PUBLIC_DEMO) is test infrastructure, not Discord login.
+Real browser identity is Discord OAuth (relay/auth.py), implemented and wired into the Next.js app,
+but not yet verified on a deployed domain.
 Backend authorization remains necessary even when a control is hidden in the frontend.
 
 ## Checkpoints

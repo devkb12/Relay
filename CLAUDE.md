@@ -19,10 +19,13 @@ Use rithik/core and dev/uiux branches after the bootstrap is on main. Do not pus
 other owner's branch. Main is the stable integration branch, not simultaneous scratch space.
 
 ## Interface and stack
-Backend: FastAPI + SQLite (single instance on a volume) or PostgreSQL + discord.py, on Railway.
-Frontend: Dev is migrating web/ to Next.js on Vercel (latest team decision). The API must start
-and pass tests without web/ or a Node build; the legacy static UI is served only if present.
-Browser calls go through a same-origin Next.js proxy; see docs/NEXTJS_BACKEND_HANDOFF.md.
+Backend: FastAPI + SQLite or PostgreSQL + discord.py. Hosting is $0: laptop + Tailscale Funnel
+(python -m relay.local_host; docs/LOCAL_PUBLIC_HOSTING.md). Railway is documented but paused.
+Frontend: Next.js 16 App Router in web/src (Vercel-ready, root directory web). Design decisions
+are in docs/design/DECISIONS.md. The API must start and pass tests without web/ or a Node build;
+the legacy static UI (web/index.html, app.js, style.css) is served only if present.
+Browser calls go through same-origin Next.js route handlers reading RELAY_API_BASE_URL at request
+time; see docs/NEXTJS_BACKEND_HANDOFF.md. Never proxy /internal/*.
 Do not add a second model provider, microservices, or a multi-agent framework without a concrete need.
 The actual API and synthetic state fixtures are under contracts/. Do not invent endpoints.
 Core stages: lobby, diagnostic, discussion, transfer, debrief. Challenge is a paused overlay.
@@ -45,7 +48,9 @@ Create an isolated Python environment; use its interpreter. Run python -m pytest
 python -m compileall -q relay scripts. Lint: python -m ruff check --select F,E9 relay scripts.
 PostgreSQL mode: set RELAY_TEST_POSTGRES_URL to a disposable database (see tests/test_postgres.py).
 n8n wiring: python scripts/n8n_local_check.py . (Docker). Regenerate contracts after API changes:
-python -m scripts.export_contract. Frontend checks belong to Dev (web/, scripts/browser_check.py).
+python -m scripts.export_contract. Frontend (in web/): npm run lint, typecheck, test, build, and
+npm run test:e2e (RELAY_PYTHON points at the venv interpreter; starts its own FastAPI + Next).
+After contract changes run npm run sync-fixtures. Legacy UI: python scripts/browser_check.py.
 Progress, blockers and the next step live in docs/BACKEND_PROGRESS.md; keep it current.
 Do not weaken tests to obtain a green result. Record exact commands, counts and limitations.
 Local tests do not verify Discord, model inference, n8n execution, or student outcomes.

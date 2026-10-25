@@ -12,7 +12,7 @@ locally. Leave them in place; the Next.js app lives in `src/`.
 cd web
 npm install
 cp .env.example .env.local   # optional; see below
-npm run dev                  # http://localhost:3000
+npm run dev -- -H 127.0.0.1 -p 3001   # http://127.0.0.1:3001 (3000 is often taken by Docker)
 ```
 
 Node 24 was used. Never put secrets in `web/`: the legacy FastAPI mount can serve this folder.

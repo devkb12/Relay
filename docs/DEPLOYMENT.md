@@ -95,8 +95,11 @@ outdated schema.
 
 ## Vercel (Dev)
 
-See `docs/NEXTJS_BACKEND_HANDOFF.md`. Summary: server-only `RELAY_API_ORIGIN=https://<api-public-domain>`,
-rewrites for `/api/*`, `/auth/*`, `/health`; no `/internal/*`; no secrets in Vercel.
+See `docs/NEXTJS_BACKEND_HANDOFF.md` and `web/README.md`. Framework preset Next.js, root directory
+`web`, server-only `RELAY_API_BASE_URL=https://<api-public-domain>` (optional public
+`NEXT_PUBLIC_DISCORD_INVITE_URL`). Route handlers proxy `/api/*`, `/auth/*`, `/health`; no `/internal/*`;
+no secrets in Vercel. Without a backend the site still serves the landing page and `/demo` (synthetic).
+Not deployed yet: the Vercel project must be created by someone with access to devkb12/Relay.
 
 ## n8n
 

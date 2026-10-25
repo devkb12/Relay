@@ -1,5 +1,12 @@
 # RELAY UI and interaction specification
 
+> **Update (2026-10-24):** the web app is now Next.js (`web/src`). The current palette, fonts,
+> logo ("Baton R") and motion budget are recorded in `docs/design/DECISIONS.md`: ink #0D1B3E,
+> canvas #F6F7FB, blue #2E54F0, violet #6B35E8, gold #F5B12E (amber #8A5600 on #FFF3D6 for review
+> text), green #11705A; Newsreader + Atkinson Hyperlegible Next. The tokens and "no Node build" note
+> below describe the legacy static UI, which FastAPI still serves. The screens, states, privacy and
+> motion principles below still apply.
+
 ## Visual direction
 
 A calm study studio, not a neon AI dashboard. Dark navy navigation, warm pale background,
