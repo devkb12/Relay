@@ -2,26 +2,36 @@
  * Original RELAY SVG set. 2px round-capped lines; stations, nodes and a baton.
  * Every illustration has a text alternative or sits beside text that says the same thing.
  */
-import Image from 'next/image';
+import { useId } from 'react';
 import { cn } from '@/lib/utils';
 
 const line = { stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round' as const, fill: 'none' };
 
 /**
- * The RELAY logo mark (the R with the cap, from the brand file). On dark surfaces it sits on a
- * white tile so the navy cap stays visible.
+ * The RELAY mark, "Baton R": the R's stem and bowl in the violet → blue → cyan blend, and its leg is
+ * the gold baton, already handed forward across a small gap. Vector, so it is sharp at any size and
+ * works on light and navy alike. Source: docs/design/logo/relay-mark.svg.
  */
-export function RelayMark({ className, tile, title }: { className?: string; tile?: boolean; title?: string }) {
-  const img = <Image src="/brand/relay-mark.png" alt={title ?? ''} width={256} height={263} className={cn('h-full w-auto', !tile && className)} priority />;
-  if (!tile) return img;
-  return <span className={cn('grid place-items-center rounded-[10px] bg-white p-1', className)}>{img}</span>;
+export function RelayMark({ className, title }: { className?: string; title?: string }) {
+  const id = useId().replace(/:/g, '');
+  return (
+    <svg viewBox="0 0 64 64" className={cn('size-8 shrink-0', className)} role={title ? 'img' : undefined} aria-label={title} aria-hidden={title ? undefined : true}>
+      <defs>
+        <linearGradient id={`relay-blend-${id}`} x1="12" y1="56" x2="48" y2="8" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#7A3FF2" /><stop offset=".55" stopColor="#3A5BFF" /><stop offset="1" stopColor="#1FB8EC" />
+        </linearGradient>
+      </defs>
+      <path d="M16.5 53.5V12.5H31a11.25 11.25 0 0 1 0 22.5H16.5" fill="none" stroke={`url(#relay-blend-${id})`} strokeWidth="9" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M36.5 43.5 46.5 54.5" fill="none" stroke="#F5B12E" strokeWidth="9" strokeLinecap="round" />
+    </svg>
+  );
 }
 
-/** Mark + "Relay" set in a heavy sans like the logo's wordmark. */
+/** Mark + "Relay" set in a heavy sans, matching the lockup in docs/design/logo. */
 export function Wordmark({ className, tone = 'ink' }: { className?: string; tone?: 'ink' | 'paper' }) {
   return (
-    <span className={cn('inline-flex items-center gap-2.5 font-sans text-[1.35rem] leading-none font-extrabold tracking-[-0.01em]', tone === 'paper' ? 'text-on-ink' : 'text-ink', className)}>
-      <RelayMark className={tone === 'paper' ? 'size-9' : 'h-9'} tile={tone === 'paper'} />
+    <span className={cn('inline-flex items-center gap-2 font-sans text-[1.4rem] leading-none font-extrabold tracking-[-0.025em]', tone === 'paper' ? 'text-on-ink' : 'text-ink', className)}>
+      <RelayMark className="size-8" />
       Relay
     </span>
   );

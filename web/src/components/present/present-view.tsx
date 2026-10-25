@@ -19,7 +19,7 @@ export function PresentView({ p, backHref, synthetic }: { p: PresentationView; b
     <div className="on-ink min-h-dvh bg-ink-deep px-6 py-8 text-on-ink sm:px-12 sm:py-10">
       <div className="mx-auto flex max-w-[110rem] flex-col gap-8">
         <header className="flex flex-wrap items-center justify-between gap-4">
-          <span className="inline-flex items-center gap-3 text-2xl font-extrabold"><RelayMark className="size-11" tile />Relay</span>
+          <span className="inline-flex items-center gap-3 text-2xl font-extrabold"><RelayMark className="size-11" />Relay</span>
           <div className="flex flex-wrap items-center gap-3 text-sm text-on-ink-muted">
             {synthetic ? <span className="rounded-full border border-white/25 px-3 py-1">Synthetic session</span> : null}
             <span className="rounded-full border border-white/25 px-3 py-1">Display only, not access control</span>

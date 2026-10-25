@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>RELAY</title>
+  <defs>
+    <linearGradient id="relay-blend-i" x1="18" y1="50" x2="44" y2="14" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8D5BFF"/><stop offset=".55" stop-color="#5476FF"/><stop offset="1" stop-color="#3CCBF5"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="#0D1B3E"/>
+  <g transform="translate(9 8.5) scale(.72)">
+    <path d="M16.5 53.5V12.5H31a11.25 11.25 0 0 1 0 22.5H16.5" fill="none" stroke="url(#relay-blend-i)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M36.5 43.5 46.5 54.5" fill="none" stroke="#F5B12E" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>

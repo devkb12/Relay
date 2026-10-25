@@ -128,7 +128,7 @@ function PhoneStrip({ basePath }: { basePath: string }) {
   return (
     <div className="sticky top-0 z-20 border-b border-line bg-card/95 md:hidden">
       <div className="flex items-center justify-between gap-2 px-4 pt-2">
-        <Link href="/" aria-label="Relay home"><Wordmark className="text-[1.05rem] [&_img]:h-7" /></Link>
+        <Link href="/" aria-label="Relay home"><Wordmark className="text-[1.1rem] [&_svg]:size-7" /></Link>
         <ModeChip mode={mode} className="text-[0.7rem]" />
       </div>
       <nav aria-label="Session stations" className="px-2 pb-1">

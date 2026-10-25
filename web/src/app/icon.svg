@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>RELAY</title>
+  <defs>
+    <linearGradient id="relay-blend" x1="12" y1="56" x2="48" y2="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7A3FF2"/><stop offset=".55" stop-color="#3A5BFF"/><stop offset="1" stop-color="#1FB8EC"/>
+    </linearGradient>
+  </defs>
+  <!-- The R: stem and bowl in one stroke, in the violet-blue-cyan blend. -->
+  <path d="M16.5 53.5V12.5H31a11.25 11.25 0 0 1 0 22.5H16.5" fill="none" stroke="url(#relay-blend)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Its leg is the baton, already handed forward: a clear gap, then gold. -->
+  <path d="M36.5 43.5 46.5 54.5" fill="none" stroke="#F5B12E" stroke-width="9" stroke-linecap="round"/>
+</svg>

@@ -54,3 +54,13 @@ loading mark is a draft awaiting approval; the PNG wins once present.
   landing page); app routes settle in with a 260 ms page transition; reduced motion turns all of it off.
 - **Fonts budget:** only upright Newsreader and Atkinson are preloaded; Newsreader italic (accent words)
   and JetBrains Mono load on demand. Measured on a throttled phone: landing LCP 2.3 s, CLS ≈ 0.
+
+## 2026-10-24 — New logo: "Baton R" (supersedes the uploaded-logo note above)
+
+Chosen by Rithik from three original concepts (docs/design/logo/concepts-compared.png). The R's stem
+and bowl use the violet → blue → cyan blend; its leg is the gold baton, already handed forward across a
+small gap: RELAY passes understanding from one person to the next. Vector source:
+`docs/design/logo/relay-mark.svg` (mark) and `relay-app-icon.svg` (navy tile), with 512/1024 PNGs.
+The site renders the mark as inline SVG (no image request), `web/src/app/icon.svg` is the favicon and
+`apple-icon.png` the home-screen tile. The previously uploaded logo is kept for reference as
+`docs/design/logo/uploaded-*.png` and is no longer shipped in `web/public`.

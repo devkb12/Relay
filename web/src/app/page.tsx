@@ -154,7 +154,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-4" data-reveal>
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-6">
-                <div className="flex items-center gap-2 text-sm text-on-ink-muted"><RelayMark className="size-7" tile />RELAY · <span className="mono">{discussion.hint!.mode}</span></div>
+                <div className="flex items-center gap-2 text-sm text-on-ink-muted"><RelayMark className="size-7" />RELAY · <span className="mono">{discussion.hint!.mode}</span></div>
                 <p className="mt-4 text-xl font-semibold text-white">{discussion.discussion_signal}</p>
                 <p className="mt-2 font-display text-2xl leading-snug text-white">{discussion.hint!.discussion_question}</p>
               </div>

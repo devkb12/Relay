@@ -21,7 +21,7 @@ export function HeroDevice() {
         <div className="absolute top-2 left-1/2 h-6 w-24 -translate-x-1/2 rounded-full bg-ink" />
         <div className="flex h-[32rem] flex-col gap-3 overflow-hidden rounded-[36px] bg-paper px-4 pt-10 pb-4">
           <div className="flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 text-[0.95rem] font-extrabold text-ink"><RelayMark className="h-6" />Relay</span>
+            <span className="inline-flex items-center gap-1.5 text-[0.95rem] font-extrabold text-ink"><RelayMark className="size-6" />Relay</span>
             <span className="rounded-full bg-blue-tint px-2.5 py-0.5 text-[0.65rem] font-bold text-blue">Think privately</span>
           </div>
           <svg viewBox="0 0 260 14" className="w-full" aria-hidden>
