@@ -1,4 +1,5 @@
 """Laptop hosting ($0): public listener without /internal, no public docs, preflight and env init."""
+import os
 import pytest
 from fastapi.testclient import TestClient
 from relay.api import make_app
@@ -7,6 +8,7 @@ from relay.store import Store
 from relay import local_host
 
 KEY = 'k' * 48
+ROOT = os.path.abspath(os.sep)  # 'C:\' on Windows, '/' elsewhere, so paths are absolute on any OS
 
 def prod_env(monkeypatch, **extra):
     for k in ('DISCORD_CLIENT_ID', 'DISCORD_CLIENT_SECRET', 'RELAY_OAUTH_REDIRECT_URI', 'RELAY_FRONTEND_URL', 'RELAY_ALLOWED_ORIGINS'):
@@ -35,7 +37,7 @@ def test_production_publishes_no_api_docs(tmp_path, monkeypatch):
 
 def base_api(**extra):
     env = {'RELAY_ENV': 'production', 'RELAY_SERVICE_KEY': KEY, 'RELAY_PUBLIC_DEMO': 'false',
-           'RELAY_DB': 'C:/Users/me/AppData/Local/RELAY/relay.sqlite3'}
+           'RELAY_DB': os.path.join(ROOT, 'Users', 'me', 'AppData', 'Local', 'RELAY', 'relay.sqlite3')}
     env.update(extra); return env
 
 def required_failures(role, env):
@@ -43,7 +45,7 @@ def required_failures(role, env):
 
 def test_preflight_accepts_laptop_sqlite_but_not_synced_or_relative_paths():
     assert required_failures('api', base_api()) == []
-    assert required_failures('api', base_api(RELAY_DB='C:/Users/me/OneDrive/Desktop/Relay/relay.sqlite3'))
+    assert required_failures('api', base_api(RELAY_DB=os.path.join(ROOT, 'Users', 'me', 'OneDrive', 'Desktop', 'Relay', 'relay.sqlite3')))
     assert required_failures('api', base_api(RELAY_DB='relay.sqlite3'))
 
 def test_preflight_partial_oauth_only_warns_and_bot_loopback_is_allowed():
