@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { BookOpenText, MessageSquareText, Sparkles } from 'lucide-react';
-import { api } from '@/lib/relay-api';
 import type { SessionView } from '@/lib/schemas';
 import { handoff, settle } from '@/lib/motion';
 import { Button } from '@/components/ui/button';
@@ -49,7 +48,7 @@ export function ExplanationFeed({ items }: { items: SessionView['explanations'] 
         {items.map((e, i) => (
           <motion.li key={`${i}-${e.author}`} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={handoff} className="relative rounded-[16px] border border-line bg-card px-5 py-4">
             {/* Violet baton: a turn was taken. It does not mean anyone understood. */}
-            <span aria-hidden className="absolute top-5 -left-px h-5 w-[3px] rounded-full bg-violet" />
+            <span aria-hidden className="absolute top-5 -left-px h-5 w-[3px] rounded-full bg-handoff" />
             <div className="flex flex-wrap items-center gap-2 text-sm">
               <strong>{e.author}</strong>
               {e.source_fallback ? <span className="rounded-full bg-amber-tint px-2 py-0.5 text-xs font-semibold text-amber">Source review, not peer teaching</span> : <span className="text-xs text-muted">explained to the group</span>}
@@ -84,9 +83,9 @@ export function DiscussionCard() {
         <AnimatePresence mode="wait" initial={false}>
           {open ? (
             <motion.form key="form" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={settle} className="flex flex-col gap-2"
-              onSubmit={(e) => { e.preventDefault(); if (valid) void room.act('explain', () => api.explain(sid, text.trim()), () => { setText(''); setOpen(false); }); }}>
+              onSubmit={(e) => { e.preventDefault(); if (valid) void room.act('explain', () => room.client.explain(sid, text.trim()), () => { setText(''); setOpen(false); }); }}>
               <label htmlFor="explanation" className="text-sm text-muted">Explain the idea, not just the answer. This is shared with your group.</label>
-              <textarea id="explanation" value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={1200} className="rounded-[12px] border border-line-strong bg-card px-4 py-3" />
+              <textarea id="explanation" value={text} onChange={(e) => setText(e.target.value)} rows={4} maxLength={1200} className="rounded-[12px] border border-control bg-card px-4 py-3" />
               <div className="flex flex-wrap items-center gap-3">
                 <Button type="submit" disabled={!valid || busy}><MessageSquareText strokeWidth={1.75} />{busy ? 'Sharing…' : 'Share explanation'}</Button>
                 <Button type="button" variant="quiet" onClick={() => { setOpen(false); setText(''); }}>Not now</Button>
@@ -108,17 +107,19 @@ export function DiscussionCard() {
         <section className="flex flex-col gap-2 rounded-[16px] border border-line px-5 py-4" aria-label="Host tools for discussion">
           <span className="eyebrow">Host tools</span>
           <div className="flex flex-wrap gap-2">
-            <Button variant="secondary" size="sm" disabled={!!room.pending} onClick={() => room.act('facilitate', () => api.facilitate(sid))}>
-              <Sparkles strokeWidth={1.75} />{room.pending === 'facilitate' ? 'Asking RELAY…' : 'Ask RELAY for a hint'}
-            </Button>
+            {room.kind !== 'sample' ? (
+              <Button variant="secondary" size="sm" disabled={!!room.pending} onClick={() => room.act('facilitate', () => room.client.facilitate(sid))}>
+                <Sparkles strokeWidth={1.75} />{room.pending === 'facilitate' ? 'Asking RELAY…' : 'Ask RELAY for a hint'}
+              </Button>
+            ) : null}
             <Button variant="secondary" size="sm" disabled={!!room.pending} onClick={() => setFallbackOpen(true)}><BookOpenText strokeWidth={1.75} />Post a source-review note</Button>
           </div>
-          <p className="text-xs text-muted">Hints are labeled with their source. With no live model configured, RELAY uses a reviewed hint.</p>
+          <p className="text-xs text-muted">{room.kind === 'sample' ? 'The sample round never calls an AI model; the hint above is the reviewed one.' : 'Hints are labeled with their source. With no live model configured, RELAY uses a reviewed hint.'}</p>
           <Dialog open={fallbackOpen} onOpenChange={setFallbackOpen}>
             <DialogContent title="Post a source-review note?" description="Use this when nobody volunteers. It records that the group reviewed the source together, and it is labeled as not peer teaching.">
               <div className="flex flex-wrap justify-end gap-2">
                 <DialogClose asChild><Button variant="quiet">Cancel</Button></DialogClose>
-                <Button onClick={() => room.act('explain', () => api.explain(sid, '', true), () => setFallbackOpen(false))}>Post the note</Button>
+                <Button onClick={() => room.act('explain', () => room.client.explain(sid, '', true), () => setFallbackOpen(false))}>Post the note</Button>
               </div>
             </DialogContent>
           </Dialog>

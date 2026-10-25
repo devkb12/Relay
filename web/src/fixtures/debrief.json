@@ -127,6 +127,87 @@
       "question_id": "compound-t1"
     }
   },
+  "receipt": {
+    "concept": {
+      "id": "compound-change",
+      "title": "Successive percentage changes"
+    },
+    "source": {
+      "source_id": "relay-note-01",
+      "source_title": "Original teaching note: multiplicative change"
+    },
+    "pack_hash": "28a18a9bb9f4a3dc5cf8ae01b17d7095ceda2a2e1f1f48fff9d93ad0c45bcfaa",
+    "initial": {
+      "question_id": "compound-d1",
+      "prompt": "A practice account starts at $100. It rises 50%, then falls 50%. What is its final value?",
+      "status": "incorrect",
+      "choice": "A",
+      "choice_text": "$100",
+      "reviewed_answer": "$75"
+    },
+    "fresh": {
+      "question_id": "compound-t1",
+      "prompt": "An item costs $200. Its price rises 25%, then receives a 20% discount on the new price. What is the final price?",
+      "status": "correct",
+      "choice": "A",
+      "choice_text": "$200",
+      "reviewed_answer": "$200"
+    },
+    "explanations": {
+      "shared": 1,
+      "mine": 0,
+      "source_fallback": false
+    },
+    "next_step": {
+      "kind": "try_later",
+      "text": "Try a different application later. One correct answer right after a discussion does not show lasting understanding.",
+      "policy": "receipt-v1",
+      "evidence": [
+        "compound-d1",
+        "compound-t1",
+        "relay-note-01"
+      ]
+    },
+    "delayed_check": {
+      "opted_in": false,
+      "answered": false
+    },
+    "limits": [
+      "Two different items right after one discussion: practice evidence, not a grade or a measure of lasting understanding.",
+      "Answers were checked against the reviewed source, which can still be wrong. Anyone could challenge it."
+    ]
+  },
+  "allowed_actions": {
+    "answer": {
+      "allowed": false,
+      "reason": "Answers open in Think privately and Fresh problem."
+    },
+    "explain": {
+      "allowed": false,
+      "reason": "Explanations belong in Explain together."
+    },
+    "source_fallback": {
+      "allowed": false,
+      "reason": "Explanations belong in Explain together."
+    },
+    "challenge": {
+      "allowed": false,
+      "reason": "Challenge an item during an active round."
+    },
+    "resolve": {
+      "allowed": false,
+      "reason": "There is no open item review."
+    },
+    "advance": {
+      "allowed": false,
+      "reason": "This session is complete."
+    },
+    "close_round": {
+      "allowed": false,
+      "reason": "Only answering rounds can be closed."
+    }
+  },
+  "waiting_on": 0,
   "notice": "Original demonstration material. No grade or mastery prediction.",
   "retention_due_at": 1792958400,
   "retention_note": "Delayed practice is separate evidence from the immediate items and opens after 24 hours."

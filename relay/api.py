@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 
 from .core import Relay, RelayError
 from .store import Store, default_db, load_local_env
-from .bank import CONCEPTS
+from .bank import available as available_concepts
 from .model import facilitate, fallback_payload
 from .automation import tick, discord_send, list_jobs, reconcile
 from .auth import Auth, load_config, safe_return_path
@@ -173,7 +173,7 @@ def make_app(db_path=None):
         return JSONResponse({'ready':ok},status_code=200 if ok else 503)
 
     @app.get('/api/concepts')
-    def concepts(): return [{'id':c['id'],'title':c['title']} for c in CONCEPTS.values()]
+    def concepts(): return [{'id':c['id'],'title':c['title']} for c in available_concepts()]
 
     # ---- Browser auth (Discord OAuth) ----
     @app.get('/auth/discord/login')

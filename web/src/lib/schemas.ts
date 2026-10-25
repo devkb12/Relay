@@ -84,6 +84,42 @@ export const Explanation = z.object({ author: z.string(), text: z.string(), sour
 
 const PlanCancelled = z.object({ version: z.number(), start: z.string(), at: z.number() }).nullable();
 
+/** What this viewer may do now, with the server's reason when not (relay/core.py _allowed). */
+const Action = z.object({ allowed: z.boolean(), reason: z.string().nullable() });
+export const AllowedActions = z.object({
+  answer: Action, explain: Action, source_fallback: Action, challenge: Action, resolve: Action, advance: Action, close_round: Action,
+});
+export type AllowedActions = z.infer<typeof AllowedActions>;
+
+const ReceiptPart = z.object({
+  question_id: z.string(),
+  prompt: z.string(),
+  status: z.enum(['correct', 'incorrect', 'skipped', 'missing', 'invalidated']),
+  choice: z.string().nullable(),
+  choice_text: z.string().nullable(),
+  reviewed_answer: z.string().nullable(),
+});
+export type ReceiptPart = z.infer<typeof ReceiptPart>;
+
+/** Evidence-linked recap for one participant (relay/core.py _receipt, policy receipt-v1). */
+export const Receipt = z.object({
+  concept: Concept,
+  source: z.object({ source_id: z.string(), source_title: z.string() }),
+  pack_hash: z.string(),
+  initial: ReceiptPart,
+  fresh: ReceiptPart,
+  explanations: z.object({ shared: z.number(), mine: z.number(), source_fallback: z.boolean() }),
+  next_step: z.object({
+    kind: z.enum(['try_later', 'revisit_source', 'no_fresh_answer', 'discarded']),
+    text: z.string(),
+    policy: z.string(),
+    evidence: z.array(z.string()),
+  }),
+  delayed_check: z.object({ opted_in: z.boolean(), answered: z.boolean() }),
+  limits: z.array(z.string()),
+});
+export type Receipt = z.infer<typeof Receipt>;
+
 export const SessionView = z.object({
   id: z.string(),
   concept: Concept,
@@ -117,6 +153,9 @@ export const SessionView = z.object({
   hint: Hint.nullable(),
   discussion_signal: z.string().nullable().optional(),
   my_results: z.partialRecord(z.enum(['diagnostic', 'transfer', 'retention']), MyResult),
+  receipt: Receipt.nullable(),
+  allowed_actions: AllowedActions,
+  waiting_on: z.number(),
   notice: z.string(),
   retention_due_at: z.number().optional(),
   retention_note: z.string().optional(),

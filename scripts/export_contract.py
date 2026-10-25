@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def write(path,obj):
     path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(obj,indent=2)+'\n')
+    path.write_text(json.dumps(obj,indent=2)+'\n',newline='\n')
 
 def main():
     with tempfile.TemporaryDirectory() as td:
@@ -49,7 +49,7 @@ def main():
             wrong=next(k for k in c['diagnostic']['options'] if k!=c['diagnostic']['correct'])
             for person in people:
                 core.answer(sid,person['token'],c['diagnostic']['id'],wrong,'confident')
-            core.advance(sid,host['token'],'diagnostic');snap('discussion');present('presentation-discussion')
+            core.advance(sid,host['token'],'diagnostic');snap('discussion');snap('participant-discussion',people[1]);present('presentation-discussion')
             core.challenge(sid,people[1]['token'],'Synthetic review request: can we check the stated assumption?')
             snap('challenge-paused')
             core.resolve_challenge(sid,host['token'],'resume','Reviewed the original teaching fixture; the stated assumption is explicit.')
@@ -60,6 +60,22 @@ def main():
             core.answer(sid,people[3]['token'],c['transfer']['id'],'SKIP')
             core.advance(sid,host['token'],'transfer');snap('debrief');snap('participant-debrief-skipped',people[3])
             present('presentation-debrief')
+            # Two people: group results stay suppressed; each person still gets a private receipt.
+            pair=core.create('Demo Host');sid2=pair['session_id'];other=core.join(sid2,'Demo Member B')
+            core.advance(sid2,pair['token'],'lobby')
+            for person in (pair,other): core.answer(sid2,person['token'],c['diagnostic']['id'],wrong,'confident')
+            core.advance(sid2,pair['token'],'diagnostic')
+            core.explain(sid2,other['token'],'The second percentage operates on the updated amount, not the initial amount.')
+            core.advance(sid2,pair['token'],'discussion')
+            for person in (pair,other): core.answer(sid2,person['token'],c['transfer']['id'],c['transfer']['correct'])
+            core.advance(sid2,pair['token'],'transfer')
+            write(ROOT/'contracts/fixtures/debrief-two-person.json',scrub(core.view(sid2,other['token'])))
+            # A challenged item the host discards: nothing is scored, no follow-up.
+            gone=core.create('Demo Host');sid3=gone['session_id'];member=core.join(sid3,'Demo Member B')
+            core.advance(sid3,gone['token'],'lobby')
+            core.challenge(sid3,member['token'],'Synthetic review request: the wording allows two readings.')
+            core.resolve_challenge(sid3,gone['token'],'discard','Synthetic review: ambiguous wording, withdrawn from this session.')
+            write(ROOT/'contracts/fixtures/discarded.json',scrub(core.view(sid3,member['token'])))
             rid='synthetic-request-id'
             write(ROOT/'contracts/fixtures/error-stale.json',{'detail':'The stage changed. Refresh before continuing.','request_id':rid})
             write(ROOT/'contracts/fixtures/error-unauthenticated.json',{'detail':'Sign in with Discord to open this session.','request_id':rid})
@@ -67,6 +83,8 @@ def main():
             write(ROOT/'contracts/fixtures/error-stale-control.json',{'detail':'This button belongs to an older or deleted RELAY session. Use /relay question or /relay status for the current one.','request_id':rid})
             write(ROOT/'contracts/fixtures/auth-me-signed-out.json',{'authenticated':False,'login_available':True,'demo_mode':False})
             write(ROOT/'contracts/fixtures/auth-me-signed-in.json',{'authenticated':True,'user':{'name':'Demo Member B'},'csrf_token':'synthetic-csrf-token','expires_at':now.timestamp()+43200,'demo_mode':False})
+            from scripts.export_sample import export as export_sample
+            export_sample(write,ROOT)
             write(ROOT/'contracts/fixtures/me-sessions.json',[{'id':'synthetic-session','concept':{'id':'compound-change','title':c['title']},'stage':'debrief','is_host':False,'created_at':now.timestamp(),'paused':False}])
         finally:
             for k,v in old.items():

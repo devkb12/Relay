@@ -74,5 +74,37 @@
   "explanations": [],
   "hint": null,
   "my_results": {},
+  "receipt": null,
+  "allowed_actions": {
+    "answer": {
+      "allowed": false,
+      "reason": "Answers open in Think privately and Fresh problem."
+    },
+    "explain": {
+      "allowed": false,
+      "reason": "Explanations belong in Explain together."
+    },
+    "source_fallback": {
+      "allowed": false,
+      "reason": "Explanations belong in Explain together."
+    },
+    "challenge": {
+      "allowed": false,
+      "reason": "Challenge an item during an active round."
+    },
+    "resolve": {
+      "allowed": false,
+      "reason": "There is no open item review."
+    },
+    "advance": {
+      "allowed": true,
+      "reason": null
+    },
+    "close_round": {
+      "allowed": false,
+      "reason": "Only answering rounds can be closed."
+    }
+  },
+  "waiting_on": 0,
   "notice": "Original demonstration material. No grade or mastery prediction."
 }

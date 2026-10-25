@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import { ArrowRight, Flag, LogOut, ShieldAlert, Trash2 } from 'lucide-react';
-import { api } from '@/lib/relay-api';
 import { ADVANCE_LABEL } from '@/lib/stages';
 import type { ReviewPacket } from '@/lib/schemas';
 import { describeError, RelayError } from '@/lib/errors';
@@ -15,7 +14,7 @@ import { Dialog, DialogClose, DialogContent } from '@/components/ui/dialog';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { RadioGroup, RadioRow } from '@/components/ui/radio-group';
 import { EvidenceGlyph, HoldGlyph } from '@/components/graphics';
-import { useRoomCtx, waitingCount } from './context';
+import { useRoomCtx } from './context';
 
 /** Evidence: the reviewed source. Drawer on wide screens, full-screen panel on phones. */
 export function EvidenceContent() {
@@ -64,9 +63,9 @@ export function ChallengeButton() {
     <Dialog open={open} onOpenChange={setOpen}>
       <Button variant="quiet" size="sm" onClick={() => setOpen(true)}><Flag strokeWidth={1.75} />Challenge this item</Button>
       <DialogContent title="Challenge this item" description="Your concern is shared with the group and pauses scoring until the host reviews the source. Challenge the question, not a person.">
-        <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (valid) void room.act('challenge', () => api.challenge(sid, reason.trim()), () => { setOpen(false); setReason(''); }); }}>
+        <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (valid) void room.act('challenge', () => room.client.challenge(sid, reason.trim()), () => { setOpen(false); setReason(''); }); }}>
           <label htmlFor="challenge-reason" className="text-sm font-semibold">What looks wrong or ambiguous?</label>
-          <textarea id="challenge-reason" value={reason} onChange={(e) => setReason(e.target.value)} rows={3} maxLength={500} className="rounded-[12px] border border-line-strong bg-card px-4 py-3" />
+          <textarea id="challenge-reason" value={reason} onChange={(e) => setReason(e.target.value)} rows={3} maxLength={500} className="rounded-[12px] border border-control bg-card px-4 py-3" />
           <span className="mono self-end text-xs text-muted">{reason.length}/500</span>
           <div className="flex justify-end gap-2">
             <DialogClose asChild><Button type="button" variant="quiet">Cancel</Button></DialogClose>
@@ -90,7 +89,7 @@ export function HoldBanner() {
   const valid = !!decision && note.trim().length >= 10;
   const openPacket = async () => {
     setPacketError(null);
-    try { setPacket(await api.review(sid)); }
+    try { setPacket(await room.client.review(sid)); }
     catch (e) { setPacketError(e instanceof RelayError ? describeError(e).body : 'Could not open the review packet.'); }
   };
   return (
@@ -102,7 +101,7 @@ export function HoldBanner() {
       </div>
       <p><span className="font-semibold">Concern raised:</span> {ch.reason}</p>
       {view.is_host ? (
-        <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (valid && decision) void room.act('resolve', () => api.resolve(sid, decision, note.trim(), ch.id)); }}>
+        <form className="flex flex-col gap-3" onSubmit={(e) => { e.preventDefault(); if (valid && decision) void room.act('resolve', () => room.client.resolve(sid, decision, note.trim(), ch.id)); }}>
           {!room.demo ? (
             <div className="flex flex-wrap items-center gap-2">
               <Button type="button" variant="secondary" size="sm" onClick={openPacket}><ShieldAlert strokeWidth={1.75} />Open review packet</Button>
@@ -127,7 +126,7 @@ export function HoldBanner() {
           </fieldset>
           <label className="flex flex-col gap-1">
             <span className="text-sm font-semibold">Note for the group (10–500 characters)</span>
-            <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={2} maxLength={500} className="rounded-[12px] border border-line-strong bg-card px-4 py-3" />
+            <textarea value={note} onChange={(e) => setNote(e.target.value)} rows={2} maxLength={500} className="rounded-[12px] border border-control bg-card px-4 py-3" />
           </label>
           <div><Button type="submit" disabled={!valid || room.pending === 'resolve'}>{room.pending === 'resolve' ? 'Recording…' : 'Record the review'}</Button></div>
         </form>
@@ -149,27 +148,39 @@ export function ResolutionNote() {
   );
 }
 
-/** Host's advance (sends expected_stage) plus the explicit "record missing" policy. Non-hosts see why not. */
+/**
+ * The one primary action for this person's role, driven by the server's allowed_actions: the host
+ * moves the group on when the server would accept it; everyone else sees exactly what the room is
+ * waiting for. Reason text is the server's own, never a client guess.
+ */
 export function StageActions() {
   const { view, room, sid } = useRoomCtx();
   const label = ADVANCE_LABEL[view.stage];
-  const waiting = waitingCount(view);
-  const answering = view.stage === 'diagnostic' || view.stage === 'transfer';
+  const { advance, close_round: close } = view.allowed_actions;
+  const waiting = view.waiting_on;
   if (!label || view.invalidated) return null;
   if (!view.is_host) {
-    return <p className="text-sm text-muted">The host moves the group forward{answering && waiting ? ` once ${waiting} more ${waiting === 1 ? 'answer arrives' : 'answers arrive'}` : ''}.</p>;
+    return (
+      <p className="text-sm text-muted">
+        {waiting ? <><span className="font-semibold text-text">Waiting for {waiting} more {waiting === 1 ? 'answer' : 'answers'}.</span>{' '}</> : null}
+        {view.paused ? 'The host is reviewing the challenged item.' : advance.reason}
+      </p>
+    );
   }
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <Button disabled={!!room.pending || !!view.paused} onClick={() => room.act('advance', () => api.advance(sid, view.stage))}>
-        {room.pending === 'advance' ? 'Moving…' : label}<ArrowRight strokeWidth={1.75} />
-      </Button>
-      {answering && waiting > 0 ? (
-        <Button variant="secondary" disabled={!!room.pending || !!view.paused} onClick={() => room.act('advance', () => api.advance(sid, view.stage, 'mark_missing'))}>
-          Close round: record {waiting} as missing
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-wrap items-center gap-3">
+        <Button variant={advance.allowed ? 'primary' : 'secondary'} disabled={!!room.pending || !advance.allowed} aria-describedby={advance.allowed ? undefined : 'advance-reason'} onClick={() => room.act('advance', () => room.client.advance(sid, view.stage))}>
+          {room.pending === 'advance' ? 'Moving…' : label}<ArrowRight strokeWidth={1.75} />
         </Button>
-      ) : null}
-      {view.paused ? <span className="text-sm text-amber">Paused until the review is recorded.</span> : answering && waiting ? <span className="text-sm text-muted">Missing is recorded as “no response”, never as wrong.</span> : null}
+        {close.allowed ? (
+          <Button variant="secondary" disabled={!!room.pending} onClick={() => room.act('advance', () => room.client.advance(sid, view.stage, 'mark_missing'))}>
+            Close round: record {waiting} as missing
+          </Button>
+        ) : null}
+      </div>
+      {!advance.allowed ? <p id="advance-reason" className={view.paused ? 'text-sm text-amber' : 'text-sm text-muted'}>{advance.reason}</p> : null}
+      {close.allowed ? <p className="text-sm text-muted">Missing is recorded as “no response”, never as wrong.</p> : null}
     </div>
   );
 }
@@ -189,7 +200,7 @@ export function DangerZone() {
       >
         <div className="flex justify-end gap-2">
           <DialogClose asChild><Button variant="quiet">Keep it</Button></DialogClose>
-          <Button onClick={() => room.act<{ notice: string }>(host ? 'delete' : 'leave', () => (host ? api.remove(sid) : api.leave(sid)), () => { forgetSession(sid); router.push('/room'); })}>
+          <Button onClick={() => room.act<{ notice: string }>(host ? 'delete' : 'leave', () => (host ? room.client.remove(sid) : room.client.leave(sid)), () => { forgetSession(sid); router.push('/room'); })}>
             {host ? 'Delete session' : 'Leave session'}
           </Button>
         </div>

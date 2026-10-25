@@ -1,0 +1,113 @@
+{
+  "notice": "Sample round only: original practice material and fictional peers. This pack is not in the live question bank, so its answer keys may ship to the browser. It can never be used to create a live session.",
+  "you": "Alex",
+  "concept": {
+    "id": "sample-successive-change",
+    "title": "Changing percentages",
+    "source_id": "sample-note-01",
+    "source_title": "Sample note: each change acts on the current amount",
+    "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel.",
+    "hint": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+    "diagnostic": {
+      "id": "sample-d1",
+      "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+      "options": {
+        "A": "80",
+        "B": "75",
+        "C": "85",
+        "D": "100"
+      },
+      "correct": "B",
+      "explanation": "80 x 1.25 = 100, then 100 x 0.75 = 75. The 25% removed is taken from 100, not from 80.",
+      "misconceptions": {
+        "A": "assuming equal up and down changes cancel",
+        "C": "applying the second change to the starting amount",
+        "D": "ignoring the second change"
+      }
+    },
+    "transfer": {
+      "id": "sample-t1",
+      "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+      "options": {
+        "A": "$40",
+        "B": "$20",
+        "C": "$30",
+        "D": "$60"
+      },
+      "correct": "C",
+      "explanation": "40 x 1.50 = 60, then 60 x 0.50 = 30. Half of the new price is removed, not half of the old one.",
+      "misconceptions": {
+        "A": "assuming equal up and down changes cancel",
+        "B": "applying the discount to the starting price",
+        "D": "ignoring the discount"
+      }
+    },
+    "retention": {
+      "id": "sample-r1",
+      "prompt": "A 50-minute study block is extended by 20%, then shortened by 20%. How long is it now?",
+      "options": {
+        "A": "50 minutes",
+        "B": "48 minutes",
+        "C": "52 minutes",
+        "D": "40 minutes"
+      },
+      "correct": "B",
+      "explanation": "50 x 1.20 = 60, then 60 x 0.80 = 48.",
+      "misconceptions": {
+        "A": "assuming equal up and down changes cancel",
+        "C": "adding the changes to the starting amount",
+        "D": "subtracting both changes from the start"
+      }
+    }
+  },
+  "peers": [
+    {
+      "name": "Ari",
+      "diagnostic": {
+        "choice": "A",
+        "confidence": "confident",
+        "after_ms": 700
+      },
+      "transfer": {
+        "choice": "C",
+        "confidence": "somewhat",
+        "after_ms": 900
+      }
+    },
+    {
+      "name": "Bea",
+      "diagnostic": {
+        "choice": "A",
+        "confidence": "confident",
+        "after_ms": 1500
+      },
+      "transfer": {
+        "choice": "A",
+        "confidence": "confident",
+        "after_ms": 7000
+      }
+    },
+    {
+      "name": "Cy",
+      "diagnostic": {
+        "choice": "B",
+        "confidence": "somewhat",
+        "after_ms": 2300
+      },
+      "transfer": {
+        "choice": "C",
+        "confidence": "confident",
+        "after_ms": 1600
+      }
+    }
+  ],
+  "explanations": [
+    {
+      "by": "Cy",
+      "after_ms": 1400,
+      "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80."
+    }
+  ],
+  "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+  "now": 1793131200
+}

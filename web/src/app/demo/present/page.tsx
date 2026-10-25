@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { DemoPresent } from '@/components/demo/demo-room';
+import { SamplePresent } from '@/components/demo/sample-round';
 
-export const metadata: Metadata = { title: 'Synthetic presentation' };
+export const metadata: Metadata = { title: 'Sample round · group screen' };
 
 export default function Page() {
-  return <DemoPresent />;
+  return <SamplePresent />;
 }

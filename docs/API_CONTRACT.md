@@ -63,7 +63,7 @@ Local demo only: `POST /api/sessions {name, concept_id}`, `POST /api/sessions/{s
 `id, concept, stage, revision, pack_hash, is_host, paused, members[], me, plan, plan_version,
 approved_count, approved_by_me, plan_cancelled, needs_reproposal, schedule_confirmed, question,
 my_answer, source, hint, discussion_signal, explanations[], challenge, invalidated, my_results,
-group, retention_due_at, retention_note, notice`. Fields can be null; the backend withholds some
+group, retention_due_at, retention_note, receipt, allowed_actions, waiting_on, notice`. Fields can be null; the backend withholds some
 per stage.
 
 - `stage` is exactly `lobby | diagnostic | discussion | transfer | debrief`. `paused` (=
@@ -80,6 +80,18 @@ per stage.
   warning`. Always show denominators and the warning; never call the difference a learning gain.
 - `plan`: `{start, end, minutes, shorter_alternative, start_local, timezone}` (UTC + display label).
 - `me`: `{name, reminders, availability, timezone, withdrawn}`. A withdrawn member gets a minimal view.
+- `allowed_actions` (always present): `{answer, explain, source_fallback, challenge, resolve, advance,
+  close_round}`, each `{allowed: bool, reason: string|null}`. `reason` is the server's own words for
+  why not (e.g. `"Waiting for 2 more answers."`, `"The host moves the group forward."`). It mirrors
+  the mutation checks exactly (tests/test_product_slice.py probes every action at every step).
+  `close_round` = advance with `nonresponders=mark_missing`, offered only while someone is waiting.
+- `waiting_on`: active members who have not answered in the current answering stage (else 0).
+- `receipt` (Reflect only, viewer's own, null otherwise): `{concept, source{source_id, source_title},
+  pack_hash, initial, fresh, explanations{shared, mine, source_fallback}, next_step{kind, text, policy,
+  evidence[]}, delayed_check{opted_in, answered}, limits[]}`. `initial`/`fresh` are `{question_id,
+  prompt, status, choice, choice_text, reviewed_answer}`. `next_step.kind` ∈ `try_later |
+  revisit_source | no_fresh_answer | discarded`, from fixed policy `receipt-v1` (no model). Never on
+  the presentation view.
 
 ## Errors
 
@@ -102,8 +114,13 @@ propose, cancel_plan, approve, consent, facilitate, challenge, review, resolve, 
 
 `contracts/fixtures/*.json` come from the real backend with original synthetic material. No users,
 tokens or credentials. Label fixture mode in the UI. Scores in fixtures are not observed outcomes.
+Includes `participant-discussion`, `debrief-two-person` (group suppressed, receipt present) and
+`discarded`. `sample-pack.json` + `sample-paths.json` are the public sample round's pack and the real
+backend's replay of four scripted paths; web/tests/unit/sample.test.ts requires the browser sample
+engine to reproduce them view for view.
 
 ## Not implemented
 
 Google Calendar OAuth, question authoring/upload, push/streaming updates, multi-instance rate limits.
+`GET /api/concepts` lists reviewed packs only (plus drafts when `RELAY_ALLOW_DRAFT_PACKS=true` locally).
 Request additions in `docs/design/API_REQUESTS.md`.

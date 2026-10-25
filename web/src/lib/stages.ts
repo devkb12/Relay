@@ -2,11 +2,11 @@ import type { Stage } from './schemas';
 
 /** Human labels. Only the backend values (keys) are ever sent to the API. */
 export const STAGE_LABEL: Record<Stage, string> = {
-  lobby: 'Gather your group',
+  lobby: 'Gather',
   diagnostic: 'Think privately',
   discussion: 'Explain together',
-  transfer: 'Try a fresh problem',
-  debrief: 'Reflect on learning',
+  transfer: 'Fresh problem',
+  debrief: 'Reflect',
 };
 
 export const STAGE_SHORT: Record<Stage, string> = {
@@ -21,7 +21,7 @@ export const STAGE_SHORT: Record<Stage, string> = {
 export const ADVANCE_LABEL: Record<Stage, string | null> = {
   lobby: 'Start: think privately',
   diagnostic: 'Open: explain together',
-  discussion: 'Start: a fresh problem',
+  discussion: 'Start the fresh problem',
   transfer: 'Close and reflect',
   debrief: null,
 };
@@ -29,12 +29,12 @@ export const ADVANCE_LABEL: Record<Stage, string | null> = {
 export const STAGE_ORDER: readonly Stage[] = ['lobby', 'diagnostic', 'discussion', 'transfer', 'debrief'];
 export const stageIndex = (s: Stage) => STAGE_ORDER.indexOf(s);
 
-/** Landing-page journey names mapped onto backend stages. */
+/** Journey names mapped onto backend stages (the backend enums never change). */
 export const JOURNEY = [
-  { stage: 'lobby', name: 'Schedule together' },
+  { stage: 'lobby', name: 'Gather' },
   { stage: 'diagnostic', name: 'Think privately' },
   { stage: 'discussion', name: 'Explain together' },
-  { stage: 'transfer', name: 'Test understanding' },
+  { stage: 'transfer', name: 'Fresh problem' },
   { stage: 'debrief', name: 'Reflect' },
 ] as const satisfies readonly { stage: Stage; name: string }[];
 

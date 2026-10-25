@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: 'RELAY finds when your study group can meet and runs the session in Discord: think privately, explain together, then try a fresh problem.',
 };
 
-export const viewport: Viewport = { themeColor: '#0D1B3E', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#172032', width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

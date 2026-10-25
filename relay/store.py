@@ -141,9 +141,16 @@ class Store:
         db.execute('INSERT INTO audit_events(session_id,at,kind,detail) VALUES(?,?,?,?)',
                    (sid, time.time() if at is None else at, kind, json.dumps(detail)[:500]))
 
+REPO = Path(__file__).resolve().parents[1]
+
 def default_db():
-    """RELAY_DB wins; Railway/Heroku-style DATABASE_URL is accepted; local default is SQLite."""
-    return os.getenv('RELAY_DB') or os.getenv('DATABASE_URL') or 'relay.sqlite3'
+    """RELAY_DB wins; Railway/Heroku-style DATABASE_URL is accepted; local default is SQLite.
+    A relative SQLite path is anchored to the repository, not the working directory, so the API and
+    tools started from different folders can never silently use two different databases."""
+    db = os.getenv('RELAY_DB') or os.getenv('DATABASE_URL') or 'relay.sqlite3'
+    if db.startswith(('postgres://', 'postgresql://')) or Path(db).is_absolute():
+        return db
+    return str(REPO / db)
 
 def load_local_env():
     """Read .env for local development only. In production every setting comes from the platform,

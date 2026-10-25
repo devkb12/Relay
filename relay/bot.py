@@ -14,6 +14,8 @@ from .store import load_local_env
 load_local_env()
 BASE=os.getenv('RELAY_BASE_URL','http://127.0.0.1:8000').rstrip('/')
 KEY=os.getenv('RELAY_SERVICE_KEY','')
+# The public website (the same RELAY_FRONTEND_URL the backend uses for Discord sign-in). Optional.
+WEB=os.getenv('RELAY_FRONTEND_URL','').strip().rstrip('/')
 SID=r'[A-Za-z0-9_-]{6,40}'
 STATUS_LABEL={'correct':'Correct','incorrect':'Not correct','skipped':'Skipped','missing':'No response recorded',
               'withdrawn':'Withdrawn','invalidated':'Item discarded; not scored'}
@@ -56,6 +58,12 @@ async def fail(interaction,exc):
     if interaction.response.is_done(): await interaction.followup.send(clip(text),ephemeral=True)
     else: await interaction.response.send_message(clip(text),ephemeral=True)
 
+def room_link(sid):
+    """The website room for this exact session. It identifies the room; opening it still needs Discord
+    sign-in and membership. Only http(s) origins are linked, never a token."""
+    if not WEB.startswith(('https://','http://localhost','http://127.0.0.1')) or not sid: return None
+    return f'{WEB}/room/{sid}'
+
 def group_embed(s):
     embed=discord.Embed(title=clip('RELAY / '+s['concept']['title'],250),description='Find the time. Pass the understanding.',color=0x4567EF)
     embed.add_field(name='Stage',value=s['stage'].title())
@@ -85,6 +93,8 @@ def group_embed(s):
         embed.add_field(name=f'Schedule proposal v{s["plan_version"]}{shorter}',value=f'{p["start_local"]} for {p["minutes"]} min\n{s["approved_count"]}/{len(active)} approved. An .ics export is not a calendar write.',inline=False)
     elif s.get('plan_cancelled'):
         embed.add_field(name='Schedule',value='The host cancelled the previous proposal.',inline=False)
+    link=room_link(s.get('id'))
+    if link: embed.add_field(name='On the web',value=f'[Open this session]({link}) and sign in with Discord. Only members of this session can open it.',inline=False)
     embed.set_footer(text='Original demo teaching material. Private inputs are processed by the RELAY service.')
     return embed
 
@@ -199,12 +209,13 @@ client=RelayClient()
 group=app_commands.Group(name='relay',description='Coordinate a peer study session and check a fresh application.')
 
 @group.command(name='create',description='Create a study session in this channel.')
-@app_commands.choices(concept=[app_commands.Choice(name='Successive percentage changes',value='compound-change'),app_commands.Choice(name='Base rates',value='base-rates'),app_commands.Choice(name='Correlation',value='correlation')])
+@app_commands.choices(concept=[app_commands.Choice(name='Successive percentage changes',value='compound-change'),app_commands.Choice(name='Base rates',value='base-rates'),app_commands.Choice(name='Correlation',value='correlation'),app_commands.Choice(name='Reading a correlation (Iris data)',value='iris-correlation')])
 async def create(interaction:discord.Interaction,concept:str='compound-change'):
     await interaction.response.defer(ephemeral=True,thinking=True)
     try:
         s=(await request(interaction,'create',{'concept_id':concept}))['state']
-        await interaction.followup.send('Created. You are the host. Participants use `/relay join`. Group results may permit inference in small groups.',ephemeral=True)
+        link=room_link(s.get('id'))
+        await interaction.followup.send('Created. You are the host. Participants use `/relay join`. Group results may permit inference in small groups.'+(f' Web room: {link}' if link else ''),ephemeral=True)
         await client.post_card(interaction,s,view=None)
     except Exception as exc: await fail(interaction,exc)
 
@@ -213,7 +224,8 @@ async def join(interaction:discord.Interaction):
     await interaction.response.defer(ephemeral=True,thinking=True)
     try:
         s=(await request(interaction,'join'))['state']
-        await interaction.followup.send('Joined. Your answers stay private to you and the service. Reminders are OFF until you enable them. Use `/relay leave` to withdraw.',ephemeral=True)
+        link=room_link(s.get('id'))
+        await interaction.followup.send('Joined. Your answers stay private to you and the service. Reminders are OFF until you enable them. Use `/relay leave` to withdraw.'+(f' Web room: {link} (sign in with Discord).' if link else ''),ephemeral=True)
         await client.post_card(interaction,s)
     except Exception as exc: await fail(interaction,exc)
 

@@ -21,7 +21,7 @@ export function SiteNav() {
           {LINKS.map((l) => <a key={l.href} href={l.href} className="rounded-full px-3 py-2 hover:bg-text/5 hover:text-text">{l.label}</a>)}
         </nav>
         <div className="hidden items-center gap-2 sm:flex">
-          <Link href="/demo" className={buttonVariants({ variant: 'quiet', size: 'sm' })}>Try the demo</Link>
+          <Link href="/demo" className={buttonVariants({ variant: 'quiet', size: 'sm' })}>Try a sample round</Link>
           <Link href="/room" className={buttonVariants({ variant: 'dark', size: 'sm' })}>Open study room</Link>
         </div>
         <details className="group relative sm:hidden">
@@ -32,7 +32,7 @@ export function SiteNav() {
           <div className="card-float absolute top-14 right-0 flex w-64 flex-col gap-1 p-3">
             {LINKS.map((l) => <a key={l.href} href={l.href} className="rounded-[12px] px-3 py-2.5 hover:bg-text/5">{l.label}</a>)}
             <div className="my-1 h-px bg-line" />
-            <Link href="/demo" className={buttonVariants({ variant: 'secondary', size: 'sm' })}>Try the demo</Link>
+            <Link href="/demo" className={buttonVariants({ variant: 'secondary', size: 'sm' })}>Try a sample round</Link>
             <Link href="/room" className={buttonVariants({ variant: 'dark', size: 'sm' })}>Open study room</Link>
           </div>
         </details>

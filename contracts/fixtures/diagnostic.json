@@ -83,5 +83,37 @@
   "explanations": [],
   "hint": null,
   "my_results": {},
+  "receipt": null,
+  "allowed_actions": {
+    "answer": {
+      "allowed": true,
+      "reason": null
+    },
+    "explain": {
+      "allowed": false,
+      "reason": "Explanations belong in Explain together."
+    },
+    "source_fallback": {
+      "allowed": false,
+      "reason": "Explanations belong in Explain together."
+    },
+    "challenge": {
+      "allowed": true,
+      "reason": null
+    },
+    "resolve": {
+      "allowed": false,
+      "reason": "There is no open item review."
+    },
+    "advance": {
+      "allowed": false,
+      "reason": "Waiting for 4 more answers."
+    },
+    "close_round": {
+      "allowed": false,
+      "reason": "At least two responses are needed before closing the round."
+    }
+  },
+  "waiting_on": 4,
   "notice": "Original demonstration material. No grade or mastery prediction."
 }

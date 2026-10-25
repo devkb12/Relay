@@ -4,7 +4,9 @@ import { describe, expect, it } from 'vitest';
 import { AuthMe, ErrorBody, MySessions, PresentationView, SessionView } from '@/lib/schemas';
 
 const dir = resolve(__dirname, '../../src/fixtures');
-const files = readdirSync(dir).filter((f) => f.endsWith('.json'));
+const all = readdirSync(dir).filter((f) => f.endsWith('.json'));
+// sample-*.json are the sample round's pack and canonical paths; tests/unit/sample.test.ts covers them.
+const files = all.filter((f) => !f.startsWith('sample-'));
 const load = (f: string) => JSON.parse(readFileSync(join(dir, f), 'utf8'));
 
 function schemaFor(name: string) {
@@ -21,12 +23,12 @@ describe('every fixture parses through its schema', () => {
     expect(result.success, JSON.stringify(result.error?.issues.slice(0, 3))).toBe(true);
   });
 
-  it('covers all 18 committed fixtures', () => expect(files.length).toBe(18));
+  it('covers all 21 committed view fixtures', () => expect(files.length).toBe(21));
 });
 
 describe('fixture copies match contracts/fixtures (no drift, never hand-edited)', () => {
   const source = resolve(__dirname, '../../../contracts/fixtures');
-  it.runIf(existsSync(source)).each(files)('%s', (file) => {
+  it.runIf(existsSync(source)).each(all)('%s', (file) => {
     const canonical = JSON.stringify(JSON.parse(readFileSync(join(source, file), 'utf8')), null, 2) + '\n';
     expect(readFileSync(join(dir, file), 'utf8')).toBe(canonical);
   });
@@ -35,7 +37,7 @@ describe('fixture copies match contracts/fixtures (no drift, never hand-edited)'
 describe('presentation fixtures cannot carry private fields', () => {
   it.each(files.filter((f) => f.startsWith('presentation-')))('%s', (file) => {
     const data = load(file);
-    for (const key of ['me', 'my_answer', 'my_results', 'approved_by_me', 'is_host']) expect(data).not.toHaveProperty(key);
+    for (const key of ['me', 'my_answer', 'my_results', 'approved_by_me', 'is_host', 'receipt', 'allowed_actions', 'waiting_on']) expect(data).not.toHaveProperty(key);
     expect(PresentationView.safeParse({ ...data, my_results: {} }).success).toBe(false);
   });
 });

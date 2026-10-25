@@ -97,8 +97,20 @@ Mocked/simulated, not live: Discord OAuth token/user endpoints, Gemini transport
 - `test_core.py` (starter) still has two unused imports; left as is.
 - Withdrawal removes the member's stored data; messages already posted in Discord remain.
 
+## Product slice (2026-10-25)
+
+- `allowed_actions` + `waiting_on` on every private view, mirroring the mutation checks (probed per
+  action/actor/step on a database copy); `receipt` on Reflect (policy receipt-v1, evidence ids, limits).
+- Sample-only pack `data/sample_round.json` (never a live concept) and backend replays for the browser
+  sample engine; new fixtures `participant-discussion`, `debrief-two-person`, `discarded`.
+- Bot links each session's web room (`RELAY_FRONTEND_URL/room/<id>`) on the status card and create/join.
+- Relative SQLite paths resolve to the repo root (one database whatever the working directory).
+- Content packs: `data/packs/*` load only when reviewed; Iris (UCI, CC BY 4.0) built and **draft**.
+- `scripts/check_model.py`: list the models a Gemini key can call, metadata only.
+
 ## Next executable step
 
-1. Live-test the remaining Discord paths listed above (challenge/resolve, schedule + approve,
-   stale button after delete) with the same two accounts.
-2. Deploy API + bot to Railway per docs/DEPLOYMENT.md (needs Rithik's authorization and account).
+Connect the deployed site (docs/LIVE_CONNECTION_DIAGNOSIS.md §5): production config with Discord OAuth,
+tunnel port 8787 only, set `RELAY_API_BASE_URL` on Vercel and redeploy, then run the two-account
+Discord ↔ web acceptance test (§6). After that: review the Iris pack; optionally verify a Gemini model id.
+Railway stays paused ($0 constraint).

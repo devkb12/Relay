@@ -26,7 +26,7 @@ function Gate({ sessionId, returnTo, children }: { sessionId: string; returnTo: 
   useEffect(() => { const t = window.setTimeout(() => setHasIdentity(!!activeIdentity(sessionId)), 0); return () => window.clearTimeout(t); }, [sessionId]);
 
   if (conn.status === 'checking' || hasIdentity === null) return <Loading />;
-  if (conn.status === 'not_connected') return <Page><NotConnected /></Page>;
+  if (conn.status === 'not_connected') return <Page><NotConnected reason={conn.reason} /></Page>;
   if (conn.status === 'error') return <Page><ErrorState error={conn.error} /></Page>;
   if (conn.status === 'local' && !hasIdentity) return <Page><LocalBanner /><JoinHere sessionId={sessionId} onJoined={() => setHasIdentity(true)} /></Page>;
   if (conn.status === 'connected' && !conn.me.authenticated) {
@@ -58,7 +58,7 @@ function JoinHere({ sessionId, onJoined }: { sessionId: string; onJoined: () => 
     <StateView title="Join this room on this browser" body={<>Room <span className="mono text-text">{sessionId}</span>. Pick a test name; it is stored only in this tab.</>}>
       <form className="flex w-full flex-wrap gap-2" onSubmit={(e) => { e.preventDefault(); if (name.trim()) void join(); }}>
         <label htmlFor="join-name" className="sr-only">Test name</label>
-        <input id="join-name" value={name} maxLength={40} onChange={(e) => setName(e.target.value)} className="min-h-11 flex-1 rounded-[12px] border border-line-strong bg-card px-3" placeholder="Test name" />
+        <input id="join-name" value={name} maxLength={40} onChange={(e) => setName(e.target.value)} className="min-h-11 flex-1 rounded-[12px] border border-control bg-card px-3" placeholder="Test name" />
         <Button disabled={!name.trim() || busy}>{busy ? 'Joining…' : 'Join'}</Button>
         {error ? <p className="w-full text-sm text-amber" role="alert">{error}</p> : null}
       </form>

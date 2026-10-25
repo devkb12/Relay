@@ -7,7 +7,7 @@ import type { AuthMe, Health } from './schemas';
 
 export type Connection =
   | { status: 'checking' }
-  | { status: 'not_connected' }
+  | { status: 'not_connected'; reason?: string }
   | { status: 'error'; error: RelayError }
   | { status: 'local'; health: Health; me: AuthMe }
   | { status: 'connected'; health: Health; me: AuthMe };
@@ -19,8 +19,8 @@ export function detectConnection(force = false): Promise<Connection> {
   if (cached && !force) return cached;
   cached = (async (): Promise<Connection> => {
     try {
-      const probe = (await fetch('/connection', { cache: 'no-store' }).then((r) => r.json()).catch(() => ({ connected: false }))) as { connected?: boolean };
-      if (!probe.connected) return { status: 'not_connected' };
+      const probe = (await fetch('/connection', { cache: 'no-store' }).then((r) => r.json()).catch(() => ({ connected: false, reason: 'unreachable' }))) as { connected?: boolean; reason?: string };
+      if (!probe.connected) return { status: 'not_connected', reason: probe.reason };
       const health = await api.health();
       const me = await api.me();
       setCsrf(me.authenticated ? me.csrf_token : null);

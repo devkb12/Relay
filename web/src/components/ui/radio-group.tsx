@@ -15,12 +15,12 @@ export function RadioRow({ value, children, className, disabled }: { value: stri
       disabled={disabled}
       className={cn(
         'press group flex min-h-12 w-full items-start gap-3 rounded-[12px] border border-line bg-card px-4 py-3 text-left',
-        'hover:border-line-strong data-[state=checked]:border-blue data-[state=checked]:bg-blue-tint disabled:cursor-not-allowed disabled:opacity-70',
+        'hover:border-line-strong data-[state=checked]:border-primary data-[state=checked]:bg-primary-tint disabled:cursor-not-allowed disabled:opacity-70',
         className,
       )}
     >
-      <span aria-hidden className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full border-2 border-line-strong group-data-[state=checked]:border-blue">
-        <R.Indicator className="size-2.5 rounded-full bg-blue" />
+      <span aria-hidden className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full border-2 border-control group-data-[state=checked]:border-primary">
+        <R.Indicator className="size-2.5 rounded-full bg-primary" />
       </span>
       <span className="min-w-0 flex-1">{children}</span>
     </R.Item>

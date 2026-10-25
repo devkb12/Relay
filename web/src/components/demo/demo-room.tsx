@@ -19,7 +19,7 @@ function StepPicker({ step, setStep, perspective, setPerspective }: { step: stri
   const current = DEMO_STEPS.find((s) => s.id === step) ?? DEMO_STEPS[0]!;
   return (
     <section className="card flex flex-col gap-3 p-4" aria-label="Synthetic walkthrough">
-      <span className="eyebrow">Walk through a synthetic session</span>
+      <span className="eyebrow">Every stage, captured from the real backend</span>
       {/* Toggle buttons, not tabs: each step swaps the whole room below; there is no tab panel. */}
       <div role="group" aria-label="Session step" className="flex flex-wrap gap-1 rounded-[12px] border border-line bg-card p-1">
         {DEMO_STEPS.map((s) => (
@@ -40,7 +40,7 @@ function StepPicker({ step, setStep, perspective, setPerspective }: { step: stri
           ))}
         </div>
       ) : null}
-      <p className="text-xs text-muted">Each step is a real backend response captured with synthetic people. Nothing here is sent anywhere.</p>
+      <p className="text-xs text-muted">Each step is a real backend response captured with synthetic people. Nothing here is sent anywhere. To play a round yourself, <Link className="font-semibold text-primary underline underline-offset-4" href="/demo">try the sample round</Link>.</p>
     </section>
   );
 }
@@ -52,7 +52,7 @@ export function DemoRoom() {
   const name: FixtureName = perspective === 'participant' && s.participant ? s.participant : s.host;
   const room = useRoom({ kind: 'fixture', view: FIXTURES[name] });
   return (
-    <RoomView room={room} view={FIXTURES[name]} mode="synthetic" basePath="/demo"
+    <RoomView room={room} view={FIXTURES[name]} mode="synthetic" basePath="/demo/stages"
       extra={<StepPicker step={step} setStep={setStep} perspective={perspective} setPerspective={setPerspective} />} />
   );
 }
@@ -61,7 +61,7 @@ export function DemoRoom() {
 function DemoPage({ fixture, children }: { fixture: FixtureName; children: React.ReactNode }) {
   const room = useRoom({ kind: 'fixture', view: FIXTURES[fixture] });
   return (
-    <RoomProvider value={{ room, view: FIXTURES[fixture], sid: 'synthetic-session', mode: 'synthetic', basePath: '/demo' }}>
+    <RoomProvider value={{ room, view: FIXTURES[fixture], sid: 'synthetic-session', mode: 'synthetic', basePath: '/demo/stages' }}>
       <div className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-6 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3"><Link href="/"><Wordmark /></Link><ModeChip mode="synthetic" /></div>
         <SyntheticBanner />
@@ -104,7 +104,7 @@ export function DemoPresent() {
           </button>
         ))}
       </div>
-      <PresentView p={PRESENTATION_FIXTURES[which]} backHref="/demo" synthetic />
+      <PresentView p={PRESENTATION_FIXTURES[which]} backHref="/demo/stages" synthetic />
     </div>
   );
 }

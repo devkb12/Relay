@@ -1,8 +1,6 @@
-import type { Metadata } from 'next';
-import { DemoSchedule } from '@/components/demo/demo-room';
+import { redirect } from 'next/navigation';
 
-export const metadata: Metadata = { title: 'Synthetic schedule' };
-
+/** The sample round has no scheduling; the captured schedule screen lives with the stage gallery. */
 export default function Page() {
-  return <DemoSchedule />;
+  redirect('/demo/stages/schedule');
 }

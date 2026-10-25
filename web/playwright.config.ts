@@ -42,7 +42,7 @@ export default defineConfig({
   ],
   projects: [
     { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 900 } } },
-    // The live loop again on a phone: station strip, sticky action bar, no rail.
-    { name: 'phone', testMatch: /live-loop\.spec\.ts/, use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 }, hasTouch: true } },
+    // The live loop and the sample round again on a phone: station strip, one column, no side context.
+    { name: 'phone', testMatch: /(live-loop|sample)\.spec\.ts/, use: { ...devices['Desktop Chrome'], viewport: { width: 390, height: 844 }, hasTouch: true } },
   ],
 });

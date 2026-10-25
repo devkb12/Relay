@@ -3,13 +3,11 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { EyeOff, Lock, LockOpen } from 'lucide-react';
-import { api } from '@/lib/relay-api';
 import type { Question } from '@/lib/schemas';
 import { settle } from '@/lib/motion';
 import { RadioGroup, RadioRow } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
-import { useRoomCtx, waitingCount } from './context';
-import { cn } from '@/lib/utils';
+import { useRoomCtx } from './context';
 
 const CONFIDENCE = [
   { value: 'unsure', label: 'Unsure' },
@@ -26,18 +24,18 @@ export function AttemptCard({ question }: { question: Question }) {
   const [choice, setChoice] = useState<string>('');
   const [confidence, setConfidence] = useState<Confidence | ''>('');
   const [rationale, setRationale] = useState('');
+  const [why, setWhy] = useState(false);
   const locked = view.my_answer;
   const busy = room.pending === 'answer';
   const skip = choice === 'SKIP';
   const ready = !!choice && (skip || !!confidence);
-  const waiting = waitingCount(view);
   const stage = view.stage === 'transfer' ? 'transfer' : view.stage === 'debrief' ? 'debrief' : 'diagnostic';
 
   const submit = () =>
-    room.act('answer', () => api.answer(sid, { question_id: question.id, choice, confidence: (confidence || 'unsure') as Confidence, rationale: skip ? '' : rationale }));
+    room.act('answer', () => room.client.answer(sid, { question_id: question.id, choice, confidence: (confidence || 'unsure') as Confidence, rationale: skip ? '' : rationale }));
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="eyebrow">{EYEBROW[stage]}</span>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-xs font-semibold text-text">
@@ -45,7 +43,7 @@ export function AttemptCard({ question }: { question: Question }) {
         </span>
       </div>
       {/* Exam-booklet surface: the prompt is set like a printed question. */}
-      <h2 className="text-[1.55rem] leading-snug text-text sm:text-3xl" id="question-prompt">{question.prompt}</h2>
+      <h2 className="text-[1.5rem] leading-snug text-text sm:text-[1.75rem]" id="question-prompt">{question.prompt}</h2>
 
       <AnimatePresence mode="wait" initial={false}>
         {locked ? (
@@ -62,26 +60,26 @@ export function AttemptCard({ question }: { question: Question }) {
             <p className="text-sm text-muted">Correctness stays hidden until the group reaches Reflect. Your answer cannot be changed.</p>
           </motion.div>
         ) : (
-          <motion.form key="open" exit={{ opacity: 0, y: -6 }} transition={settle} className="flex flex-col gap-5" onSubmit={(e) => { e.preventDefault(); if (ready) void submit(); }}>
+          <motion.form key="open" exit={{ opacity: 0, y: -6 }} transition={settle} className="flex flex-col gap-4" onSubmit={(e) => { e.preventDefault(); if (ready) void submit(); }}>
             <fieldset className="flex flex-col gap-2" aria-describedby="question-prompt">
-              <legend className="mb-2 text-sm font-semibold">Your answer</legend>
-              <RadioGroup value={choice} onValueChange={setChoice} aria-label="Answer choices" disabled={busy}>
+              <legend className="mb-1.5 text-sm font-semibold">Your answer</legend>
+              <RadioGroup value={choice} onValueChange={setChoice} aria-label="Answer choices" disabled={busy} className="sm:grid-cols-2">
                 {Object.entries(question.options).map(([key, text]) => (
                   <RadioRow key={key} value={key}>
                     <span className="mono mr-1 font-semibold">{key}</span>{' '}
                     <span>{text}</span>
                   </RadioRow>
                 ))}
-                <RadioRow value="SKIP" className="border-dashed">
-                  <span className="font-semibold">Skip this one</span>
-                  <span className="block text-sm text-muted">Recorded as skipped, never as wrong.</span>
+                <RadioRow value="SKIP" className="border-dashed sm:col-span-2">
+                  <span className="font-semibold">Skip this one</span>{' '}
+                  <span className="text-sm text-muted">Recorded as skipped, never as wrong.</span>
                 </RadioRow>
               </RadioGroup>
             </fieldset>
 
             {!skip ? (
               <fieldset className="flex flex-col gap-2">
-                <legend className="mb-2 text-sm font-semibold">How sure are you?</legend>
+                <legend className="mb-1.5 text-sm font-semibold">How sure are you?</legend>
                 <RadioGroup value={confidence} onValueChange={(v) => setConfidence(v as Confidence)} className="grid-cols-1 sm:grid-cols-3" aria-label="Confidence" disabled={busy}>
                   {CONFIDENCE.map((c) => <RadioRow key={c.value} value={c.value}>{c.label}</RadioRow>)}
                 </RadioGroup>
@@ -89,18 +87,25 @@ export function AttemptCard({ question }: { question: Question }) {
             ) : null}
 
             {!skip ? (
-              <label className="flex flex-col gap-2">
-                <span className="text-sm font-semibold">Your reasoning <span className="font-normal text-muted">(optional, private)</span></span>
-                <textarea
-                  value={rationale}
-                  maxLength={600}
-                  onChange={(e) => setRationale(e.target.value)}
-                  rows={3}
-                  className="min-h-24 rounded-[12px] border border-line-strong bg-card px-4 py-3 text-base"
-                  aria-describedby="rationale-count"
-                />
-                <span id="rationale-count" className="mono self-end text-xs text-muted">{rationale.length}/600</span>
-              </label>
+              why ? (
+                <label className="flex flex-col gap-2">
+                  <span className="text-sm font-semibold">Your reasoning <span className="font-normal text-muted">(optional, private)</span></span>
+                  <textarea
+                    value={rationale}
+                    maxLength={600}
+                    onChange={(e) => setRationale(e.target.value)}
+                    rows={3}
+                    autoFocus
+                    className="min-h-24 rounded-[12px] border border-control bg-card px-4 py-3 text-base"
+                    aria-describedby="rationale-count"
+                  />
+                  <span id="rationale-count" className="mono self-end text-xs text-muted">{rationale.length}/600</span>
+                </label>
+              ) : (
+                <button type="button" onClick={() => setWhy(true)} className="press -my-1 w-fit rounded-full px-1 text-sm font-semibold text-primary underline underline-offset-4">
+                  Add your reasoning (optional, private)
+                </button>
+              )
             ) : null}
 
             <div className="sticky bottom-0 -mx-5 flex flex-wrap items-center gap-3 border-t border-line bg-card/95 px-5 py-3 md:static md:mx-0 md:border-0 md:bg-transparent md:p-0">
@@ -113,12 +118,6 @@ export function AttemptCard({ question }: { question: Question }) {
           </motion.form>
         )}
       </AnimatePresence>
-
-      {view.is_host && view.stage !== 'debrief' ? (
-        <p className={cn('rounded-[12px] border border-line px-4 py-3 text-sm', waiting ? 'text-text' : 'text-green')}>
-          {waiting ? <>Waiting for <span className="mono font-semibold">{waiting}</span> {waiting === 1 ? 'person' : 'people'} to answer or skip. You can’t answer for anyone.</> : 'Everyone still in the room has answered or skipped.'}
-        </p>
-      ) : null}
     </div>
   );
 }

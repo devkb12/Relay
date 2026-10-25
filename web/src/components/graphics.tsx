@@ -84,7 +84,7 @@ function Frame({ children, label, className }: { children: React.ReactNode; labe
 export const NoCommonTime = () => (
   <Frame label="Two people's free times that never overlap">
     <path d="M20 40h200M20 80h200" stroke="var(--color-line-strong)" strokeWidth={2} strokeLinecap="round" />
-    <rect x="28" y="32" width="84" height="16" rx="8" fill="var(--color-blue-tint)" stroke="var(--color-blue)" strokeWidth={2} />
+    <rect x="28" y="32" width="84" height="16" rx="8" fill="var(--color-primary-tint)" stroke="var(--color-primary)" strokeWidth={2} />
     <rect x="132" y="72" width="80" height="16" rx="8" fill="var(--color-amber-tint)" stroke="var(--color-amber)" strokeWidth={2} />
     <path d="M122 24v72" stroke="var(--color-line-strong)" strokeWidth={2} strokeDasharray="4 6" strokeLinecap="round" />
   </Frame>
@@ -105,7 +105,7 @@ export const NoExplanationYet = () => (
   <Frame label="The baton resting at the start of the track">
     <path d="M30 60h180" {...line} stroke="var(--color-line-strong)" />
     <circle cx="40" cy="60" r="7" fill="var(--color-ink)" />
-    <path d="M52 60h22" stroke="var(--color-violet)" strokeWidth={4} strokeLinecap="round" />
+    <path d="M52 60h22" stroke="var(--color-handoff)" strokeWidth={4} strokeLinecap="round" />
     {[110, 160, 205].map((x) => <circle key={x} cx={x} cy={60} r={7} fill="var(--color-card)" stroke="var(--color-line-strong)" strokeWidth={2} />)}
   </Frame>
 );
@@ -123,9 +123,9 @@ export const ResultsWithheld = () => (
 /** The track running off the page to a chat glyph (no Discord logo). */
 export const StartsInDiscord = () => (
   <Frame label="The session track leading to a group chat">
-    <path d="M10 70h150" {...line} stroke="var(--color-blue)" />
-    {[30, 75, 120].map((x) => <circle key={x} cx={x} cy={70} r={6} fill="var(--color-blue)" />)}
-    <path d="M160 70c20 0 22-22 40-22" {...line} stroke="var(--color-blue)" strokeDasharray="2 6" />
+    <path d="M10 70h150" {...line} stroke="var(--color-primary)" />
+    {[30, 75, 120].map((x) => <circle key={x} cx={x} cy={70} r={6} fill="var(--color-primary)" />)}
+    <path d="M160 70c20 0 22-22 40-22" {...line} stroke="var(--color-primary)" strokeDasharray="2 6" />
     <path d="M190 28h36a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6h-22l-10 8v-8h-4a6 6 0 0 1-6-6V34a6 6 0 0 1 6-6z" fill="var(--color-card)" stroke="var(--color-ink)" strokeWidth={2} strokeLinejoin="round" />
     <path d="M198 40h22M198 48h14" {...line} stroke="var(--color-ink)" />
   </Frame>
@@ -136,7 +136,7 @@ export function HeroTrack({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 420 300" className={cn('h-auto w-full', className)} role="img" aria-label="Four study partners on a relay track, one passing the baton to the next">
       <path d="M40 210 C 120 210, 140 90, 220 90 S 330 170, 390 120" fill="none" stroke="var(--color-line-strong)" strokeWidth={2} strokeLinecap="round" />
-      <path d="M40 210 C 120 210, 140 90, 220 90" fill="none" stroke="var(--color-blue)" strokeWidth={2} strokeLinecap="round" />
+      <path d="M40 210 C 120 210, 140 90, 220 90" fill="none" stroke="var(--color-primary)" strokeWidth={2} strokeLinecap="round" />
       {[
         { x: 40, y: 210, t: 'A', done: true },
         { x: 150, y: 132, t: 'B', done: true },
@@ -148,7 +148,7 @@ export function HeroTrack({ className }: { className?: string }) {
           <text x={n.x} y={n.y + 5} textAnchor="middle" fontFamily="var(--font-sans)" fontSize="14" fontWeight="700" fill={n.done ? 'var(--color-on-ink)' : 'var(--color-ink)'}>{n.t}</text>
         </g>
       ))}
-      <path d="M196 93 L228 89" stroke="var(--color-violet)" strokeWidth={6} strokeLinecap="round" />
+      <path d="M196 93 L228 89" stroke="var(--color-handoff)" strokeWidth={6} strokeLinecap="round" />
     </svg>
   );
 }

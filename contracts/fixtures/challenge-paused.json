@@ -89,6 +89,38 @@
     "feedback_source": "reviewed_fallback"
   },
   "my_results": {},
+  "receipt": null,
+  "allowed_actions": {
+    "answer": {
+      "allowed": false,
+      "reason": "The item is paused for review."
+    },
+    "explain": {
+      "allowed": false,
+      "reason": "The item is paused for review."
+    },
+    "source_fallback": {
+      "allowed": false,
+      "reason": "The item is paused for review."
+    },
+    "challenge": {
+      "allowed": false,
+      "reason": "The item is paused for review."
+    },
+    "resolve": {
+      "allowed": true,
+      "reason": null
+    },
+    "advance": {
+      "allowed": false,
+      "reason": "Resolve the review before moving on."
+    },
+    "close_round": {
+      "allowed": false,
+      "reason": "The item is paused for review."
+    }
+  },
+  "waiting_on": 0,
   "notice": "Original demonstration material. No grade or mastery prediction.",
   "discussion_signal": "Check the shared assumption"
 }

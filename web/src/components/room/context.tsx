@@ -16,6 +16,3 @@ export function useRoomCtx() {
   if (!v) throw new Error('useRoomCtx outside RoomProvider');
   return v;
 }
-
-/** Members still expected to answer in this stage (server's own member states). */
-export const waitingCount = (v: SessionView) => v.members.filter((m) => m.state === 'waiting').length;

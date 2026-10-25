@@ -1,0 +1,4879 @@
+{
+  "agree-then-understand": [
+    {
+      "op": null,
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "lobby",
+        "revision": 4,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "Challenge an item during an active round."
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 5,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 4 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 4,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "peers"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 8,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 1 more answer."
+          },
+          "close_round": {
+            "allowed": true,
+            "reason": null
+          }
+        },
+        "waiting_on": 1,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "answer",
+        "A",
+        "confident"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 9,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": true,
+            "state": "responded",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": {
+          "choice": "A",
+          "confidence": "confident"
+        },
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Your answer is locked."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Everyone has answered."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 10,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": true,
+            "reason": null
+          },
+          "source_fallback": {
+            "allowed": true,
+            "reason": null
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Needs one shared explanation, or the host records the source fallback."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "peers"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 11,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": true,
+            "reason": null
+          },
+          "source_fallback": {
+            "allowed": true,
+            "reason": null
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "explain",
+        "The second change works on the new total, so 25% of 100 comes off."
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 12,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          },
+          {
+            "author": "Alex",
+            "text": "The second change works on the new total, so 25% of 100 comes off.",
+            "source_fallback": false
+          }
+        ],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": true,
+            "reason": null
+          },
+          "source_fallback": {
+            "allowed": true,
+            "reason": null
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 13,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          },
+          {
+            "author": "Alex",
+            "text": "The second change works on the new total, so 25% of 100 comes off.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 4 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 4,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "peers"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 16,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          },
+          {
+            "author": "Alex",
+            "text": "The second change works on the new total, so 25% of 100 comes off.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 1 more answer."
+          },
+          "close_round": {
+            "allowed": true,
+            "reason": null
+          }
+        },
+        "waiting_on": 1,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "answer",
+        "C",
+        "somewhat"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 17,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": true,
+            "state": "responded",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": {
+          "choice": "C",
+          "confidence": "somewhat"
+        },
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          },
+          {
+            "author": "Alex",
+            "text": "The second change works on the new total, so 25% of 100 comes off.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Your answer is locked."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Everyone has answered."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "debrief",
+        "revision": 18,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": {
+          "paired_responses": 4,
+          "initial_correct": 1,
+          "fresh_correct": 3,
+          "active_participants": 4,
+          "withdrawn": 0,
+          "initial_outcomes": {
+            "correct": 1,
+            "incorrect": 3,
+            "skipped": 0,
+            "missing": 0
+          },
+          "fresh_outcomes": {
+            "correct": 3,
+            "incorrect": 1,
+            "skipped": 0,
+            "missing": 0
+          },
+          "warning": "Two different immediate items, same participants. Not causal evidence of learning or lasting mastery. Small groups can still infer individual results."
+        },
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          },
+          {
+            "author": "Alex",
+            "text": "The second change works on the new total, so 25% of 100 comes off.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {
+          "diagnostic": {
+            "status": "incorrect",
+            "choice": "A",
+            "correct": false,
+            "explanation": "80 x 1.25 = 100, then 100 x 0.75 = 75. The 25% removed is taken from 100, not from 80.",
+            "question_id": "sample-d1"
+          },
+          "transfer": {
+            "status": "correct",
+            "choice": "C",
+            "correct": true,
+            "explanation": "40 x 1.50 = 60, then 60 x 0.50 = 30. Half of the new price is removed, not half of the old one.",
+            "question_id": "sample-t1"
+          }
+        },
+        "receipt": {
+          "concept": {
+            "id": "sample-successive-change",
+            "title": "Changing percentages"
+          },
+          "source": {
+            "source_id": "sample-note-01",
+            "source_title": "Sample note: each change acts on the current amount"
+          },
+          "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+          "initial": {
+            "question_id": "sample-d1",
+            "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+            "status": "incorrect",
+            "choice": "A",
+            "choice_text": "80",
+            "reviewed_answer": "75"
+          },
+          "fresh": {
+            "question_id": "sample-t1",
+            "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+            "status": "correct",
+            "choice": "C",
+            "choice_text": "$30",
+            "reviewed_answer": "$30"
+          },
+          "explanations": {
+            "shared": 2,
+            "mine": 1,
+            "source_fallback": false
+          },
+          "next_step": {
+            "kind": "try_later",
+            "text": "Try a different application later. One correct answer right after a discussion does not show lasting understanding.",
+            "policy": "receipt-v1",
+            "evidence": [
+              "sample-d1",
+              "sample-t1",
+              "sample-note-01"
+            ]
+          },
+          "delayed_check": {
+            "opted_in": false,
+            "answered": false
+          },
+          "limits": [
+            "Two different items right after one discussion: practice evidence, not a grade or a measure of lasting understanding.",
+            "Answers were checked against the reviewed source, which can still be wrong. Anyone could challenge it."
+          ]
+        },
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "Challenge an item during an active round."
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "This session is complete."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "retention_due_at": 1793217600.0,
+        "retention_note": "Delayed practice is separate evidence from the immediate items and opens after 24 hours."
+      }
+    }
+  ],
+  "right-first-close-round": [
+    {
+      "op": null,
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "lobby",
+        "revision": 4,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "Challenge an item during an active round."
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 5,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 4 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 4,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "answer",
+        "B",
+        "unsure"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 6,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": true,
+            "state": "responded",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": {
+          "choice": "B",
+          "confidence": "unsure"
+        },
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Your answer is locked."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 3 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 3,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "peers"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 9,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": true,
+            "state": "responded",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": {
+          "choice": "B",
+          "confidence": "unsure"
+        },
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Your answer is locked."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Everyone has answered."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 10,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": true,
+            "reason": null
+          },
+          "source_fallback": {
+            "allowed": true,
+            "reason": null
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Needs one shared explanation, or the host records the source fallback."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "peers"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 11,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": true,
+            "reason": null
+          },
+          "source_fallback": {
+            "allowed": true,
+            "reason": null
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 12,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 4 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 4,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "peer",
+        "Ari"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 13,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 3 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 3,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "peer",
+        "Cy"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 14,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 2 more answers."
+          },
+          "close_round": {
+            "allowed": true,
+            "reason": null
+          }
+        },
+        "waiting_on": 2,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "answer",
+        "B",
+        "confident"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 15,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": true,
+            "state": "responded",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": {
+          "choice": "B",
+          "confidence": "confident"
+        },
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Your answer is locked."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 1 more answer."
+          },
+          "close_round": {
+            "allowed": true,
+            "reason": null
+          }
+        },
+        "waiting_on": 1,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance",
+        "mark_missing"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "debrief",
+        "revision": 16,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": {
+          "paired_responses": 3,
+          "initial_correct": 2,
+          "fresh_correct": 2,
+          "active_participants": 4,
+          "withdrawn": 0,
+          "initial_outcomes": {
+            "correct": 2,
+            "incorrect": 2,
+            "skipped": 0,
+            "missing": 0
+          },
+          "fresh_outcomes": {
+            "correct": 2,
+            "incorrect": 1,
+            "skipped": 0,
+            "missing": 1
+          },
+          "warning": "Two different immediate items, same participants. Not causal evidence of learning or lasting mastery. Small groups can still infer individual results."
+        },
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {
+          "diagnostic": {
+            "status": "correct",
+            "choice": "B",
+            "correct": true,
+            "explanation": "80 x 1.25 = 100, then 100 x 0.75 = 75. The 25% removed is taken from 100, not from 80.",
+            "question_id": "sample-d1"
+          },
+          "transfer": {
+            "status": "incorrect",
+            "choice": "B",
+            "correct": false,
+            "explanation": "40 x 1.50 = 60, then 60 x 0.50 = 30. Half of the new price is removed, not half of the old one.",
+            "question_id": "sample-t1"
+          }
+        },
+        "receipt": {
+          "concept": {
+            "id": "sample-successive-change",
+            "title": "Changing percentages"
+          },
+          "source": {
+            "source_id": "sample-note-01",
+            "source_title": "Sample note: each change acts on the current amount"
+          },
+          "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+          "initial": {
+            "question_id": "sample-d1",
+            "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+            "status": "correct",
+            "choice": "B",
+            "choice_text": "75",
+            "reviewed_answer": "75"
+          },
+          "fresh": {
+            "question_id": "sample-t1",
+            "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+            "status": "incorrect",
+            "choice": "B",
+            "choice_text": "$20",
+            "reviewed_answer": "$30"
+          },
+          "explanations": {
+            "shared": 1,
+            "mine": 0,
+            "source_fallback": false
+          },
+          "next_step": {
+            "kind": "revisit_source",
+            "text": "Reread \u201cSample note: each change acts on the current amount\u201d, then try a different problem on the same idea.",
+            "policy": "receipt-v1",
+            "evidence": [
+              "sample-d1",
+              "sample-t1",
+              "sample-note-01"
+            ]
+          },
+          "delayed_check": {
+            "opted_in": false,
+            "answered": false
+          },
+          "limits": [
+            "Two different items right after one discussion: practice evidence, not a grade or a measure of lasting understanding.",
+            "Answers were checked against the reviewed source, which can still be wrong. Anyone could challenge it."
+          ]
+        },
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "Challenge an item during an active round."
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "This session is complete."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "retention_due_at": 1793217600.0,
+        "retention_note": "Delayed practice is separate evidence from the immediate items and opens after 24 hours."
+      }
+    }
+  ],
+  "skip-and-challenge": [
+    {
+      "op": null,
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "lobby",
+        "revision": 4,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "Challenge an item during an active round."
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 5,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 4 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 4,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "peers"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 8,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 1 more answer."
+          },
+          "close_round": {
+            "allowed": true,
+            "reason": null
+          }
+        },
+        "waiting_on": 1,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "answer",
+        "SKIP",
+        "unsure"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 9,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": true,
+            "state": "responded",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": {
+          "choice": "SKIP",
+          "confidence": "unsure"
+        },
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Your answer is locked."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Everyone has answered."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 10,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": true,
+            "reason": null
+          },
+          "source_fallback": {
+            "allowed": true,
+            "reason": null
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Needs one shared explanation, or the host records the source fallback."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "challenge",
+        "Does \"the new total\" mean after the songs were added?"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 11,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": true,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Does \"the new total\" mean after the songs were added?",
+          "pending": true,
+          "stage": "discussion",
+          "resolution": null
+        },
+        "invalidated": false,
+        "explanations": [],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          },
+          "resolve": {
+            "allowed": true,
+            "reason": null
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Resolve the review before moving on."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "resolve",
+        "resume",
+        "Checked the sample note: the second change uses the new total."
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 12,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Does \"the new total\" mean after the songs were added?",
+          "pending": false,
+          "stage": "discussion",
+          "resolution": {
+            "decision": "resume",
+            "host_note": "Checked the sample note: the second change uses the new total."
+          }
+        },
+        "invalidated": false,
+        "explanations": [],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": true,
+            "reason": null
+          },
+          "source_fallback": {
+            "allowed": true,
+            "reason": null
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Needs one shared explanation, or the host records the source fallback."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "peers"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "discussion",
+        "revision": 13,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Does \"the new total\" mean after the songs were added?",
+          "pending": false,
+          "stage": "discussion",
+          "resolution": {
+            "decision": "resume",
+            "host_note": "Checked the sample note: the second change uses the new total."
+          }
+        },
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": {
+          "discussion_question": "Which amount does the second percentage act on: the starting amount, or the amount after the first change?",
+          "possible_misconception": "Use the source to examine the reasoning.",
+          "mode": "curated fallback",
+          "feedback_source": "reviewed_fallback"
+        },
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": true,
+            "reason": null
+          },
+          "source_fallback": {
+            "allowed": true,
+            "reason": null
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "discussion_signal": "Check the shared assumption"
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 14,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Does \"the new total\" mean after the songs were added?",
+          "pending": false,
+          "stage": "discussion",
+          "resolution": {
+            "decision": "resume",
+            "host_note": "Checked the sample note: the second change uses the new total."
+          }
+        },
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 4 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 4,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "peers"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 17,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Does \"the new total\" mean after the songs were added?",
+          "pending": false,
+          "stage": "discussion",
+          "resolution": {
+            "decision": "resume",
+            "host_note": "Checked the sample note: the second change uses the new total."
+          }
+        },
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 1 more answer."
+          },
+          "close_round": {
+            "allowed": true,
+            "reason": null
+          }
+        },
+        "waiting_on": 1,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "answer",
+        "SKIP",
+        "unsure"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "transfer",
+        "revision": 18,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": true,
+            "state": "responded",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-t1",
+          "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+          "options": {
+            "A": "$40",
+            "B": "$20",
+            "C": "$30",
+            "D": "$60"
+          }
+        },
+        "my_answer": {
+          "choice": "SKIP",
+          "confidence": "unsure"
+        },
+        "group": null,
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Does \"the new total\" mean after the songs were added?",
+          "pending": false,
+          "stage": "discussion",
+          "resolution": {
+            "decision": "resume",
+            "host_note": "Checked the sample note: the second change uses the new total."
+          }
+        },
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Your answer is locked."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Everyone has answered."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "debrief",
+        "revision": 19,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": {
+          "paired_responses": 3,
+          "initial_correct": 1,
+          "fresh_correct": 2,
+          "active_participants": 4,
+          "withdrawn": 0,
+          "initial_outcomes": {
+            "correct": 1,
+            "incorrect": 2,
+            "skipped": 1,
+            "missing": 0
+          },
+          "fresh_outcomes": {
+            "correct": 2,
+            "incorrect": 1,
+            "skipped": 1,
+            "missing": 0
+          },
+          "warning": "Two different immediate items, same participants. Not causal evidence of learning or lasting mastery. Small groups can still infer individual results."
+        },
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Does \"the new total\" mean after the songs were added?",
+          "pending": false,
+          "stage": "discussion",
+          "resolution": {
+            "decision": "resume",
+            "host_note": "Checked the sample note: the second change uses the new total."
+          }
+        },
+        "invalidated": false,
+        "explanations": [
+          {
+            "author": "Cy",
+            "text": "The 25% that gets removed is 25% of 100, not of 80. So 100 minus 25 leaves 75, not 80.",
+            "source_fallback": false
+          }
+        ],
+        "hint": null,
+        "my_results": {
+          "diagnostic": {
+            "status": "skipped",
+            "choice": "SKIP",
+            "correct": null,
+            "explanation": "80 x 1.25 = 100, then 100 x 0.75 = 75. The 25% removed is taken from 100, not from 80.",
+            "question_id": "sample-d1"
+          },
+          "transfer": {
+            "status": "skipped",
+            "choice": "SKIP",
+            "correct": null,
+            "explanation": "40 x 1.50 = 60, then 60 x 0.50 = 30. Half of the new price is removed, not half of the old one.",
+            "question_id": "sample-t1"
+          }
+        },
+        "receipt": {
+          "concept": {
+            "id": "sample-successive-change",
+            "title": "Changing percentages"
+          },
+          "source": {
+            "source_id": "sample-note-01",
+            "source_title": "Sample note: each change acts on the current amount"
+          },
+          "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+          "initial": {
+            "question_id": "sample-d1",
+            "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+            "status": "skipped",
+            "choice": null,
+            "choice_text": null,
+            "reviewed_answer": "75"
+          },
+          "fresh": {
+            "question_id": "sample-t1",
+            "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+            "status": "skipped",
+            "choice": null,
+            "choice_text": null,
+            "reviewed_answer": "$30"
+          },
+          "explanations": {
+            "shared": 1,
+            "mine": 0,
+            "source_fallback": false
+          },
+          "next_step": {
+            "kind": "no_fresh_answer",
+            "text": "No fresh answer was recorded, so this round says little about you. Try a different problem on the same idea when you are ready.",
+            "policy": "receipt-v1",
+            "evidence": [
+              "sample-d1",
+              "sample-t1",
+              "sample-note-01"
+            ]
+          },
+          "delayed_check": {
+            "opted_in": false,
+            "answered": false
+          },
+          "limits": [
+            "Two different items right after one discussion: practice evidence, not a grade or a measure of lasting understanding.",
+            "Answers were checked against the reviewed source, which can still be wrong. Anyone could challenge it."
+          ]
+        },
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "Challenge an item during an active round."
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "This session is complete."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "retention_due_at": 1793217600.0,
+        "retention_note": "Delayed practice is separate evidence from the immediate items and opens after 24 hours."
+      }
+    }
+  ],
+  "discard": [
+    {
+      "op": null,
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "lobby",
+        "revision": 4,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "Answers open in Think privately and Fresh problem."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "Challenge an item during an active round."
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": true,
+            "reason": null
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "Only answering rounds can be closed."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "advance"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 5,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 4 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 4,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "peer",
+        "Ari"
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 6,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": null,
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": null,
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": true,
+            "reason": null
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "Explanations belong in Explain together."
+          },
+          "challenge": {
+            "allowed": true,
+            "reason": null
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Waiting for 3 more answers."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "At least two responses are needed before closing the round."
+          }
+        },
+        "waiting_on": 3,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "challenge",
+        "Two of the options could both be read as correct."
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "diagnostic",
+        "revision": 7,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "waiting",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": true,
+            "state": "responded",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "waiting",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": true,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": {
+          "id": "sample-d1",
+          "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+          "options": {
+            "A": "80",
+            "B": "75",
+            "C": "85",
+            "D": "100"
+          }
+        },
+        "my_answer": null,
+        "group": null,
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Two of the options could both be read as correct.",
+          "pending": true,
+          "stage": "diagnostic",
+          "resolution": null
+        },
+        "invalidated": false,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": null,
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          },
+          "resolve": {
+            "allowed": true,
+            "reason": null
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "Resolve the review before moving on."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "The item is paused for review."
+          }
+        },
+        "waiting_on": 3,
+        "notice": "Original demonstration material. No grade or mastery prediction."
+      }
+    },
+    {
+      "op": [
+        "resolve",
+        "discard",
+        "Withdrawn for this sample: the wording needs another review."
+      ],
+      "view": {
+        "id": "sample-round",
+        "concept": {
+          "id": "sample-successive-change",
+          "title": "Changing percentages"
+        },
+        "stage": "debrief",
+        "revision": 8,
+        "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+        "is_host": true,
+        "members": [
+          {
+            "name": "Alex",
+            "responded": false,
+            "state": "present",
+            "is_me": true,
+            "is_host": true
+          },
+          {
+            "name": "Ari",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Bea",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          },
+          {
+            "name": "Cy",
+            "responded": false,
+            "state": "present",
+            "is_me": false,
+            "is_host": false
+          }
+        ],
+        "me": {
+          "name": "Alex",
+          "reminders": false,
+          "availability": [],
+          "timezone": "America/Phoenix",
+          "withdrawn": false
+        },
+        "plan": null,
+        "plan_version": 3,
+        "approved_count": 0,
+        "approved_by_me": false,
+        "plan_cancelled": null,
+        "needs_reproposal": false,
+        "schedule_confirmed": false,
+        "paused": false,
+        "source": {
+          "source_id": "sample-note-01",
+          "source_title": "Sample note: each change acts on the current amount",
+          "source_text": "Original sample material written for the RELAY sample round. A percentage change applies to the amount at that moment. Adding p percent multiplies the current amount by (1 + p/100); removing q percent multiplies the current amount by (1 - q/100). The second change in a sequence uses the new amount, so equal up-and-down percentages do not cancel."
+        },
+        "question": null,
+        "my_answer": null,
+        "group": null,
+        "challenge": {
+          "id": "sample-challenge",
+          "reason": "Two of the options could both be read as correct.",
+          "pending": false,
+          "stage": "diagnostic",
+          "resolution": {
+            "decision": "discard",
+            "host_note": "Withdrawn for this sample: the wording needs another review."
+          }
+        },
+        "invalidated": true,
+        "explanations": [],
+        "hint": null,
+        "my_results": {},
+        "receipt": {
+          "concept": {
+            "id": "sample-successive-change",
+            "title": "Changing percentages"
+          },
+          "source": {
+            "source_id": "sample-note-01",
+            "source_title": "Sample note: each change acts on the current amount"
+          },
+          "pack_hash": "cbed783ff98e5e926fc7ade8bb5899f9f4e4d280ce6b3fbf8613e99f8c97965d",
+          "initial": {
+            "question_id": "sample-d1",
+            "prompt": "A shared study playlist has 80 songs. Someone adds 25% more songs, then 25% of the new total are removed. How many songs are left?",
+            "status": "invalidated",
+            "choice": null,
+            "choice_text": null,
+            "reviewed_answer": null
+          },
+          "fresh": {
+            "question_id": "sample-t1",
+            "prompt": "A $40 textbook is marked up 50%, then sold at 50% off the new price. What does it cost now?",
+            "status": "invalidated",
+            "choice": null,
+            "choice_text": null,
+            "reviewed_answer": null
+          },
+          "explanations": {
+            "shared": 0,
+            "mine": 0,
+            "source_fallback": false
+          },
+          "next_step": {
+            "kind": "discarded",
+            "text": "This item was withdrawn after review, so nothing in this round counts. Start a new session when the group is ready.",
+            "policy": "receipt-v1",
+            "evidence": [
+              "sample-d1",
+              "sample-t1",
+              "sample-note-01"
+            ]
+          },
+          "delayed_check": {
+            "opted_in": false,
+            "answered": false
+          },
+          "limits": [
+            "Two different items right after one discussion: practice evidence, not a grade or a measure of lasting understanding.",
+            "Answers were checked against the reviewed source, which can still be wrong. Anyone could challenge it."
+          ]
+        },
+        "allowed_actions": {
+          "answer": {
+            "allowed": false,
+            "reason": "This item was discarded after review."
+          },
+          "explain": {
+            "allowed": false,
+            "reason": "This item was discarded after review."
+          },
+          "source_fallback": {
+            "allowed": false,
+            "reason": "This item was discarded after review."
+          },
+          "challenge": {
+            "allowed": false,
+            "reason": "This item was discarded after review."
+          },
+          "resolve": {
+            "allowed": false,
+            "reason": "There is no open item review."
+          },
+          "advance": {
+            "allowed": false,
+            "reason": "This session is complete."
+          },
+          "close_round": {
+            "allowed": false,
+            "reason": "This item was discarded after review."
+          }
+        },
+        "waiting_on": 0,
+        "notice": "Original demonstration material. No grade or mastery prediction.",
+        "retention_due_at": 1793217600.0,
+        "retention_note": "Delayed practice is separate evidence from the immediate items and opens after 24 hours."
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "iris-correlation",
+  "title": "Reading a correlation (Iris data)",
+  "source_id": "uci-iris-53",
+  "source_title": "Iris measurements (UCI) with an original RELAY teaching note",
+  "source_text": "Original RELAY teaching note. The correlation coefficient r summarises how closely two measurements follow a straight-line pattern across the cases in one sample, on a scale from -1 to 1. A value near 1 means that, in that sample, larger values of one measurement tend to come with larger values of the other. It does not show that one causes the other, does not mean every case follows the pattern, and is not the slope. When a sample pools groups that differ in typical size, the pooled r can be very different from, even opposite in sign to, the r inside each group. Data: 150 iris flowers, 50 from each of three species, measured in centimetres. Fisher, R. A. (1936). Iris [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C56C76. Licensed CC BY 4.0. Values computed by RELAY from the UCI file bezdekIris.data.",
+  "hint": "Which claims does r tell you about this sample, and which go beyond it: a cause, every single flower, or a slope? What changes when different species are mixed together?",
+  "diagnostic": {
+    "id": "iris-d1",
+    "prompt": "Across all 150 flowers in the Iris data, petal length and petal width have a correlation of r = 0.96. Which conclusion does this support?",
+    "options": {
+      "A": "Growing a longer petal makes the petal wider.",
+      "B": "In this sample, flowers with longer petals tend to have wider petals.",
+      "C": "Every flower with a longer petal also has a wider petal.",
+      "D": "Petal width is about 0.96 times petal length."
+    },
+    "correct": "B",
+    "explanation": "r = 0.96 describes a strong straight-line tendency in this sample. It is not a cause, does not hold for every flower, and is not a slope.",
+    "misconceptions": {
+      "A": "reading correlation as causation",
+      "C": "treating a tendency as a rule for every case",
+      "D": "reading r as a slope"
+    }
+  },
+  "transfer": {
+    "id": "iris-t1",
+    "prompt": "Across all 150 flowers, sepal length and sepal width have r = −0.12. Within each species on its own, r is positive: 0.74 for setosa, 0.53 for versicolor and 0.46 for virginica. What best explains this?",
+    "options": {
+      "A": "Pooling species with different typical sizes hides the positive pattern inside each species.",
+      "B": "The within-species values must be calculation mistakes.",
+      "C": "Longer sepals cause narrower sepals.",
+      "D": "A correlation near zero means the two measurements are unrelated in every group."
+    },
+    "correct": "A",
+    "explanation": "Each species follows its own positive pattern, but the species differ in typical sepal size, so mixing them flattens and even reverses the pooled r.",
+    "misconceptions": {
+      "B": "distrusting a result instead of checking group structure",
+      "C": "reading correlation as causation",
+      "D": "assuming a pooled value applies to every subgroup"
+    }
+  },
+  "retention": {
+    "id": "iris-r1",
+    "prompt": "In the Iris data, mean petal length is 1.46 cm for the 50 setosa flowers and 4.26 cm for the 50 versicolor flowers. Which statement is fair?",
+    "options": {
+      "A": "In this sample, versicolor petals were longer on average than setosa petals.",
+      "B": "The difference proves versicolor plants grow faster.",
+      "C": "These 100 flowers describe every iris of these species everywhere.",
+      "D": "Each versicolor petal is the same length as the versicolor mean."
+    },
+    "correct": "A",
+    "explanation": "A difference in sample means compares these groups as measured. It says nothing about growth rate, other populations, or individual flowers.",
+    "misconceptions": {
+      "B": "reading a difference in means as a cause",
+      "C": "generalising beyond the sample",
+      "D": "treating a mean as every value"
+    }
+  }
+}

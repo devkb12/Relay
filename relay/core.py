@@ -337,7 +337,8 @@ class Relay:
                 'paused':paused,'source':None,'question':None,'my_answer':None,'group':None,
                 'challenge':challenge,'invalidated':s.get('invalidated',False),
                 'explanations':[{k:e.get(k) for k in ('author','text','source_fallback')} for e in s['explanations']],
-                'hint':None,'my_results':{},
+                'hint':None,'my_results':{},'receipt':None,
+                'allowed_actions':self._allowed(s,mid),'waiting_on':self._waiting(s),
                 'notice':'Original demonstration material. No grade or mastery prediction.'}
         if m.get('withdrawn_at'):
             result.update(members=[],explanations=[],plan=None)
@@ -381,7 +382,81 @@ class Relay:
             result['retention_note']='Delayed practice is separate evidence from the immediate items and opens after 24 hours.'
             if self.now()>=due and mid not in s['answers']['retention'] and not invalid:
                 result['question']=public_question(c['retention'])
+            result['receipt']=self._receipt(s,mid)
         return result
+
+    def _waiting(self,s):
+        stage=s['stage']
+        if stage not in ('diagnostic','transfer'): return 0
+        return sum(u not in s['answers'][stage] for u in self.active(s))
+
+    def _allowed(self,s,mid):
+        """What this viewer may do now, and the server's reason when not. Mirrors the checks in the
+        mutating methods (tests assert they agree) so a client never re-derives the rules."""
+        stage=s['stage']; host=mid==s['host']; active=self.active(s)
+        paused=bool((s.get('challenge') or {}).get('pending')); invalid=bool(s.get('invalidated'))
+        ok=lambda:{'allowed':True,'reason':None}
+        no=lambda why:{'allowed':False,'reason':why}
+        if s['members'][mid].get('withdrawn_at'):
+            return {k:no('You left this session.') for k in ('answer','explain','source_fallback','challenge','resolve','advance','close_round')}
+        answering=stage in ('diagnostic','transfer')
+        answered=set(s['answers'][stage]) if answering else set()
+        waiting=[u for u in active if u not in answered] if answering else []
+        held='The item is paused for review.' if paused else 'This item was discarded after review.' if invalid else None
+        if held: answer=no(held)
+        elif answering: answer=no('Your answer is locked.') if mid in answered else ok()
+        elif stage=='debrief' and self.now()>=(s['closed_at'] or 0)+DAY and mid not in s['answers']['retention']: answer=ok()
+        else: answer=no('Answers open in Think privately and Fresh problem.')
+        explain=ok() if stage=='discussion' and not paused else no(held or 'Explanations belong in Explain together.')
+        fallback=explain if host else no('Only the host can record the source fallback.')
+        challenge=ok() if stage in ('diagnostic','discussion','transfer') and not paused else no(held or 'Challenge an item during an active round.')
+        resolve=no('Only the host reviews a challenge.') if not host else ok() if paused else no('There is no open item review.')
+        if not host: advance=no('The host moves the group forward.')
+        elif paused: advance=no('Resolve the review before moving on.')
+        elif stage=='debrief': advance=no('This session is complete.')
+        elif len(active)<2: advance=no('At least two participants are needed.')
+        elif waiting: advance=no(f"Waiting for {len(waiting)} more {'answer' if len(waiting)==1 else 'answers'}.")
+        elif stage=='discussion' and not [e for e in s['explanations'] if not e.get('withdrawn')]:
+            advance=no('Needs one shared explanation, or the host records the source fallback.')
+        else: advance=ok()
+        if not host: close=no('The host closes a round.')
+        elif paused or not answering or not waiting: close=no(held or ('Everyone has answered.' if answering else 'Only answering rounds can be closed.'))
+        elif len(answered&set(active))<2: close=no('At least two responses are needed before closing the round.')
+        else: close=ok()
+        return {'answer':answer,'explain':explain,'source_fallback':fallback,'challenge':challenge,
+                'resolve':resolve,'advance':advance,'close_round':close}
+
+    def _receipt(self,s,mid):
+        """Evidence-linked recap for one participant: what was checked, what they did, and a reviewed
+        next step from a fixed policy (receipt-v1). No model, score, ranking or mastery claim."""
+        c=s['pack']; invalid=bool(s.get('invalidated'))
+        def part(phase):
+            q=c[phase]; a=s['answers'][phase].get(mid); status=outcome(a,invalid)
+            picked=a['choice'] if a and a['choice']!='SKIP' else None
+            return {'question_id':q['id'],'prompt':q['prompt'],'status':status,'choice':picked,
+                    'choice_text':q['options'].get(picked) if picked else None,
+                    'reviewed_answer':None if invalid else q['options'][q['correct']]}
+        shared=[e for e in s['explanations'] if not e.get('withdrawn') and not e.get('source_fallback')]
+        initial,fresh=part('diagnostic'),part('transfer')
+        if invalid:
+            step=('discarded','This item was withdrawn after review, so nothing in this round counts. Start a new session when the group is ready.')
+        elif fresh['status']=='correct':
+            step=('try_later','Try a different application later. One correct answer right after a discussion does not show lasting understanding.')
+        elif fresh['status']=='incorrect':
+            step=('revisit_source',f"Reread “{c['source_title']}”, then try a different problem on the same idea.")
+        else:
+            step=('no_fresh_answer','No fresh answer was recorded, so this round says little about you. Try a different problem on the same idea when you are ready.')
+        return {'concept':{'id':c['id'],'title':c['title']},
+                'source':{'source_id':c['source_id'],'source_title':c['source_title']},'pack_hash':s['pack_hash'],
+                'initial':initial,'fresh':fresh,
+                'explanations':{'shared':len(shared),'mine':sum(e.get('author_id')==mid for e in shared),
+                                'source_fallback':any(e.get('source_fallback') for e in s['explanations'])},
+                'next_step':{'kind':step[0],'text':step[1],'policy':'receipt-v1',
+                             'evidence':[initial['question_id'],fresh['question_id'],c['source_id']]},
+                'delayed_check':{'opted_in':bool(s['members'][mid]['reminders']) and not invalid,
+                                 'answered':mid in s['answers']['retention']},
+                'limits':['Two different items right after one discussion: practice evidence, not a grade or a measure of lasting understanding.',
+                          'Answers were checked against the reviewed source, which can still be wrong. Anyone could challenge it.']}
 
     def _group(self,s):
         # Aggregate performance is suppressed below three actual paired responders.

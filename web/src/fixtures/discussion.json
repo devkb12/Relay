@@ -83,6 +83,38 @@
     "feedback_source": "reviewed_fallback"
   },
   "my_results": {},
+  "receipt": null,
+  "allowed_actions": {
+    "answer": {
+      "allowed": false,
+      "reason": "Answers open in Think privately and Fresh problem."
+    },
+    "explain": {
+      "allowed": true,
+      "reason": null
+    },
+    "source_fallback": {
+      "allowed": true,
+      "reason": null
+    },
+    "challenge": {
+      "allowed": true,
+      "reason": null
+    },
+    "resolve": {
+      "allowed": false,
+      "reason": "There is no open item review."
+    },
+    "advance": {
+      "allowed": false,
+      "reason": "Needs one shared explanation, or the host records the source fallback."
+    },
+    "close_round": {
+      "allowed": false,
+      "reason": "Only answering rounds can be closed."
+    }
+  },
+  "waiting_on": 0,
   "notice": "Original demonstration material. No grade or mastery prediction.",
   "discussion_signal": "Check the shared assumption"
 }

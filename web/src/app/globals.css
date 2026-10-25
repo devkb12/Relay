@@ -1,32 +1,36 @@
 @import "tailwindcss";
 
-/* RELAY tokens, drawn from the logo: deep wordmark navy, a violet → electric blue → cyan blend,
-   and the tassel's gold. Meaning stays fixed: blue = your next action / live track · violet = a
-   handoff between people · gold/amber = paused or under review · green = a step that observably
-   happened. The blend is brand atmosphere only; it never encodes a person's ability. */
+/* RELAY tokens (docs/design/DECISIONS.md, "Product upgrade"). Warm, focused, confident. Meaning is
+   fixed and always paired with words: primary = your next action and the live stage · handoff (coral)
+   = a turn passing between people, decorative only · amber = paused or needs review · green = a step
+   that observably happened. The logo's violet → blue → cyan blend and gold baton are brand
+   atmosphere only; no colour ever encodes a person's ability. All text pairs are WCAG AA or better. */
 @theme {
-  --color-ink: #0d1b3e;
-  --color-ink-deep: #081230;
-  --color-ink-line: #26355f;
-  --color-paper: #f6f7fb;
+  --color-ink: #172032;
+  --color-ink-deep: #10172a;
+  --color-ink-line: #2a3550;
+  --color-paper: #f6f4f0;
   --color-card: #ffffff;
-  --color-text: #141b34;
-  --color-muted: #555e78;
-  --color-line: #e4e7f0;
-  --color-line-strong: #cbd0df;
-  --color-blue: #2e54f0;
-  --color-blue-strong: #2242cc;
-  --color-blue-tint: #edf1ff;
-  --color-violet: #6b35e8;
-  --color-violet-tint: #f2edff;
+  --color-text: #172032;
+  --color-muted: #5b6473;
+  --color-line: #e5e2db;
+  --color-line-strong: #cfccc4;
+  /* Form-control boundaries need 3:1 against the card (WCAG 1.4.11). */
+  --color-control: #8e95a3;
+  --color-primary: #5b43d6;
+  --color-primary-strong: #4b34bb;
+  --color-primary-tint: #eeeafe;
+  --color-handoff: #e26a4f;
+  --color-handoff-text: #a4432c;
+  --color-handoff-tint: #fcefea;
   --color-cyan: #1fb8ec;
   --color-gold: #f5b12e;
-  --color-amber: #8a5600;
-  --color-amber-tint: #fff3d6;
-  --color-green: #11705a;
-  --color-green-tint: #e3f3ec;
-  --color-on-ink: #eef1fa;
-  --color-on-ink-muted: #aeb8d3;
+  --color-amber: #925806;
+  --color-amber-tint: #fcf0df;
+  --color-green: #116b60;
+  --color-green-tint: #e8f3ef;
+  --color-on-ink: #eef0f5;
+  --color-on-ink-muted: #aeb6c8;
 
   --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-atkinson), "Segoe UI", system-ui, sans-serif;
@@ -45,8 +49,8 @@
 :root {
   --grad-brand: linear-gradient(110deg, #7a3ff2 0%, #3a5bff 48%, #1fb8ec 100%);
   --grad-brand-soft: linear-gradient(110deg, rgba(122, 63, 242, 0.14), rgba(58, 91, 255, 0.12) 48%, rgba(31, 184, 236, 0.14));
-  --shadow-float: 0 1px 2px rgba(13, 27, 62, 0.06), 0 18px 48px -18px rgba(13, 27, 62, 0.28);
-  --shadow-soft: 0 1px 2px rgba(13, 27, 62, 0.05), 0 8px 24px -14px rgba(13, 27, 62, 0.18);
+  --shadow-float: 0 1px 2px rgba(23, 32, 50, 0.06), 0 18px 48px -18px rgba(23, 32, 50, 0.28);
+  --shadow-soft: 0 1px 2px rgba(23, 32, 50, 0.05), 0 8px 24px -14px rgba(23, 32, 50, 0.18);
 }
 
 @layer base {
@@ -55,9 +59,9 @@
   h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; text-wrap: balance; }
   /* Accent words use the true italic face (loaded on demand). */
   h1 em, h2 em, h3 em, .font-display.italic, em.font-display { font-family: var(--font-newsreader-italic), var(--font-display); font-style: italic; }
-  ::selection { background: #dfe6ff; }
-  :focus-visible { outline: 2px solid var(--color-blue); outline-offset: 2px; border-radius: 6px; }
-  .on-ink :focus-visible { outline-color: #9db2ff; }
+  ::selection { background: #e4defc; }
+  :focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 6px; }
+  .on-ink :focus-visible { outline-color: #b9adf6; }
   button, [role="button"], a { -webkit-tap-highlight-color: transparent; }
 }
 

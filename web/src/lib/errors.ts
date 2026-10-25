@@ -19,6 +19,7 @@ export type ErrorCopy = { title: string; body: string; action?: 'refresh' | 'sig
 const DEMO_DISABLED = /demo creation is disabled|join through discord/i;
 const HOST_ONLY = /only the session host/i;
 const BEARER_OFF = /bearer tokens are disabled/i;
+const NOT_MEMBER = /not authorized for this session|use \/relay join first/i;
 
 /** Map an error to the words the person sees. Server text is shown verbatim where it explains the rule. */
 export function describeError(err: unknown): ErrorCopy {
@@ -36,6 +37,8 @@ export function describeError(err: unknown): ErrorCopy {
   if (s === 403 && DEMO_DISABLED.test(err.message)) return { title: 'Sessions start in Discord', body: 'This backend does not allow browser test identities. Create or join with /relay create and /relay join in your study server.', action: 'none' };
   if (s === 403 && HOST_ONLY.test(err.message)) return { title: 'Host only', body: err.message, action: 'none' };
   if (s === 403 && BEARER_OFF.test(err.message)) return { title: 'Sign in with Discord', body: err.message, action: 'signin' };
+  // A room link identifies a session; it never grants access. Membership comes from /relay join.
+  if (s === 403 && NOT_MEMBER.test(err.message)) return { title: 'You haven’t joined this session', body: 'You’re signed in, but you are not a member of this session. In its Discord channel, run /relay join, then reload this page.', action: 'none' };
   if (s === 403) return { title: 'Not allowed', body: err.message, action: 'none' };
   if (s === 404) return { title: 'Session not found', body: 'It may have been deleted, or the link is wrong.', action: 'none' };
   if (s === 409) return { title: 'Something changed', body: `${err.message} The view was refreshed.`, action: 'refresh' };

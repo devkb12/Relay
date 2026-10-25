@@ -83,5 +83,37 @@
   "explanations": [],
   "hint": null,
   "my_results": {},
+  "receipt": null,
+  "allowed_actions": {
+    "answer": {
+      "allowed": true,
+      "reason": null
+    },
+    "explain": {
+      "allowed": false,
+      "reason": "Explanations belong in Explain together."
+    },
+    "source_fallback": {
+      "allowed": false,
+      "reason": "Only the host can record the source fallback."
+    },
+    "challenge": {
+      "allowed": true,
+      "reason": null
+    },
+    "resolve": {
+      "allowed": false,
+      "reason": "Only the host reviews a challenge."
+    },
+    "advance": {
+      "allowed": false,
+      "reason": "The host moves the group forward."
+    },
+    "close_round": {
+      "allowed": false,
+      "reason": "The host closes a round."
+    }
+  },
+  "waiting_on": 4,
   "notice": "Original demonstration material. No grade or mastery prediction."
 }

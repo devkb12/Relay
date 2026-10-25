@@ -1,0 +1,57 @@
+{
+  "pack_id": "iris-correlation",
+  "version": "2026-10-25.1",
+  "review": {
+    "status": "draft",
+    "reviewed_by": null,
+    "reviewed_at": null,
+    "checklist": [
+      "source relevance",
+      "wording",
+      "difficulty",
+      "computations",
+      "answer keys"
+    ]
+  },
+  "source": {
+    "title": "Iris",
+    "creator": "R. A. Fisher",
+    "year": 1936,
+    "publisher": "UCI Machine Learning Repository",
+    "page": "https://archive.ics.uci.edu/dataset/53/iris",
+    "doi": "https://doi.org/10.24432/C56C76",
+    "download": "https://archive.ics.uci.edu/static/public/53/iris.zip",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "retrieved_at": "2026-10-25T15:30:12Z",
+    "archive_sha256": "d11fe30213d36434a0879aab7cb00ce3c812eb7ba2495874438abff7b7b762e9"
+  },
+  "snapshot": {
+    "file": "bezdekIris.data",
+    "sha256": "0fed2a99db77ec533a62dc66894d3ec6df3b58b6a8f3cf4a6b47e4086b7f97dc",
+    "rows": 150,
+    "units": "centimetres",
+    "why_this_file": "The archive also ships iris.data, which differs from Fisher (1936) in samples 35 and 38 (see iris.names). bezdekIris.data carries those corrections.",
+    "transformations": [
+      "none to the data",
+      "species labels shortened (Iris-setosa -> setosa)",
+      "statistics rounded to 2 decimals for display"
+    ]
+  },
+  "computed": {
+    "n": 150,
+    "r_petal_all": 0.96,
+    "r_sepal_all": -0.12,
+    "r_sepal_by_species": {
+      "setosa": 0.74,
+      "versicolor": 0.53,
+      "virginica": 0.46
+    },
+    "mean_petal_length": {
+      "setosa": 1.46,
+      "versicolor": 4.26,
+      "virginica": 5.55
+    }
+  },
+  "authorship": "Questions, options, explanations and the teaching note are original RELAY material. The dataset authors did not write or endorse them."
+}

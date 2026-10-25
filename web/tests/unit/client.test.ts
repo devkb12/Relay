@@ -3,7 +3,7 @@ import { describeError, fieldErrors, RelayError } from '@/lib/errors';
 import { STAGE_LABEL, ADVANCE_LABEL, STAGE_ORDER } from '@/lib/stages';
 import { FORBIDDEN_CLAIMS, groupLines, retryTopics, followUpLine, WITHHELD, STATUS_TEXT } from '@/lib/debrief';
 import { FIXTURES } from '@/lib/fixtures';
-import { isAllowed } from '@/lib/proxy';
+import { isAllowed, upstreamConfig } from '@/lib/proxy';
 
 /** Minimal sessionStorage/localStorage for the node environment. */
 class MemoryStorage {
@@ -27,7 +27,8 @@ describe('error mapping', () => {
     [http(403, 'Only the session host may do this.'), 'Host only'],
     [http(403, 'Public demo creation is disabled; join through Discord.'), 'Sessions start in Discord'],
     [http(403, 'Participant bearer tokens are disabled here. Sign in with Discord.'), 'Sign in with Discord'],
-    [http(403, 'Not authorized for this session.'), 'Not allowed'],
+    [http(403, 'Not authorized for this session.'), 'You haven’t joined this session'],
+    [http(403, 'Request origin is not allowed.'), 'Not allowed'],
     [http(404, 'Session not found.'), 'Session not found'],
     [http(409, 'The stage changed. Refresh before continuing.'), 'Something changed'],
     [http(422, 'Some fields need attention.', { note: 'String should have at least 10 characters' }), 'Check the highlighted fields'],
@@ -47,7 +48,7 @@ describe('error mapping', () => {
 describe('stage labels', () => {
   it('uses the product labels and only backend values as keys', () => {
     expect(STAGE_ORDER).toEqual(['lobby', 'diagnostic', 'discussion', 'transfer', 'debrief']);
-    expect(STAGE_LABEL).toEqual({ lobby: 'Gather your group', diagnostic: 'Think privately', discussion: 'Explain together', transfer: 'Try a fresh problem', debrief: 'Reflect on learning' });
+    expect(STAGE_LABEL).toEqual({ lobby: 'Gather', diagnostic: 'Think privately', discussion: 'Explain together', transfer: 'Fresh problem', debrief: 'Reflect' });
     expect(ADVANCE_LABEL.debrief).toBeNull();
   });
 });
@@ -132,4 +133,32 @@ describe('tokens and the calendar download', () => {
 describe('proxy allowlist', () => {
   it.each(['/health', '/api/concepts', '/api/me/sessions', '/api/sessions', '/api/sessions/AbC_12-x', '/api/sessions/AbC/answer', '/api/sessions/AbC/calendar.ics', '/auth/me', '/auth/logout', '/auth/discord/login', '/auth/discord/callback'])('forwards %s', (p) => expect(isAllowed(p)).toBe(true));
   it.each(['/internal/discord', '/api/internal/jobs', '/api/sessions/AbC/../../internal/discord', '/api/sessions/AbC/unknown', '/auth/discord/other', '/docs', '/openapi.json'])('refuses %s', (p) => expect(isAllowed(p)).toBe(false));
+});
+
+describe('backend upstream configuration (why a site is not connected)', () => {
+  it('names the reason without revealing the address', () => {
+    expect(upstreamConfig({})).toEqual({ reason: 'not_configured' });
+    expect(upstreamConfig({ RELAY_API_BASE_URL: '   ' })).toEqual({ reason: 'not_configured' });
+    expect(upstreamConfig({ RELAY_API_BASE_URL: 'not a url' })).toEqual({ reason: 'invalid_url' });
+    expect(upstreamConfig({ RELAY_API_BASE_URL: 'ftp://x.example' })).toEqual({ reason: 'invalid_url' });
+  });
+
+  it('refuses loopback and LAN addresses on a hosted deployment, allows them locally', () => {
+    for (const host of ['http://127.0.0.1:8000', 'http://localhost:8000', 'http://192.168.1.5:8000', 'http://10.0.0.2', 'http://172.20.1.1']) {
+      expect(upstreamConfig({ RELAY_API_BASE_URL: host, VERCEL: '1' })).toEqual({ reason: 'local_address' });
+    }
+    expect(upstreamConfig({ RELAY_API_BASE_URL: 'http://127.0.0.1:8000' })).toEqual({ base: 'http://127.0.0.1:8000' });
+  });
+
+  it('keeps only the origin of a public HTTPS upstream (no path, so no /api/api)', () => {
+    expect(upstreamConfig({ RELAY_API_BASE_URL: 'https://laptop.tail1234.ts.net/api/', VERCEL: '1' })).toEqual({ base: 'https://laptop.tail1234.ts.net' });
+  });
+});
+
+describe('membership is not implied by a link', () => {
+  it('a signed-in nonmember is told to join in Discord, not shown a generic refusal', () => {
+    const copy = describeError(new RelayError('http', 'Not authorized for this session.', 403));
+    expect(copy.title).toBe('You haven’t joined this session');
+    expect(copy.body).toMatch(/\/relay join/);
+  });
 });

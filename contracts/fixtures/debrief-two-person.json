@@ -1,0 +1,160 @@
+{
+  "id": "synthetic-session",
+  "concept": {
+    "id": "compound-change",
+    "title": "Successive percentage changes"
+  },
+  "stage": "debrief",
+  "revision": 11,
+  "pack_hash": "28a18a9bb9f4a3dc5cf8ae01b17d7095ceda2a2e1f1f48fff9d93ad0c45bcfaa",
+  "is_host": false,
+  "members": [
+    {
+      "name": "Demo Host",
+      "responded": false,
+      "state": "present",
+      "is_me": false,
+      "is_host": true
+    },
+    {
+      "name": "Demo Member B",
+      "responded": false,
+      "state": "present",
+      "is_me": true,
+      "is_host": false
+    }
+  ],
+  "me": {
+    "name": "Demo Member B",
+    "reminders": false,
+    "availability": [],
+    "timezone": "America/Phoenix",
+    "withdrawn": false
+  },
+  "plan": null,
+  "plan_version": 1,
+  "approved_count": 0,
+  "approved_by_me": false,
+  "plan_cancelled": null,
+  "needs_reproposal": false,
+  "schedule_confirmed": false,
+  "paused": false,
+  "source": {
+    "source_id": "relay-note-01",
+    "source_title": "Original teaching note: multiplicative change",
+    "source_text": "A percentage change acts on the value at that step. A gain of p percent multiplies the current value by 1 + p/100; a loss of q percent multiplies the current value by 1 - q/100. Successive changes multiply their factors. Adding the percentages is generally not equivalent."
+  },
+  "question": null,
+  "my_answer": null,
+  "group": null,
+  "challenge": null,
+  "invalidated": false,
+  "explanations": [
+    {
+      "author": "Demo Member B",
+      "text": "The second percentage operates on the updated amount, not the initial amount.",
+      "source_fallback": false
+    }
+  ],
+  "hint": null,
+  "my_results": {
+    "diagnostic": {
+      "status": "incorrect",
+      "choice": "A",
+      "correct": false,
+      "explanation": "100 x 1.50 x 0.50 = 75. The loss applies to 150, not 100.",
+      "question_id": "compound-d1"
+    },
+    "transfer": {
+      "status": "correct",
+      "choice": "A",
+      "correct": true,
+      "explanation": "200 x 1.25 x 0.80 = 200. Unlike equal up/down percentages, these factors exactly cancel.",
+      "question_id": "compound-t1"
+    }
+  },
+  "receipt": {
+    "concept": {
+      "id": "compound-change",
+      "title": "Successive percentage changes"
+    },
+    "source": {
+      "source_id": "relay-note-01",
+      "source_title": "Original teaching note: multiplicative change"
+    },
+    "pack_hash": "28a18a9bb9f4a3dc5cf8ae01b17d7095ceda2a2e1f1f48fff9d93ad0c45bcfaa",
+    "initial": {
+      "question_id": "compound-d1",
+      "prompt": "A practice account starts at $100. It rises 50%, then falls 50%. What is its final value?",
+      "status": "incorrect",
+      "choice": "A",
+      "choice_text": "$100",
+      "reviewed_answer": "$75"
+    },
+    "fresh": {
+      "question_id": "compound-t1",
+      "prompt": "An item costs $200. Its price rises 25%, then receives a 20% discount on the new price. What is the final price?",
+      "status": "correct",
+      "choice": "A",
+      "choice_text": "$200",
+      "reviewed_answer": "$200"
+    },
+    "explanations": {
+      "shared": 1,
+      "mine": 1,
+      "source_fallback": false
+    },
+    "next_step": {
+      "kind": "try_later",
+      "text": "Try a different application later. One correct answer right after a discussion does not show lasting understanding.",
+      "policy": "receipt-v1",
+      "evidence": [
+        "compound-d1",
+        "compound-t1",
+        "relay-note-01"
+      ]
+    },
+    "delayed_check": {
+      "opted_in": false,
+      "answered": false
+    },
+    "limits": [
+      "Two different items right after one discussion: practice evidence, not a grade or a measure of lasting understanding.",
+      "Answers were checked against the reviewed source, which can still be wrong. Anyone could challenge it."
+    ]
+  },
+  "allowed_actions": {
+    "answer": {
+      "allowed": false,
+      "reason": "Answers open in Think privately and Fresh problem."
+    },
+    "explain": {
+      "allowed": false,
+      "reason": "Explanations belong in Explain together."
+    },
+    "source_fallback": {
+      "allowed": false,
+      "reason": "Only the host can record the source fallback."
+    },
+    "challenge": {
+      "allowed": false,
+      "reason": "Challenge an item during an active round."
+    },
+    "resolve": {
+      "allowed": false,
+      "reason": "Only the host reviews a challenge."
+    },
+    "advance": {
+      "allowed": false,
+      "reason": "The host moves the group forward."
+    },
+    "close_round": {
+      "allowed": false,
+      "reason": "The host closes a round."
+    }
+  },
+  "waiting_on": 0,
+  "notice": "Original demonstration material. No grade or mastery prediction.",
+  "retention_due_at": 1792958400.0,
+  "retention_note": "Delayed practice is separate evidence from the immediate items and opens after 24 hours."
+}

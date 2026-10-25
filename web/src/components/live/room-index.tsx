@@ -11,7 +11,7 @@ import { RelayError, describeError } from '@/lib/errors';
 import type { MySessions } from '@/lib/schemas';
 import { STAGE_LABEL } from '@/lib/stages';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { ErrorState, Loading, LocalBanner, ModeChip, NotConnected, StartsInDiscordState, StateView } from '@/components/states';
+import { ErrorState, Loading, LocalBanner, ModeChip, NotConnected, StartsInDiscordState } from '@/components/states';
 import { Wordmark } from '@/components/graphics';
 
 export function RoomIndex() {
@@ -27,7 +27,7 @@ export function RoomIndex() {
         <h1 className="text-4xl">Open a study room</h1>
       </header>
       {conn.status === 'checking' ? <Loading label="Checking the backend" /> : null}
-      {conn.status === 'not_connected' ? <NotConnected /> : null}
+      {conn.status === 'not_connected' ? <NotConnected reason={conn.reason} /> : null}
       {conn.status === 'error' ? <ErrorState error={conn.error} /> : null}
       {conn.status === 'local' ? <LocalRooms /> : null}
       {conn.status === 'connected' ? (conn.me.authenticated ? <MyRooms name={conn.me.user.name} /> : <StartsInDiscordState loginHref={conn.me.login_available ? '/auth/discord/login?return_to=%2Froom' : null} />) : null}
@@ -68,9 +68,9 @@ function LocalRooms() {
         <form className="card flex flex-col gap-3 p-5" onSubmit={(e) => { e.preventDefault(); if (host.trim() && concept) void create(); }}>
           <h2 className="text-xl">Start a test session</h2>
           <label className="flex flex-col gap-1 text-sm"><span className="font-semibold">Your test name</span>
-            <input value={host} maxLength={40} onChange={(e) => setHost(e.target.value)} className="min-h-11 rounded-[12px] border border-line-strong bg-card px-3" /></label>
+            <input value={host} maxLength={40} onChange={(e) => setHost(e.target.value)} className="min-h-11 rounded-[12px] border border-control bg-card px-3" /></label>
           <label className="flex flex-col gap-1 text-sm"><span className="font-semibold">Concept</span>
-            <select value={concept} onChange={(e) => setConcept(e.target.value)} className="min-h-11 rounded-[12px] border border-line-strong bg-card px-3">
+            <select value={concept} onChange={(e) => setConcept(e.target.value)} className="min-h-11 rounded-[12px] border border-control bg-card px-3">
               {concepts.map((c) => <option key={c.id} value={c.id}>{c.title}</option>)}
             </select></label>
           <Button disabled={!host.trim() || !concept || !!busy}>{busy === 'create' ? 'Creating…' : 'Create session'}</Button>
@@ -78,9 +78,9 @@ function LocalRooms() {
         <form className="card flex flex-col gap-3 p-5" onSubmit={(e) => { e.preventDefault(); if (code.trim() && joinName.trim()) void join(); }}>
           <h2 className="text-xl">Join with a room code</h2>
           <label className="flex flex-col gap-1 text-sm"><span className="font-semibold">Room code</span>
-            <input value={code} maxLength={40} onChange={(e) => setCode(e.target.value)} className="mono min-h-11 rounded-[12px] border border-line-strong bg-card px-3" /></label>
+            <input value={code} maxLength={40} onChange={(e) => setCode(e.target.value)} className="mono min-h-11 rounded-[12px] border border-control bg-card px-3" /></label>
           <label className="flex flex-col gap-1 text-sm"><span className="font-semibold">Your test name</span>
-            <input value={joinName} maxLength={40} onChange={(e) => setJoinName(e.target.value)} className="min-h-11 rounded-[12px] border border-line-strong bg-card px-3" /></label>
+            <input value={joinName} maxLength={40} onChange={(e) => setJoinName(e.target.value)} className="min-h-11 rounded-[12px] border border-control bg-card px-3" /></label>
           <Button variant="secondary" disabled={!code.trim() || !joinName.trim() || !!busy}>{busy === 'join' ? 'Joining…' : 'Join session'}</Button>
         </form>
       </div>
@@ -92,6 +92,27 @@ function LocalRooms() {
         </section>
       ) : null}
     </>
+  );
+}
+
+const INVITE = process.env.NEXT_PUBLIC_DISCORD_INVITE_URL;
+
+/** Signed in, but in no session. Signing in, the bot, the server and the session are four separate things. */
+function NoSessionsYet() {
+  return (
+    <div className="flex flex-col gap-3">
+      <p className="font-semibold">You’re signed in. Join your group’s RELAY session in Discord, then come back here.</p>
+      <ol className="grid gap-2 text-sm">
+        <li className="rounded-[12px] border border-line px-4 py-3"><strong>1. Your study server has the RELAY bot.</strong> <span className="text-muted">Signing in here does not add it; a server admin installs it once.</span></li>
+        <li className="rounded-[12px] border border-line px-4 py-3"><strong>2. Someone starts a session</strong> with <code className="mono">/relay create</code> in a study channel.</li>
+        <li className="rounded-[12px] border border-line px-4 py-3"><strong>3. You join it</strong> with <code className="mono">/relay join</code>. <span className="text-muted">Being in the server is not the same as joining the session.</span></li>
+        <li className="rounded-[12px] border border-line px-4 py-3"><strong>4. Reload this page.</strong> <span className="text-muted">Only sessions you joined appear, and only you see your answers.</span></li>
+      </ol>
+      <div className="flex flex-wrap gap-2">
+        {INVITE ? <a href={INVITE} className={buttonVariants()} rel="noopener noreferrer" target="_blank">Open the study server</a> : null}
+        <Link href="/demo" className={buttonVariants({ variant: 'secondary' })}>Try the sample round meanwhile</Link>
+      </div>
+    </div>
   );
 }
 
@@ -120,7 +141,7 @@ function MyRooms({ name }: { name: string }) {
           ))}
         </ul>
       ) : (
-        <StateView className="p-0 border-0" title="No sessions yet" body={<>Start one in Discord with <code className="mono">/relay create</code>, or join with <code className="mono">/relay join</code>. It appears here after that.</>} />
+        <NoSessionsYet />
       )}
     </section>
   );

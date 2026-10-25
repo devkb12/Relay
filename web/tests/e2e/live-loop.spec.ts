@@ -39,7 +39,10 @@ async function answerAll(page: Page, choices: Record<string, { choice?: RegExp; 
     } else {
       await page.getByRole('radio', { name: a.choice! }).click();
       await page.getByRole('radio', { name: a.confidence ?? 'Confident' }).click();
-      if (name === 'Ben') await page.getByLabel(/Your reasoning/).fill('PRIVATE-REASONING-BEN multiply the factors');
+      if (name === 'Ben') {
+        await page.getByRole('button', { name: /Add your reasoning/ }).click();
+        await page.getByLabel(/Your reasoning/).fill('PRIVATE-REASONING-BEN multiply the factors');
+      }
       await page.getByRole('button', { name: 'Lock my answer' }).click();
       await expect(page.getByText('Answer locked')).toBeVisible();
     }
@@ -129,7 +132,7 @@ test('four students run the full loop against a local FastAPI', async ({ page })
   await expect(page.getByText('Resumed after review.')).toBeVisible();
 
   // Fresh problem: different scenario; the first question never reappears.
-  await advance(page, /Start: a fresh problem/);
+  await advance(page, /Start the fresh problem/);
   await expect(page.getByText('A fresh problem · different scenario, same idea')).toBeVisible();
   await expect(page.getByText(/practice account starts at \$100/)).toHaveCount(0);
   await answerAll(page, { Ana: { choice: /^B / }, Ben: { choice: /^B / }, Cai: { choice: /^B / }, Dee: { choice: /^B /, confidence: 'Unsure' } });
@@ -137,16 +140,18 @@ test('four students run the full loop against a local FastAPI', async ({ page })
 
   // Debrief reports exactly what the server returned.
   await viewAs(page, 'Ben');
-  await page.getByRole('link', { name: 'Debrief' }).first().click();
+  await page.getByRole('link', { name: 'Reflection' }).first().click();
   await expect(page.getByText(/^First question: \d+ of \d+ correct$/)).toBeVisible();
   await expect(page.getByText(/^Fresh question: \d+ of \d+ correct$/)).toBeVisible();
-  await expect(page.getByText('Your private feedback')).toBeVisible();
-  await expect(page.locator('body')).not.toContainText(/improv|mastered|%/i);
+  await expect(page.getByText('Here is what this round showed.')).toBeVisible();
+  await expect(page.getByText('Your response: A · $100. Reviewed answer: $75.')).toBeVisible();
+  // Prompts contain percentages; scores never do.
+  await expect(page.locator('body')).not.toContainText(/\bmastered\b|\bimprov\w*|\d+% (correct|score|accuracy|mastery)/i);
 
   // Presentation mode never renders private data.
   await page.goto(`/room/${sid}/present`);
   await expect(page.getByText('Display only, not access control')).toBeVisible();
-  await expect(page.locator('body')).not.toContainText(/Only you can see this|Your private feedback|PRIVATE-REASONING|you chose/i);
+  await expect(page.locator('body')).not.toContainText(/Only you can see this|Your receipt|Here is what this round showed|PRIVATE-REASONING|Your response/i);
 
   // Tokens: only in sessionStorage, never localStorage or the URL.
   expect(await localStore(page)).not.toMatch(/token/);
@@ -199,7 +204,8 @@ test('a challenge can be discarded: item discarded, never wrong', async ({ page 
   await page.getByLabel(/Note for the group/).fill('Withdrawn: the options overlap.');
   await page.getByRole('button', { name: 'Record the review' }).click();
   await expect(page.getByText('No score is better than a misleading score.')).toBeVisible();
-  await page.getByRole('link', { name: 'Debrief' }).first().click();
-  await expect(page.getByRole('heading', { name: 'Item discarded' })).toBeVisible();
+  await page.getByRole('link', { name: 'Reflection' }).first().click();
+  await expect(page.getByText('Item discarded').first()).toBeVisible();
+  await expect(page.getByText('Discarded, not scored').first()).toBeVisible();
   await expect(page.locator('body')).not.toContainText(/Not correct/);
 });

@@ -64,3 +64,23 @@ small gap: RELAY passes understanding from one person to the next. Vector source
 The site renders the mark as inline SVG (no image request), `web/src/app/icon.svg` is the favicon and
 `apple-icon.png` the home-screen tile. The previously uploaded logo is kept for reference as
 `docs/design/logo/uploaded-*.png` and is no longer shipped in `web/public`.
+
+## 2026-10-25 — Product upgrade: "Don't just agree. Understand."
+
+- **Promise:** the landing leads with "Don't just agree. Understand." / "Your group explains it. RELAY
+  checks a fresh problem." Scheduling is a supporting line, not the headline.
+- **Palette** (from the upgrade's design spec, AA-checked): canvas `#F6F4F0`, ink/text `#172032`, muted
+  `#5B6473`, primary `#5B43D6` (your next action, the live stage), handoff coral `#E26A4F` (decorative
+  only; text uses `#A4432C`), green `#116B60`, amber `#925806` on `#FCF0DF`, control borders `#8E95A3`
+  (3:1 for inputs). Tokens were renamed by role (`blue` → `primary`, bar/baton `violet` → `handoff`).
+  The Baton R logo and its gradient stay unchanged; deviation from the spec: none besides keeping the logo.
+- **Room layout:** task first. The dark left rail is gone; a compact header and horizontal stepper sit
+  above one working card whose footer holds the role's primary action; group, source and schedule are
+  context in a right column (below the card on phones).
+- **Sample round:** `/demo` is interactive and runs a browser engine (`web/src/lib/sample.ts`) that
+  reproduces the backend's projection for one scripted session. It is checked view-for-view against the
+  real backend's replays (`contracts/fixtures/sample-paths.json`). The captured gallery moved to
+  `/demo/stages`.
+- **Receipt:** Reflect shows the server's `receipt` (policy receipt-v1). Prompts appear on it, so tests
+  forbid percentage *scores*, not percentages.
+- **Stage names:** Gather · Think privately · Explain together · Fresh problem · Reflect (backend enums unchanged).

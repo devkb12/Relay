@@ -24,28 +24,43 @@ export function isAllowed(path: string) {
   return !path.startsWith('/internal') && ALLOWED.some((re) => re.test(path));
 }
 
+/**
+ * Why there is no usable backend, without ever revealing its address:
+ * not_configured (RELAY_API_BASE_URL unset), invalid_url, local_address (a loopback/LAN address on a
+ * hosted deployment, which can never reach a laptop), unreachable (no answer), unhealthy (non-2xx).
+ */
+export type NotConnectedReason = 'not_configured' | 'invalid_url' | 'local_address' | 'unreachable' | 'unhealthy';
+
+const LOCAL_HOST = /^(localhost|127\.\d+\.\d+\.\d+|0\.0\.0\.0|\[::1\]|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(1[6-9]|2\d|3[01])\.\d+\.\d+)$/i;
+
+export function upstreamConfig(env: Record<string, string | undefined> = process.env): { base: string } | { reason: NotConnectedReason } {
+  const raw = env.RELAY_API_BASE_URL?.trim();
+  if (!raw) return { reason: 'not_configured' };
+  let u: URL;
+  try { u = new URL(raw); } catch { return { reason: 'invalid_url' }; }
+  if (u.protocol !== 'http:' && u.protocol !== 'https:') return { reason: 'invalid_url' };
+  // On Vercel the server is not your laptop: a local address there can only ever fail.
+  if (env.VERCEL && LOCAL_HOST.test(u.hostname)) return { reason: 'local_address' };
+  return { base: u.origin };
+}
+
 export function backendBase(): string | null {
-  const raw = process.env.RELAY_API_BASE_URL?.trim();
-  if (!raw) return null;
-  try {
-    const u = new URL(raw);
-    return u.protocol === 'http:' || u.protocol === 'https:' ? u.origin : null;
-  } catch {
-    return null;
-  }
+  const up = upstreamConfig();
+  return 'base' in up ? up.base : null;
 }
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 
-export const notConnected = () => json(503, { detail: 'Backend not connected', code: 'backend_not_connected' });
+export const notConnected = (reason: NotConnectedReason) => json(503, { detail: 'Backend not connected', code: 'backend_not_connected', reason });
 
 export async function proxy(req: Request): Promise<Response> {
   const url = new URL(req.url);
   const path = url.pathname;
   if (!isAllowed(path)) return json(404, { detail: 'Not found' });
-  const base = backendBase();
-  if (!base) return notConnected();
+  const up = upstreamConfig();
+  if (!('base' in up)) return notConnected(up.reason);
+  const base = up.base;
 
   const headers = new Headers();
   for (const name of REQUEST_HEADERS) {
@@ -64,7 +79,7 @@ export async function proxy(req: Request): Promise<Response> {
       signal: AbortSignal.timeout(20_000),
     });
   } catch {
-    return notConnected();
+    return notConnected('unreachable');
   }
 
   const out = new Headers();

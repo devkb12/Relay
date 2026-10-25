@@ -109,3 +109,21 @@ record a real demonstration, and accurately describe all remaining limits in the
 - Throttled phone profile, landing: LCP 2.3 s, CLS ≈ 0, first-load JS ~182 KB gzipped.
 - NOT verified: a Vercel deployment, Discord sign-in through the web app on a real domain,
   screen-reader testing by a person, real students.
+
+## Product upgrade, live-connection prep and Iris pack (2026-10-25)
+
+- Backend `python -m pytest`: **154 passed, 5 skipped** (PostgreSQL tests need a URL). New:
+  `tests/test_product_slice.py` (allowed_actions probed on a database copy for every action, actor and
+  step; receipt policy; two-person suppression; presentation allowlist; bot room link; one database
+  regardless of working directory) and `tests/test_iris_pack.py`. `compileall` OK; `ruff --select F,E9` clean.
+- Web: lint 0, typecheck 0, **Vitest 101 passed** (incl. the sample engine replaying 4 backend paths view
+  for view, and a deliberate rule change confirmed to fail it), production build OK.
+- **Playwright 28 passed** (desktop 1280 + phone 390): sample round end to end with zero `/api` or `/auth`
+  requests; challenge → discard; task-first budget at 1440×900 (Lock my answer within 900 px); unsent
+  answer/reasoning/review-note drafts survive another member's consent change and departure on a real
+  FastAPI; deleted session announced with the view kept; four-student live loop; axe at 360–1920 px.
+- Iris: official UCI archive fetched 2026-10-25, license page confirmed CC BY 4.0, snapshot checksummed;
+  pack status **draft** (no human review yet).
+- **Not verified:** the deployed Vercel site with a backend (no tunnel exists yet), Discord OAuth on a real
+  domain, a two-account Discord ↔ web round, a live Gemini call (no key), a person reviewing the Iris pack.
+  See docs/LIVE_CONNECTION_DIAGNOSIS.md.

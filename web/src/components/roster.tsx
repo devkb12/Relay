@@ -47,10 +47,10 @@ export function Roster({ members, approvedByMe, tone = 'paper', layout = 'row' }
     );
   }
   return (
-    <ul className="relative flex flex-wrap items-start gap-x-6 gap-y-3" aria-label="Participants">
+    <ul className="relative flex flex-wrap items-start gap-x-3 gap-y-3 sm:gap-x-6" aria-label="Participants">
       {members.map((m, i) => (
         // Fixed-height cells (one truncated line each) so a font swap can never reflow the page.
-        <li key={`${m.name}-${i}`} className="flex h-[5.25rem] w-20 flex-col items-center gap-1 text-center" title={`${m.name}: ${STATE_TEXT[m.state]}`}>
+        <li key={`${m.name}-${i}`} className="flex h-[5.25rem] w-[4.5rem] flex-col items-center gap-1 text-center sm:w-20" title={`${m.name}: ${STATE_TEXT[m.state]}`}>
           <Node m={m} ink={ink} ring={!!(m.is_me && approvedByMe)} />
           <span className={cn('block h-4 w-full truncate text-xs leading-4 font-semibold whitespace-nowrap', ink ? 'text-on-ink' : 'text-text')}>{m.is_me ? `${m.name} (you)` : m.name}</span>
           <span className={cn('block h-4 w-full truncate text-[0.7rem] leading-4 whitespace-nowrap', ink ? 'text-on-ink-muted' : 'text-muted')}>{SHORT_TEXT[m.state]}</span>

@@ -63,7 +63,7 @@ export function LandingTrack() {
       <p className="measure min-h-12 text-muted" aria-live="polite">{CAPTION[stage]}</p>
 
       <div id="station-panel" role="tabpanel" aria-labelledby={`station-${stage}`} className="relative">
-        <span className="absolute -top-3 left-5 z-10 rounded-full border border-violet/30 bg-card px-3 py-0.5 text-xs font-semibold text-violet">Synthetic session · nothing is sent</span>
+        <span className="absolute -top-3 left-5 z-10 rounded-full border border-primary/30 bg-card px-3 py-0.5 text-xs font-semibold text-primary">Synthetic session · nothing is sent</span>
         <AnimatePresence mode="wait" initial={false}>
           <motion.div key={stage} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={handoff} className="card max-h-[44rem] overflow-y-auto p-5 sm:p-8">
             <RoomProvider value={{ room, view, sid: view.id, mode: 'synthetic', basePath: '/demo' }}>

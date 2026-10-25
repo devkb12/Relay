@@ -30,7 +30,7 @@ export function Track({ stage, paused, orientation = 'horizontal', tone = 'paper
   const pos = (i: number) => (i / (n - 1)) * 100;
   const ink = tone === 'ink';
   const rest = ink ? 'var(--color-ink-line)' : 'var(--color-line-strong)';
-  const live = ink ? '#8fa6ff' : 'var(--color-blue)';
+  const live = ink ? '#b9adf6' : 'var(--color-primary)';
 
   return (
     <div
@@ -100,7 +100,7 @@ export function Track({ stage, paused, orientation = 'horizontal', tone = 'paper
             'absolute block rounded-full',
             vertical ? 'top-[10px] left-1/2 h-5 w-[3px] -translate-x-1/2' : 'top-1/2 h-[3px] w-5 -translate-y-1/2',
             !vertical && (at === n - 1 ? '-left-[30px]' : 'left-[10px]'),
-            paused ? 'bg-amber' : 'bg-violet',
+            paused ? 'bg-amber' : 'bg-handoff',
           )}
         />
         {paused ? (

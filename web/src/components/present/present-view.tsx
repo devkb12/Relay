@@ -68,7 +68,7 @@ export function PresentView({ p, backHref, synthetic }: { p: PresentationView; b
               <section className="flex flex-col gap-3">
                 <h2 className="text-2xl">Explanations shared</h2>
                 {p.explanations.map((e, i) => (
-                  <blockquote key={i} className="rounded-[16px] border-l-4 border-violet bg-white/5 px-5 py-4 text-xl">
+                  <blockquote key={i} className="rounded-[16px] border-l-4 border-handoff bg-white/5 px-5 py-4 text-xl">
                     <span className="block text-base text-on-ink-muted">{e.author}{e.source_fallback ? ' · source review, not peer teaching' : ''}</span>
                     {e.text}
                   </blockquote>

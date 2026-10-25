@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'motion/react';
 import { CalendarArrowDown, CalendarCheck, Check, Plus, Trash2 } from 'lucide-react';
-import { api } from '@/lib/relay-api';
 import { DEMO_ONLY } from '@/lib/room';
 import type { Plan } from '@/lib/schemas';
 import { settle } from '@/lib/motion';
@@ -63,7 +62,7 @@ export function PlanCard({ tz, active }: { tz: string; active: number }) {
   const download = async () => {
     if (room.demo) { toast(DEMO_ONLY); return; }
     try {
-      const blob = await api.calendarFile(sid);
+      const blob = await room.client.calendarFile(sid);
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url; a.download = 'relay-session.ics'; a.click();
@@ -124,14 +123,14 @@ export function PlanCard({ tz, active }: { tz: string; active: number }) {
                   ) : null}
                   <div>
                     <Button disabled={!!room.pending || (plan.shorter_alternative && !acceptShorter) || !!view.needs_reproposal}
-                      onClick={() => room.act('approve', () => api.approve(sid, view.plan_version, plan.shorter_alternative && acceptShorter))}>
+                      onClick={() => room.act('approve', () => room.client.approve(sid, view.plan_version, plan.shorter_alternative && acceptShorter))}>
                       {room.pending === 'approve' ? 'Approving…' : `Approve v${view.plan_version}`}
                     </Button>
                   </div>
                 </div>
               ) : null}
               {view.is_host && view.stage === 'lobby' ? (
-                <div><Button variant="quiet" size="sm" disabled={!!room.pending} onClick={() => room.act('cancel', () => api.cancelPlan(sid))}>Cancel this proposal</Button></div>
+                <div><Button variant="quiet" size="sm" disabled={!!room.pending} onClick={() => room.act('cancel', () => room.client.cancelPlan(sid))}>Cancel this proposal</Button></div>
               ) : null}
               <p className="text-xs text-muted">Times shown in {tz}. Approvals are tied to this exact version; any change resets them.</p>
             </div>
@@ -166,7 +165,7 @@ function Availability({ tz, setTz, editable }: { tz: string; setTz: (tz: string)
     });
     setErrors(errs);
     if (Object.keys(errs).length || !out.length) return;
-    void room.act('availability', () => api.availability(sid, out, tz));
+    void room.act('availability', () => room.client.availability(sid, out, tz));
   };
 
   return (
@@ -192,10 +191,10 @@ function Availability({ tz, setTz, editable }: { tz: string; setTz: (tz: string)
             <fieldset key={i} className="grid gap-2 rounded-[12px] border border-line p-3 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
               <legend className="px-1 text-xs text-muted">Window {i + 1}</legend>
               <label className="flex flex-col gap-1 text-sm"><span>From</span>
-                <input type="datetime-local" value={d.start} onChange={(e) => setDrafts(drafts.map((x, j) => (j === i ? { ...x, start: e.target.value } : x)))} className="min-h-11 rounded-[10px] border border-line-strong bg-card px-3" aria-invalid={!!errors[i]} />
+                <input type="datetime-local" value={d.start} onChange={(e) => setDrafts(drafts.map((x, j) => (j === i ? { ...x, start: e.target.value } : x)))} className="min-h-11 rounded-[10px] border border-control bg-card px-3" aria-invalid={!!errors[i]} />
               </label>
               <label className="flex flex-col gap-1 text-sm"><span>To</span>
-                <input type="datetime-local" value={d.end} onChange={(e) => setDrafts(drafts.map((x, j) => (j === i ? { ...x, end: e.target.value } : x)))} className="min-h-11 rounded-[10px] border border-line-strong bg-card px-3" aria-invalid={!!errors[i]} />
+                <input type="datetime-local" value={d.end} onChange={(e) => setDrafts(drafts.map((x, j) => (j === i ? { ...x, end: e.target.value } : x)))} className="min-h-11 rounded-[10px] border border-control bg-card px-3" aria-invalid={!!errors[i]} />
               </label>
               <Button type="button" variant="quiet" size="sm" aria-label={`Remove window ${i + 1}`} disabled={drafts.length === 1} onClick={() => setDrafts(drafts.filter((_, j) => j !== i))}><Trash2 strokeWidth={1.75} /></Button>
               {errors[i] ? <p className="text-sm text-amber sm:col-span-3" role="alert">{errors[i]}</p> : null}
@@ -223,7 +222,7 @@ function Propose({ editable, tz }: { editable: boolean; tz: string }) {
     setError(null); setNotice(null);
     void room.act('propose', async () => {
       try {
-        const r = await api.propose(sid, durations);
+        const r = await room.client.propose(sid, durations);
         setOptions(r.options); setNotice(r.notice);
         return r;
       } catch (e) {
@@ -244,13 +243,13 @@ function Propose({ editable, tz }: { editable: boolean; tz: string }) {
         <div className="flex flex-wrap items-center gap-2">
           {CHIPS.map((c) => (
             <button key={c} type="button" aria-pressed={target === c} disabled={!editable} onClick={() => setTarget(c)}
-              className={cn('press min-h-11 rounded-full border px-4 text-sm font-semibold', target === c ? 'border-blue bg-blue-tint text-blue' : 'border-line-strong hover:border-text/40')}>
+              className={cn('press min-h-11 rounded-full border px-4 text-sm font-semibold', target === c ? 'border-primary bg-primary-tint text-primary' : 'border-line-strong hover:border-text/40')}>
               {c} min
             </button>
           ))}
           <label className="flex items-center gap-2 text-sm">
             <span className="sr-only">Custom length in minutes</span>
-            <input type="number" min={10} max={180} value={target} disabled={!editable} onChange={(e) => setTarget(Math.min(180, Math.max(10, Number(e.target.value) || 10)))} className="mono min-h-11 w-24 rounded-[12px] border border-line-strong bg-card px-3" />
+            <input type="number" min={10} max={180} value={target} disabled={!editable} onChange={(e) => setTarget(Math.min(180, Math.max(10, Number(e.target.value) || 10)))} className="mono min-h-11 w-24 rounded-[12px] border border-control bg-card px-3" />
             <span className="text-muted">minutes (10–180)</span>
           </label>
         </div>
@@ -285,7 +284,7 @@ function Reminders() {
       <div className="flex items-center justify-between gap-4">
         <h2 id="remind-heading" className="font-sans text-base font-bold">Reminders</h2>
         <button type="button" role="switch" aria-checked={on} aria-labelledby="remind-heading" disabled={!!room.pending}
-          onClick={() => room.act('consent', () => api.consent(sid, !on))}
+          onClick={() => room.act('consent', () => room.client.consent(sid, !on))}
           className={cn('press relative h-8 w-14 shrink-0 rounded-full border-2', on ? 'border-green bg-green' : 'border-line-strong bg-card')}>
           <span className={cn('absolute top-0.5 size-6 rounded-full transition-transform duration-200', on ? 'translate-x-6 bg-white' : 'translate-x-0.5 bg-line-strong')} />
           <span className="sr-only">{on ? 'On' : 'Off'}</span>

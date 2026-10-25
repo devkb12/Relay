@@ -2,13 +2,16 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
-import { api } from './relay-api';
+import { api, type Api } from './relay-api';
 import { RelayError } from './errors';
 import { activeIdentity } from './identities';
 import { STAGE_LABEL } from './stages';
 import type { SessionView } from './schemas';
 
 export type RoomSource = { kind: 'live'; sessionId: string } | { kind: 'fixture'; view: SessionView };
+
+/** Every server call a room screen makes. Live rooms use the real API; the sample round supplies its own. */
+export type RoomClient = Pick<Api, 'advance' | 'answer' | 'explain' | 'facilitate' | 'challenge' | 'review' | 'resolve' | 'consent' | 'leave' | 'remove' | 'availability' | 'propose' | 'cancelPlan' | 'approve' | 'calendarFile'>;
 
 export type Room = {
   view: SessionView | null;
@@ -19,7 +22,11 @@ export type Room = {
   /** Transient problem with a view still on screen (network loss, 409 explanation). */
   notice: RelayError | null;
   pending: string | null;
+  /** live: a real session. fixture: a captured screen (actions do nothing). sample: the in-tab sample round. */
+  kind: 'live' | 'fixture' | 'sample';
+  /** True for anything that is not a real session: hides destructive and real-only controls. */
   demo: boolean;
+  client: RoomClient;
   refresh: () => Promise<void>;
   /** Run a server action. No optimistic update: pending, then the server's result. */
   act: <T>(key: string, fn: () => Promise<T>, onDone?: (r: T) => void) => Promise<T | null>;
@@ -80,10 +87,14 @@ export function useRoom(source: RoomSource): Room {
       const who = whoAmI(sid);
       accept(await api.view(sid), who);
       setError(null);
-      setNotice((n) => (n?.kind === 'network' ? null : n));
+      // A successful poll clears transient poll problems; explanations of the user's own actions stay.
+      setNotice((n) => (n && (n.kind !== 'http' || n.status === 429 || (n.status ?? 0) >= 500) ? null : n));
     } catch (e) {
       if (!(e instanceof RelayError)) throw e;
-      if (viewRef.current && (e.kind === 'network' || e.kind === 'not_connected')) setNotice(e);
+      // With a view on screen, keep it (and every unsent draft) and say what happened: lost
+      // connection, expired sign-in (401), removed access (403), deleted session (404), rate limit.
+      // Only a first load with nothing to show becomes a full-screen error.
+      if (viewRef.current) setNotice(e);
       else setError(e);
     } finally {
       inFlight.current = false;
@@ -130,6 +141,6 @@ export function useRoom(source: RoomSource): Room {
     }
   }, [source.kind, pending, accept, refresh, sid]);
 
-  return { view, refreshing, error, notice, pending, demo: source.kind === 'fixture', refresh, act, dismissNotice: () => setNotice(null),
+  return { view, refreshing, error, notice, pending, kind: source.kind, demo: source.kind === 'fixture', client: api, refresh, act, dismissNotice: () => setNotice(null),
     switchIdentity: () => { lastKey.current = ''; viewRef.current = null; setView(null); void refresh(); } };
 }
