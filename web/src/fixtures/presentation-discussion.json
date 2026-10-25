@@ -1,0 +1,66 @@
+{
+  "id": "synthetic-session",
+  "concept": {
+    "id": "compound-change",
+    "title": "Successive percentage changes"
+  },
+  "stage": "discussion",
+  "revision": 19,
+  "members": [
+    {
+      "name": "Demo Host",
+      "state": "present",
+      "responded": false,
+      "is_host": true
+    },
+    {
+      "name": "Demo Member B",
+      "state": "present",
+      "responded": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member C",
+      "state": "present",
+      "responded": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member D",
+      "state": "present",
+      "responded": false,
+      "is_host": false
+    }
+  ],
+  "plan": {
+    "start": "2026-10-25T20:00:00Z",
+    "end": "2026-10-25T21:00:00Z",
+    "minutes": 60,
+    "shorter_alternative": false
+  },
+  "plan_version": 8,
+  "approved_count": 4,
+  "schedule_confirmed": true,
+  "plan_cancelled": null,
+  "paused": false,
+  "invalidated": false,
+  "source": {
+    "source_id": "relay-note-01",
+    "source_title": "Original teaching note: multiplicative change",
+    "source_text": "A percentage change acts on the value at that step. A gain of p percent multiplies the current value by 1 + p/100; a loss of q percent multiplies the current value by 1 - q/100. Successive changes multiply their factors. Adding the percentages is generally not equivalent."
+  },
+  "question": null,
+  "explanations": [],
+  "hint": {
+    "discussion_question": "What value is the second percentage applied to: the original amount, or the amount after the first change? Explain that distinction to a peer.",
+    "possible_misconception": "Use the source to examine the reasoning.",
+    "mode": "curated fallback",
+    "feedback_source": "reviewed_fallback"
+  },
+  "discussion_signal": "Check the shared assumption",
+  "group": null,
+  "notice": "Original demonstration material. No grade or mastery prediction.",
+  "retention_note": null,
+  "challenge": null,
+  "view": "presentation"
+}

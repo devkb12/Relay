@@ -1,0 +1,13 @@
+[
+  {
+    "id": "synthetic-session",
+    "concept": {
+      "id": "compound-change",
+      "title": "Successive percentage changes"
+    },
+    "stage": "debrief",
+    "is_host": false,
+    "created_at": 1792872000,
+    "paused": false
+  }
+]

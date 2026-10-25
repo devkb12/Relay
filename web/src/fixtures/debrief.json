@@ -1,0 +1,133 @@
+{
+  "id": "synthetic-session",
+  "concept": {
+    "id": "compound-change",
+    "title": "Successive percentage changes"
+  },
+  "stage": "debrief",
+  "revision": 28,
+  "pack_hash": "28a18a9bb9f4a3dc5cf8ae01b17d7095ceda2a2e1f1f48fff9d93ad0c45bcfaa",
+  "is_host": true,
+  "members": [
+    {
+      "name": "Demo Host",
+      "responded": false,
+      "state": "present",
+      "is_me": true,
+      "is_host": true
+    },
+    {
+      "name": "Demo Member B",
+      "responded": false,
+      "state": "present",
+      "is_me": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member C",
+      "responded": false,
+      "state": "present",
+      "is_me": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member D",
+      "responded": false,
+      "state": "present",
+      "is_me": false,
+      "is_host": false
+    }
+  ],
+  "me": {
+    "name": "Demo Host",
+    "reminders": false,
+    "availability": [
+      {
+        "start": "2026-10-25T20:00:00Z",
+        "end": "2026-10-25T22:00:00Z"
+      }
+    ],
+    "timezone": "America/Phoenix",
+    "withdrawn": false
+  },
+  "plan": {
+    "start": "2026-10-25T20:00:00Z",
+    "end": "2026-10-25T21:00:00Z",
+    "minutes": 60,
+    "shorter_alternative": false,
+    "start_local": "Sun Oct 25, 01:00 PM MST",
+    "timezone": "America/Phoenix"
+  },
+  "plan_version": 8,
+  "approved_count": 4,
+  "approved_by_me": true,
+  "plan_cancelled": null,
+  "needs_reproposal": false,
+  "schedule_confirmed": true,
+  "paused": false,
+  "source": {
+    "source_id": "relay-note-01",
+    "source_title": "Original teaching note: multiplicative change",
+    "source_text": "A percentage change acts on the value at that step. A gain of p percent multiplies the current value by 1 + p/100; a loss of q percent multiplies the current value by 1 - q/100. Successive changes multiply their factors. Adding the percentages is generally not equivalent."
+  },
+  "question": null,
+  "my_answer": null,
+  "group": {
+    "paired_responses": 3,
+    "initial_correct": 0,
+    "fresh_correct": 3,
+    "active_participants": 4,
+    "withdrawn": 0,
+    "initial_outcomes": {
+      "correct": 0,
+      "incorrect": 4,
+      "skipped": 0,
+      "missing": 0
+    },
+    "fresh_outcomes": {
+      "correct": 3,
+      "incorrect": 0,
+      "skipped": 1,
+      "missing": 0
+    },
+    "warning": "Two different immediate items, same participants. Not causal evidence of learning or lasting mastery. Small groups can still infer individual results."
+  },
+  "challenge": {
+    "id": "synthetic-challenge",
+    "reason": "Synthetic review request: can we check the stated assumption?",
+    "pending": false,
+    "stage": "discussion",
+    "resolution": {
+      "decision": "resume",
+      "host_note": "Reviewed the original teaching fixture; the stated assumption is explicit."
+    }
+  },
+  "invalidated": false,
+  "explanations": [
+    {
+      "author": "Demo Member B",
+      "text": "The second percentage operates on the updated amount, not the initial amount.",
+      "source_fallback": false
+    }
+  ],
+  "hint": null,
+  "my_results": {
+    "diagnostic": {
+      "status": "incorrect",
+      "choice": "A",
+      "correct": false,
+      "explanation": "100 x 1.50 x 0.50 = 75. The loss applies to 150, not 100.",
+      "question_id": "compound-d1"
+    },
+    "transfer": {
+      "status": "correct",
+      "choice": "A",
+      "correct": true,
+      "explanation": "200 x 1.25 x 0.80 = 200. Unlike equal up/down percentages, these factors exactly cancel.",
+      "question_id": "compound-t1"
+    }
+  },
+  "notice": "Original demonstration material. No grade or mastery prediction.",
+  "retention_due_at": 1792958400,
+  "retention_note": "Delayed practice is separate evidence from the immediate items and opens after 24 hours."
+}

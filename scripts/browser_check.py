@@ -37,7 +37,9 @@ with tempfile.TemporaryDirectory() as tmp:
         response=api.request(payload['method'],payload['path'],content=payload.get('body'),headers=payload.get('headers',{}))
         return {'status':response.status_code,'body':response.text,'headers':dict(response.headers)}
     with sync_playwright() as p:
-        browser=p.chromium.launch(headless=True,executable_path=os.environ.get('CHROMIUM_PATH','/usr/bin/chromium'),args=['--no-sandbox'])
+        # CHROMIUM_PATH, else the system chromium if present, else Playwright's own managed browser.
+        chromium=os.environ.get('CHROMIUM_PATH') or ('/usr/bin/chromium' if os.path.exists('/usr/bin/chromium') else None)
+        browser=p.chromium.launch(headless=True,executable_path=chromium,args=['--no-sandbox'])
         context=browser.new_context(viewport={'width':1440,'height':1100},device_scale_factor=1,timezone_id='America/Phoenix')
         page=context.new_page();page.on('pageerror',lambda err:report['js_errors'].append(str(err)))
         page.expose_function('relayTestBridge',bridge)

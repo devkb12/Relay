@@ -1,0 +1,87 @@
+{
+  "id": "synthetic-session",
+  "concept": {
+    "id": "compound-change",
+    "title": "Successive percentage changes"
+  },
+  "stage": "diagnostic",
+  "revision": 14,
+  "pack_hash": "28a18a9bb9f4a3dc5cf8ae01b17d7095ceda2a2e1f1f48fff9d93ad0c45bcfaa",
+  "is_host": false,
+  "members": [
+    {
+      "name": "Demo Host",
+      "responded": false,
+      "state": "waiting",
+      "is_me": false,
+      "is_host": true
+    },
+    {
+      "name": "Demo Member B",
+      "responded": false,
+      "state": "waiting",
+      "is_me": true,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member C",
+      "responded": false,
+      "state": "waiting",
+      "is_me": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member D",
+      "responded": false,
+      "state": "waiting",
+      "is_me": false,
+      "is_host": false
+    }
+  ],
+  "me": {
+    "name": "Demo Member B",
+    "reminders": false,
+    "availability": [
+      {
+        "start": "2026-10-25T20:00:00Z",
+        "end": "2026-10-25T22:00:00Z"
+      }
+    ],
+    "timezone": "America/Phoenix",
+    "withdrawn": false
+  },
+  "plan": {
+    "start": "2026-10-25T20:00:00Z",
+    "end": "2026-10-25T21:00:00Z",
+    "minutes": 60,
+    "shorter_alternative": false,
+    "start_local": "Sun Oct 25, 01:00 PM MST",
+    "timezone": "America/Phoenix"
+  },
+  "plan_version": 8,
+  "approved_count": 4,
+  "approved_by_me": true,
+  "plan_cancelled": null,
+  "needs_reproposal": false,
+  "schedule_confirmed": true,
+  "paused": false,
+  "source": null,
+  "question": {
+    "id": "compound-d1",
+    "prompt": "A practice account starts at $100. It rises 50%, then falls 50%. What is its final value?",
+    "options": {
+      "A": "$100",
+      "B": "$125",
+      "C": "$75",
+      "D": "$50"
+    }
+  },
+  "my_answer": null,
+  "group": null,
+  "challenge": null,
+  "invalidated": false,
+  "explanations": [],
+  "hint": null,
+  "my_results": {},
+  "notice": "Original demonstration material. No grade or mastery prediction."
+}

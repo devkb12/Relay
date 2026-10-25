@@ -1,0 +1,102 @@
+{
+  "id": "synthetic-session",
+  "concept": {
+    "id": "compound-change",
+    "title": "Successive percentage changes"
+  },
+  "stage": "transfer",
+  "revision": 23,
+  "pack_hash": "28a18a9bb9f4a3dc5cf8ae01b17d7095ceda2a2e1f1f48fff9d93ad0c45bcfaa",
+  "is_host": true,
+  "members": [
+    {
+      "name": "Demo Host",
+      "responded": false,
+      "state": "waiting",
+      "is_me": true,
+      "is_host": true
+    },
+    {
+      "name": "Demo Member B",
+      "responded": false,
+      "state": "waiting",
+      "is_me": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member C",
+      "responded": false,
+      "state": "waiting",
+      "is_me": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member D",
+      "responded": false,
+      "state": "waiting",
+      "is_me": false,
+      "is_host": false
+    }
+  ],
+  "me": {
+    "name": "Demo Host",
+    "reminders": false,
+    "availability": [
+      {
+        "start": "2026-10-25T20:00:00Z",
+        "end": "2026-10-25T22:00:00Z"
+      }
+    ],
+    "timezone": "America/Phoenix",
+    "withdrawn": false
+  },
+  "plan": {
+    "start": "2026-10-25T20:00:00Z",
+    "end": "2026-10-25T21:00:00Z",
+    "minutes": 60,
+    "shorter_alternative": false,
+    "start_local": "Sun Oct 25, 01:00 PM MST",
+    "timezone": "America/Phoenix"
+  },
+  "plan_version": 8,
+  "approved_count": 4,
+  "approved_by_me": true,
+  "plan_cancelled": null,
+  "needs_reproposal": false,
+  "schedule_confirmed": true,
+  "paused": false,
+  "source": null,
+  "question": {
+    "id": "compound-t1",
+    "prompt": "An item costs $200. Its price rises 25%, then receives a 20% discount on the new price. What is the final price?",
+    "options": {
+      "A": "$200",
+      "B": "$210",
+      "C": "$190",
+      "D": "$250"
+    }
+  },
+  "my_answer": null,
+  "group": null,
+  "challenge": {
+    "id": "synthetic-challenge",
+    "reason": "Synthetic review request: can we check the stated assumption?",
+    "pending": false,
+    "stage": "discussion",
+    "resolution": {
+      "decision": "resume",
+      "host_note": "Reviewed the original teaching fixture; the stated assumption is explicit."
+    }
+  },
+  "invalidated": false,
+  "explanations": [
+    {
+      "author": "Demo Member B",
+      "text": "The second percentage operates on the updated amount, not the initial amount.",
+      "source_fallback": false
+    }
+  ],
+  "hint": null,
+  "my_results": {},
+  "notice": "Original demonstration material. No grade or mastery prediction."
+}

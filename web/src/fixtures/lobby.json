@@ -1,0 +1,66 @@
+{
+  "id": "synthetic-session",
+  "concept": {
+    "id": "compound-change",
+    "title": "Successive percentage changes"
+  },
+  "stage": "lobby",
+  "revision": 4,
+  "pack_hash": "28a18a9bb9f4a3dc5cf8ae01b17d7095ceda2a2e1f1f48fff9d93ad0c45bcfaa",
+  "is_host": true,
+  "members": [
+    {
+      "name": "Demo Host",
+      "responded": false,
+      "state": "present",
+      "is_me": true,
+      "is_host": true
+    },
+    {
+      "name": "Demo Member B",
+      "responded": false,
+      "state": "present",
+      "is_me": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member C",
+      "responded": false,
+      "state": "present",
+      "is_me": false,
+      "is_host": false
+    },
+    {
+      "name": "Demo Member D",
+      "responded": false,
+      "state": "present",
+      "is_me": false,
+      "is_host": false
+    }
+  ],
+  "me": {
+    "name": "Demo Host",
+    "reminders": false,
+    "availability": [],
+    "timezone": "America/Phoenix",
+    "withdrawn": false
+  },
+  "plan": null,
+  "plan_version": 3,
+  "approved_count": 0,
+  "approved_by_me": false,
+  "plan_cancelled": null,
+  "needs_reproposal": false,
+  "schedule_confirmed": false,
+  "paused": false,
+  "source": null,
+  "question": null,
+  "my_answer": null,
+  "group": null,
+  "challenge": null,
+  "invalidated": false,
+  "explanations": [],
+  "hint": null,
+  "my_results": {},
+  "notice": "Original demonstration material. No grade or mastery prediction."
+}

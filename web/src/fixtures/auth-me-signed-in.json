@@ -1,0 +1,9 @@
+{
+  "authenticated": true,
+  "user": {
+    "name": "Demo Member B"
+  },
+  "csrf_token": "synthetic-csrf-token",
+  "expires_at": 1792915200,
+  "demo_mode": false
+}

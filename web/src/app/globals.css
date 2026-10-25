@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* RELAY tokens. Color carries meaning, never decoration:
+   blue = your next action / live track · violet = a handoff between people · amber = paused/under review
+   green = a step that observably happened · ink = rails, headers, projector. No color describes ability. */
+@theme {
+  --color-ink: #152237;
+  --color-ink-deep: #0e1729;
+  --color-ink-line: #2a3a55;
+  --color-paper: #f7f4ee;
+  --color-card: #fffdf8;
+  --color-text: #1e2535;
+  --color-muted: #5f6878;
+  --color-line: #e6e0d6;
+  --color-line-strong: #cfc6b8;
+  --color-blue: #375ce0;
+  --color-blue-strong: #2b4bc4;
+  --color-blue-tint: #edf1ff;
+  --color-violet: #6d4aff;
+  --color-violet-tint: #f1edff;
+  --color-amber: #8a581b;
+  --color-amber-tint: #fff3df;
+  --color-green: #13715b;
+  --color-green-tint: #e4f2ec;
+  --color-on-ink: #f2efe8;
+  --color-on-ink-muted: #b4bccb;
+
+  --font-display: var(--font-newsreader), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-atkinson), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  --radius-card: 20px;
+  --radius-control: 12px;
+
+  --ease-enter: cubic-bezier(0.2, 0, 0, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Desktop "study table" layout starts at 1200px (rail + working card + evidence column). */
+  --breakpoint-desk: 75rem;
+}
+
+@layer base {
+  html { background: var(--color-paper); color: var(--color-text); -webkit-text-size-adjust: 100%; }
+  body { font-family: var(--font-sans); font-size: 1rem; line-height: 1.6; min-height: 100dvh; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; line-height: 1.2; text-wrap: balance; }
+  ::selection { background: var(--color-blue-tint); }
+  :focus-visible { outline: 2px solid var(--color-blue); outline-offset: 2px; border-radius: 4px; }
+  .on-ink :focus-visible { outline-color: #9db2ff; }
+  button, [role="button"], a { -webkit-tap-highlight-color: transparent; }
+}
+
+@layer components {
+  .card { background: var(--color-card); border: 1px solid var(--color-line); border-radius: var(--radius-card); }
+  .eyebrow { font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); }
+  .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .measure { max-width: 66ch; }
+  .press { transition: transform 120ms var(--ease-enter), background-color 120ms var(--ease-enter), border-color 120ms var(--ease-enter); }
+  .press:active:not(:disabled) { transform: translateY(1px); }
+}
+
+/* Drawers enter from their own edge (phones: full-screen panel rises from the bottom). */
+@keyframes relay-slide-in { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (min-width: 768px) {
+  @keyframes relay-slide-in { from { transform: translateX(100%); } to { transform: none; } }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; animation-duration: 0ms !important; scroll-behavior: auto !important; }
+}
