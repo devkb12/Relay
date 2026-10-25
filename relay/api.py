@@ -8,15 +8,15 @@ from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import FileResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
-from dotenv import load_dotenv
+
 from .core import Relay, RelayError
-from .store import Store, default_db
+from .store import Store, default_db, load_local_env
 from .bank import CONCEPTS
 from .model import facilitate, fallback_payload
 from .automation import tick, discord_send, list_jobs, reconcile
 from .auth import Auth, load_config, safe_return_path
 
-load_dotenv()
+load_local_env()
 ROOT=Path(__file__).resolve().parents[1]
 log=logging.getLogger('relay.api')
 

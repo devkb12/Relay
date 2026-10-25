@@ -10,8 +10,8 @@ import os
 import discord
 from discord import app_commands
 import httpx
-from dotenv import load_dotenv
-load_dotenv()
+from .store import load_local_env
+load_local_env()
 BASE=os.getenv('RELAY_BASE_URL','http://127.0.0.1:8000').rstrip('/')
 KEY=os.getenv('RELAY_SERVICE_KEY','')
 SID=r'[A-Za-z0-9_-]{6,40}'
